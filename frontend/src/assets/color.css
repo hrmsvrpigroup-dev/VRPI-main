@@ -1,0 +1,35 @@
+/* colors.css */
+
+:root {
+  --primary: #ff6501;
+  --secondary: #db0038;
+
+  --third: #e79900;
+
+  --dilutedPrimary: #ff650163;
+  --lightPrimary: #fbd4ba;
+  --dilutedBlack: #808080a3;
+  --darkBlue: #002966;
+  --skyBlue: #e5f1ff;
+  --darkBackground: #262626;
+
+  --white: #fff;
+  --black: #000000;
+  --darkInvalidColor: #cb0000;
+  --successColor: #4caf50;
+  --lightBlack: #3f3f3f;
+
+  --gold: #ffa500;
+  --yellow: #ffd700;
+
+  --indigo: #4b0082;
+  --limeGreen: #32cd32;
+  --oliveGreen: #556b2f;
+  --darkGreen: #006400;
+  --mediumSeaGreen: #3cb371;
+  --springGreen: #00ff7f;
+  --seaGreen: #2e8b57;
+  --chartreuse: #7fff00;
+  --mediumSpringGreen: #00fa9a;
+  --paleGreen: #98fb98;
+}

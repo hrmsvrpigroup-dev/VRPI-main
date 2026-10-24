@@ -1,0 +1,58 @@
+.uploadButton {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  border: 1px solid var(--primary);
+  font-size: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  padding-top: 1rem;
+  height: 50px;
+}
+
+.fileNameAndSize {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 90%;
+  text-align: start;
+}
+
+.InputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+.placeholder {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 0.75rem;
+  cursor: text;
+}
+
+.transition {
+  position: absolute;
+  display: flex;
+  transition: all 0.3s ease;
+  font-size: 0.7rem;
+  top: 0;
+}
+
+.uploadIcon {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.75rem;
+}
+
+.removeFile {
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+  padding: 1rem;
+  background-color: #ccc;
+}

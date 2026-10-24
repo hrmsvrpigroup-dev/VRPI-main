@@ -1,0 +1,73 @@
+.knowledgeHubDecription {
+  width: 90%;
+  margin: auto;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+/* KnowledgeHub.module.css */
+
+.knowledgeHubDecription {
+  margin-bottom: 20px;
+}
+
+.programs {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.program {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  justify-content: center;
+  border-radius: 8px;
+  /* flex-wrap: wrap; */
+}
+.programImage {
+  width: 90%;
+  max-width: 400px;
+}
+
+.program img {
+  height: auto;
+  width: 100%;
+
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.programContent {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.programContent h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .program {
+    flex-direction: column;
+    padding: 1rem 0;
+  }
+  .programImage {
+    max-width: none;
+    padding: 1rem 0;
+    /* flex-direction: column; */
+  }
+  .knowledgeHubDecription {
+    padding: 0;
+  }
+  .programContent {
+    width: 90%;
+    padding: 1rem 0;
+    align-items: center;
+  }
+}

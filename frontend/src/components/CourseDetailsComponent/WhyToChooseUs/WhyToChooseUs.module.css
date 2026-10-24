@@ -1,0 +1,40 @@
+.points {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.head {
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.point {
+  background-color: #003362;
+  max-width: 350px;
+  padding: 1rem;
+}
+
+.pointNumber {
+  font-size: 4rem;
+  font-weight: 900;
+  color: #003362;
+  -webkit-text-stroke: 1px var(--primary);
+  text-shadow: 5px 5px 5px var(--primary);
+  line-height: 3rem;
+}
+
+.point h2 {
+  color: var(--primary);
+  margin: 1rem 0;
+}
+.description {
+  color: var(--white);
+}
+
+@media (max-width: 650px) {
+  .point {
+    width: 100%;
+    max-width: none;
+  }
+}

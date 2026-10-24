@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "react-alice-carousel/lib/alice-carousel.css";
+@import "./assets/color.css";
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Oleo+Script:wght@400;700&display=swap");
+
+a:focus-visible {
+  border: 0px solid;
+  outline: none;
+}

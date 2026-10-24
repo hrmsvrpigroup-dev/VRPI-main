@@ -1,0 +1,28 @@
+.card {
+  width: 80%;
+  background-color: var(--lightPrimary);
+  border-radius: 10px;
+  padding: 1rem;
+  padding-right: 4rem;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+.card img {
+  width: 35px;
+}
+
+.cardContent {
+  transform: translate(35px, 0px);
+}
+
+.cardContent h1 {
+  font-size: 1.3rem;
+  /* font-weight: 500; */
+}
+.cardContent p {
+  text-align: end;
+  margin-top: 2rem;
+  padding-right: 1rem;
+  font-weight: 600;
+}

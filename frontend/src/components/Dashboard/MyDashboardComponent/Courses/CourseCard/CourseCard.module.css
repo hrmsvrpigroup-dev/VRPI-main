@@ -1,0 +1,22 @@
+.card {
+  background-color: #262626;
+  padding: 1rem;
+  color: var(--white);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 200px;
+  gap: 2rem;
+}
+
+.cardContent {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.courseLink {
+  width: 30px;
+}

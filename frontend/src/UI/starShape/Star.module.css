@@ -1,0 +1,13 @@
+.star {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+
+.svg {
+  fill: none;
+}
+
+.filled .svg {
+  fill: #ff9900;
+}

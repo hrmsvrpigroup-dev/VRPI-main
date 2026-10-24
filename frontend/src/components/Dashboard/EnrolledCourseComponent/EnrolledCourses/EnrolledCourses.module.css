@@ -1,0 +1,56 @@
+.container {
+  margin: 1rem 0;
+}
+
+.container h1 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.courses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  /* justify-content: center; */
+}
+
+.course {
+  width: 100%;
+  max-width: 250px;
+  background-color: var(--dilutedPrimary);
+  padding: 1rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.courseImage {
+  width: 83px;
+  height: 106px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.courseInfo {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+.courseInfo h2 {
+  font-weight: 600;
+}
+
+.viewBtn {
+  width: 100px;
+  padding: 0.2rem 1rem;
+}
+
+@media (max-width: 850px) {
+  .courses {
+    justify-content: center;
+  }
+}

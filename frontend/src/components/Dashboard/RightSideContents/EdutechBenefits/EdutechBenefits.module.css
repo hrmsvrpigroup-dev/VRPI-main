@@ -1,0 +1,33 @@
+.container {
+  background: var(--darkBlue);
+  color: var(--white);
+  padding: 1rem 1rem 2rem 1rem;
+  border-radius: 10px;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.viewLink {
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.benefit {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.benefits {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}

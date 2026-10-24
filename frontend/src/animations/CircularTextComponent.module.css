@@ -1,0 +1,42 @@
+/* CircularTextComponent.module.css */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.circularImage {
+  position: relative;
+}
+
+.circularImage img {
+  width: 200px; /* Set image size as per your need */
+  height: 200px; /* Set image size as per your need */
+  border-radius: 50%;
+}
+
+.textWrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.text {
+  position: absolute;
+  font-size: 16px; /* Set text size as per your need */
+  color: #ffffff; /* Set text color as per your need */
+  transform-origin: center;
+  animation: rotateText 5s linear infinite; /* Adjust animation duration as per your need */
+}
+
+@keyframes rotateText {
+  from {
+    transform: translate(-50%, -100%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -100%) rotate(360deg);
+  }
+}

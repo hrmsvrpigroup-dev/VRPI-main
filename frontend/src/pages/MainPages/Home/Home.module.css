@@ -1,0 +1,52 @@
+.homeContent {
+  height: 100vh;
+  width: 100%;
+}
+.homeContent .title {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  text-align: center;
+  font-size: 50px;
+  display: flex;
+  flex-direction: column;
+  animation: expand 0.5s ease;
+  justify-content: center;
+}
+
+.title__main {
+  font-size: 70px;
+}
+.name {
+  color: var(--gold);
+  font-size: 100px;
+  text-shadow: 4px 4px 4px #000;
+}
+
+@keyframes expand {
+  0% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .homeContent .title {
+    font-size: 25px;
+  }
+  .title__main {
+    font-size: 30px;
+  }
+  .name {
+    font-size: 35px;
+    text-shadow: 1px 1px 2px var(--black);
+  }
+  .title span {
+    width: 95%;
+  }
+}

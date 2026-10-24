@@ -1,0 +1,42 @@
+.detailsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  /* grid-template-columns: 1rem; */
+}
+
+.detailsCard {
+  background-color: #fff9e4;
+  width: 48%;
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.detailsCard h2 {
+  font-size: 1.2rem;
+  color: var(--primary);
+  text-align: start;
+}
+
+.eachContent {
+  display: flex;
+}
+
+.contentTitle {
+  font-weight: 500;
+  color: #131313e5;
+}
+
+.contentData {
+  color: #131313a2;
+  text-align: start;
+}
+
+@media (max-width: 1000px) {
+  .detailsCard {
+    width: 100%;
+  }
+}

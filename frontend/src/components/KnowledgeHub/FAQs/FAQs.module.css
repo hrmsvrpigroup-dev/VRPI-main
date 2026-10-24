@@ -1,0 +1,61 @@
+/* FAQs.module.css */
+
+.faqsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.faqItem {
+  margin-bottom: 20px;
+}
+
+.question {
+  cursor: pointer;
+  background-color: var(--black);
+  height: 50px;
+  padding-left: 1rem;
+  border-radius: 5px;
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.arrow {
+  transform: rotate(45deg);
+}
+
+.answer {
+  overflow: hidden;
+  /* max-height: 0;  */
+  transition: max-height 0.3s ease, opacity 0.3s ease; /* Add opacity transition */
+  margin-top: 1rem;
+  margin-left: 1rem;
+  /* opacity: 0;  */
+}
+
+.answer.show {
+  max-height: 1000px;
+  opacity: 1; /* Show answer with opacity transition */
+}
+
+/* Define the keyframes animation */
+@keyframes slideIn {
+  from {
+    max-height: 0;
+  }
+  to {
+    max-height: 1000px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .faqs {
+    padding: 10px;
+  }
+
+  .question {
+    padding: 8px;
+  }
+}

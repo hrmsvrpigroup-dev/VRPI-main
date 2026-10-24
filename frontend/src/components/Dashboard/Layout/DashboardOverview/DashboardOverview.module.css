@@ -1,0 +1,143 @@
+.mainContainer {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  margin-top: 140px;
+}
+
+.barTitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.dropdown {
+  width: 150px;
+  position: absolute;
+  top: 50px;
+  right: 0rem;
+
+  opacity: 0;
+  /* transform: translate(0, -200%); */
+  /* visibility: hidden; */
+  transition: all 0.3s ease;
+}
+
+.showDropdown {
+  opacity: 1;
+  /* transform: translate(0); */
+  visibility: visible;
+}
+
+.options {
+  padding: 0.5rem;
+  background-color: var(--white);
+  box-shadow: 0px 0px 2px #ccc;
+  height: inherit;
+  cursor: pointer;
+}
+
+.overviewContainer {
+  margin: 1rem;
+  margin-bottom: 0;
+  background-color: var(--dilutedPrimary);
+  padding: 0.2rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.overviewContents {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.profilePic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  /* gap: 0.5rem; */
+  padding: 0.2rem;
+}
+
+.arrowDown {
+  width: 30px;
+}
+
+.userId {
+  color: #a1a1a1;
+  font-size: 0.8rem;
+}
+
+.userName {
+  font-weight: 500;
+}
+
+.profilePic img {
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contents {
+  margin: 1rem;
+  animation: tabFadeIn 0.3s ease-out forwards;
+}
+
+.menuIcon {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 10px;
+
+  /* background-color: #eb3223; */
+  /* background-color: var(--primary); */
+}
+
+.menuIcon .bar1,
+.menuIcon .bar2,
+.menuIcon .bar3 {
+  width: 25px;
+  height: 2px;
+  background-color: var(--black);
+  margin: 3px 0;
+  transition: 0.4s;
+}
+
+@media (min-width: 651px) {
+  .overviewContainer {
+    display: none;
+  }
+}
+
+@media (max-width: 650px) {
+  .menuIcon {
+    display: flex;
+  }
+  .overviewContainer {
+    margin: 0;
+    padding: 0.2rem;
+  }
+  .userDetails {
+    display: none;
+  }
+}

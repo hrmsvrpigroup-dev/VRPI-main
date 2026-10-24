@@ -1,0 +1,34 @@
+.welcomeScreen {
+  background-color: #035e53;
+  color: var(--white);
+  padding: 1.5rem;
+  /* margin: 0rem 2rem; */
+  /* width: 100%; */
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  /* max-width: 600px; */
+  position: relative;
+  z-index: -5;
+}
+
+.welcomeScreen h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.welcomeScreen p {
+  /* font-size: 1.2rem; */
+  opacity: 0.8;
+}
+
+.hide {
+  transition: all 0.3s ease;
+  transform: translate(100%);
+  /* opacity: 0; */
+}
+
+/* @media (max-width: 650px) {
+  .welcomeScreen {
+    margin: 0;
+  }
+} */

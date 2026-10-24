@@ -1,0 +1,13 @@
+.Section {
+  margin: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.Content {
+  margin-top: 2rem;
+}
+
+@media (max-width: 650px) {
+}

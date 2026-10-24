@@ -1,0 +1,69 @@
+.OurCulture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  padding: 1rem;
+  width: 100%;
+  background-color: var(--black);
+  color: var(--white);
+  min-height: 300px;
+  position: relative;
+}
+.content h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.content p {
+  font-size: 1.2rem;
+  max-width: 500px;
+}
+.image {
+  /* width: 100%; */
+  min-width: 300px;
+  min-height: 300px;
+}
+.image img {
+  min-height: 300px;
+  /* aspect-ratio: 16/9; */
+  object-fit: cover;
+}
+
+.blurredCircleContainer {
+  position: absolute;
+}
+
+.blurredCircle {
+  width: 100px;
+  height: 100px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  filter: blur(30px);
+}
+
+.circle1 {
+  top: 4rem;
+  right: 0;
+}
+.circle2 {
+  bottom: 0;
+  left: 4rem;
+}
+
+@media (max-width: 700px) {
+  .OurCulture {
+    flex-direction: column-reverse;
+  }
+  .image {
+    max-width: 300px;
+    margin-bottom: 1rem;
+  }
+  .content {
+    min-height: auto;
+    padding-bottom: 1.5rem;
+  }
+}

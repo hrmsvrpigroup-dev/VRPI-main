@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding-top: 4rem;
+}
+
+.thankImage {
+  max-width: 250px;
+}
+
+.mainText {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-align: center;
+}
+
+.thankText p {
+  font-size: 1.2rem;
+  /* text-align: center;
+   */
+  margin: 0.5rem;
+}
+
+.thankyou {
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-align: center;
+}

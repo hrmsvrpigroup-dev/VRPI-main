@@ -1,0 +1,471 @@
+/* ---- Page Wrapper ---- */
+.pageWrapper {
+  width: 100%;
+  overflow: hidden;
+  background-color: #ffffff;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ---- Floating Skewed Navigation Header (Matching FinancialContent.module.css) ---- */
+.customHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: flex-end;
+  padding: 15px 0 0 40px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  padding-bottom: 5px;
+  flex-shrink: 0;
+}
+
+.headerLogo {
+  height: 75px;
+  width: auto;
+  cursor: pointer;
+  transition: opacity 0.25s ease;
+}
+.headerLogo:hover {
+  opacity: 0.85;
+}
+
+.headerRight {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left: 20px;
+}
+
+.joinUsBar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 8px;
+  padding-right: 40px;
+}
+
+.joinUsLabel {
+  color: #1a1a2e;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.socialIcons a {
+  display: flex;
+  align-items: center;
+}
+
+.socialIcons img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+.socialIcons img:hover {
+  transform: scale(1.15);
+}
+
+.skewedNavContainer {
+  background-color: #000000;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 40px 14px 60px;
+  box-sizing: border-box;
+  clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.navLinks {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+}
+
+.navLink {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.25s ease;
+  border-bottom: 3px solid transparent;
+  padding-bottom: 5px;
+}
+
+.navLink:hover {
+  color: #ff6701;
+}
+
+.activeLink {
+  border-bottom-color: #ff6701;
+  color: #ffffff;
+}
+
+.navIcons {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+
+.navIcon {
+  color: #ff6701;
+  font-size: 1.35rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.navIcon:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+/* ---- Breadcrumb Section ---- */
+.breadcrumbSection {
+  background-color: #fcfcfc;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 45px 20px;
+  text-align: center;
+}
+
+.breadcrumbTitle {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #1a1a2e;
+  letter-spacing: 0.05em;
+  margin: 0 0 6px;
+}
+
+.orangeLetter {
+  color: #ff6701;
+}
+
+.breadcrumbPath {
+  font-size: 0.88rem;
+  color: #888888;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.orangePath {
+  color: #ff6701;
+}
+
+/* ---- Accent Header Bar ---- */
+.accentHeader {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.verticalOrangeLine {
+  width: 6px;
+  height: 38px;
+  background-color: #ff6701;
+  display: block;
+}
+
+.accentTitle {
+  color: #1a1a2e;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 800;
+  margin: 0;
+}
+
+/* ---- Easy Contact Section ---- */
+.easyContactSection {
+  background-color: #ffffff;
+  padding: 80px 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.introGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.introHeading {
+  color: #1a1a2e;
+  font-size: clamp(2rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.introText {
+  color: #777777;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ---- Info Cards Section ---- */
+.infoCardsSection {
+  background-color: #ffffff;
+  padding: 20px 60px 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.infoCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.infoCard {
+  background: #ffffff;
+  border-radius: 6px;
+  padding: 36px 30px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.infoCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+}
+
+.cardIcon {
+  color: #ff6701;
+  font-size: 2.2rem;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.cardTitle {
+  color: #1a1a2e;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+
+.cardValue {
+  color: #777777;
+  font-size: 0.98rem;
+  line-height: 1.4;
+}
+
+/* ---- Contact Form & Map ---- */
+.formMapSection {
+  background-color: #ffffff;
+  padding: 50px 60px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.largeFormHeading {
+  color: #1a1a2e;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0 0 35px;
+}
+
+.formMapGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: stretch;
+}
+
+.discussForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formInput,
+.formTextarea {
+  width: 100%;
+  padding: 16px 20px;
+  border: 1px solid #e2e2e2;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  background-color: #f9f9f9;
+  color: #333333;
+  box-sizing: border-box;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.formInput:focus,
+.formTextarea:focus {
+  border-color: #ff6701;
+  background-color: #ffffff;
+  outline: none;
+}
+
+.formTextarea {
+  resize: vertical;
+}
+
+.submitBtn {
+  background-color: #ff6701;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 16px 36px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  width: 100%;
+  text-align: center;
+}
+
+.submitBtn:hover {
+  background-color: #e55a00;
+}
+
+.mapCol {
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+/* ---- Join Our Community Banner ---- */
+.joinCommunitySection {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 90px 40px;
+  text-align: center;
+}
+
+.joinOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 1;
+}
+
+.joinContent {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.joinTitle {
+  color: #ffffff;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  font-weight: 800;
+  margin: 0 0 35px;
+}
+
+.subscribeForm {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  padding-bottom: 6px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.subscribeInput {
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  padding: 10px 14px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.subscribeInput::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.subscribeInput:focus {
+  outline: none;
+}
+
+.subscribeBtn {
+  background-color: #ff6701;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 24px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+  flex-shrink: 0;
+}
+
+.subscribeBtn:hover {
+  background-color: #e55a00;
+}
+
+/* ---- Responsive Adjustments ---- */
+@media (max-width: 992px) {
+  .customHeader {
+    padding: 15px 20px 0;
+    flex-direction: column;
+    align-items: center;
+  }
+  .headerRight {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 15px;
+  }
+  .skewedNavContainer {
+    width: 100%;
+    clip-path: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+  }
+  .joinUsBar {
+    display: none;
+  }
+  .introGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .infoCardsGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .formMapGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .easyContactSection,
+  .infoCardsSection,
+  .formMapSection {
+    padding: 50px 24px;
+  }
+}

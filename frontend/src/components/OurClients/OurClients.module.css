@@ -1,0 +1,64 @@
+.clientBox {
+  /* margin: 1rem; */
+  width: 100%;
+  /* height: 200px; */
+  background-color: #af9b76;
+  margin: auto;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+.clientsImages {
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-content: center;
+}
+.clientImage {
+  padding: 1rem;
+  border: 1.5px solid var(--black);
+  cursor: pointer;
+}
+
+.clientsImages img {
+  height: 50px;
+  background-color: var(--white);
+}
+
+.clientsContent {
+  width: 35%;
+}
+.clientsContent h1 {
+  font-size: 4rem;
+  font-weight: 700;
+}
+.clientsContent span {
+  color: #af9b76;
+  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
+    2px 2px 0 #000;
+}
+
+@media (max-width: 768px) {
+  .clientsContent h1 {
+    font-size: 3rem;
+  }
+  .clientBox {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  .clientsImages {
+    width: 100%;
+    justify-content: center;
+  }
+  .clientsContent {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .clientsContent h1 {
+    font-size: 2rem; /* Adjust as needed */
+  }
+}

@@ -1,0 +1,380 @@
+/* ---- Page Wrapper ---- */
+.pageWrapper {
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #ffffff;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ---- Breadcrumb Section ---- */
+.breadcrumbSection {
+  background-color: #fcfcfc;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 45px 20px;
+  text-align: center;
+}
+
+.breadcrumbTitle {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #1a1a2e;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.orangeLetter {
+  color: #ff6501;
+}
+
+.breadcrumbPath {
+  font-size: 0.95rem;
+  color: #718096;
+  font-weight: 500;
+}
+
+.orangePath {
+  color: #ff6501;
+  font-weight: 600;
+}
+
+/* ---- About Intro Section ---- */
+.aboutIntroSection {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.aboutIntroGrid {
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.introTextCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionHeaderAccent {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.verticalOrangeLine {
+  width: 4px;
+  height: 30px;
+  background-color: #ff6501;
+  border-radius: 2px;
+}
+
+.accentTitle {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.introTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  line-height: 1.2;
+  margin: 0 0 25px 0;
+}
+
+.introBodyText {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #718096;
+  margin: 0;
+}
+
+.introBodyText strong {
+  color: #1a1a2e;
+}
+
+.introImgCol {
+  display: flex;
+  justify-content: center;
+}
+
+.imgContainer {
+  position: relative;
+  width: 90%;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+.introGroupImg {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+}
+
+.experienceOverlay {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  background-color: #ff6501;
+  color: #ffffff;
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(255, 101, 1, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.expYears {
+  font-size: 2.2rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.expLabel {
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+/* ---- Vision & Mission ---- */
+.visionMissionSection {
+  background-color: #fcfcfc;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 80px 20px;
+}
+
+.visionMissionGrid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+
+.visionCol, .missionCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.visionTitle, .missionTitle {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #ff6501;
+  margin: 0 0 18px 0;
+}
+
+.visionText, .missionText {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #718096;
+  margin: 0;
+}
+
+/* ---- Consulting Team Section ---- */
+.teamSection {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-top: 40px;
+}
+
+.teamCard {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 35px 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #edf2f7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.teamCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.avatarCircle {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6501 0%, #ff8e42 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(255, 101, 0, 0.2);
+}
+
+.teamOverlayText {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.memberName {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 6px 0;
+}
+
+.memberRole {
+  font-size: 0.9rem;
+  color: #718096;
+  font-weight: 500;
+  display: block;
+  margin: 0;
+}
+
+.linkedinBtn {
+  background-color: #f7fafc;
+  color: #0077b5;
+  border: 1px solid #edf2f7;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.linkedinBtn:hover {
+  background-color: #0077b5;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+/* ---- Join Community Section ---- */
+.joinCommunitySection {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  padding: 80px 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.joinOverlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.joinContent {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 600px;
+}
+
+.joinTitle {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 30px 0;
+}
+
+.subscribeForm {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.subscribeInput {
+  flex-grow: 1;
+  background-color: rgba(255, 255, 255, 0.25);
+  border: none;
+  border-bottom: 2px solid #ffffff;
+  padding: 12px 18px;
+  color: #ffffff;
+  font-size: 1.05rem;
+  outline: none;
+}
+
+.subscribeInput::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.subscribeBtn {
+  background-color: #ff6501;
+  color: #ffffff;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.subscribeBtn:hover {
+  background-color: #e55600;
+}
+
+/* ---- Responsive Breakpoints ---- */
+@media (max-width: 1024px) {
+  .aboutIntroGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .introTitle {
+    font-size: 2rem;
+  }
+  .visionMissionGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .teamGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .teamGrid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 40px auto 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .subscribeForm {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .experienceOverlay {
+    position: static;
+    margin: 20px auto 0 auto;
+    width: 80%;
+    text-align: center;
+  }
+}

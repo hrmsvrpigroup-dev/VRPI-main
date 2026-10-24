@@ -1,0 +1,57 @@
+.content {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.frame {
+  height: 100%;
+  width: 100%;
+}
+
+.bar1 {
+  width: calc(100% - (4rem + 100px));
+  height: 25px;
+  background-color: var(--primary);
+}
+.bar2 {
+  width: calc(100% - (2rem + 50px));
+  height: 25px;
+  background-color: var(--primary);
+}
+.sphere {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: var(--primary);
+}
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  list-style: disc;
+}
+.topic {
+  max-width: 250px;
+  margin-left: 2rem;
+}
+
+.topic h2 {
+  display: inline;
+  font-weight: 700;
+}
+
+.contentSection {
+}
+
+.contentSection h1 {
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 950px) {
+  .frame {
+    display: none;
+  }
+  .topics {
+    align-items: center;
+  }
+}

@@ -1,0 +1,19 @@
+.countdownAnimation {
+  display: inline-block;
+}
+
+.blink {
+  animation: pulse-animation 0.4s ease-in-out;
+  display: inline-block;
+}
+
+@keyframes pulse-animation {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0.4;
+  }
+}

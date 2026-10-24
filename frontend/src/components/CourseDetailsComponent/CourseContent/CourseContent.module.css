@@ -1,0 +1,128 @@
+.courseContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.techStack {
+  margin-bottom: 2rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.chapterHeader {
+  border: 2px solid var(--primary);
+  border-radius: 5px;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.chapterHeader h3 {
+  padding-left: 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.modules {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 95%;
+  margin-top: 1rem;
+}
+
+.module {
+  overflow: hidden;
+  /* cursor: pointer; */
+}
+.moduleEach {
+  background-color: #ff65014d;
+  padding: 0.5rem;
+  transform: skew(-30deg) translate(1rem);
+  width: calc(100% + 1rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.moduleEach h4 {
+  padding-left: 2rem;
+  font-weight: 500;
+  transform: skew(30deg);
+}
+
+.moduleEach img {
+  transform: skew(30deg);
+  padding-right: 2rem;
+}
+
+.lessons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.lesson {
+  width: 90%;
+  box-shadow: 2px 2px 2px #ff65014d;
+  margin-right: 2px;
+  margin-bottom: 2px;
+}
+
+.realProject {
+  display: flex;
+  background-color: #003362;
+  margin-top: 2rem;
+  padding: 1rem;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.realProject h2 {
+  color: var(--white);
+  font-size: 1.2rem;
+  /* font-weight: 300; */
+}
+
+.viewBtn {
+  font-size: 1.2rem;
+  min-width: 180px;
+  padding: 0.8rem 0;
+}
+
+.pleaseEnroll {
+  max-width: 900px;
+  margin: auto;
+  background-color: #00336266;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.pleaseEnroll h2 {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+.pleaseEnroll p {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 600px) {
+  .realProject {
+    flex-direction: column;
+  }
+  .viewBtn {
+    font-size: 1rem;
+  }
+  .realProject h2 {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,113 @@
+.companies {
+  transition: all 0.5s ease;
+  padding: 1rem 2rem;
+}
+
+.campanyiesDecription {
+  width: 90%;
+  margin: auto;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+.company h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* .company p {
+
+
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 6; 
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+} */
+.company {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.companyHeading {
+  display: flex;
+  justify-content: space-between;
+}
+
+.companyImages {
+  display: flex;
+  width: 70%;
+  /* gap: 1rem; */
+  /* transition: all 1s ease; */
+  justify-content: space-around;
+}
+.companyImage {
+  /* max-width: 400px; */
+  height: 250px;
+  object-fit: cover;
+  transition: all 0.3s ease;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.belowContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* .nameInCircle {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border: 1px solid black;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 16px;
+}
+
+.nameInCircle span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+} */
+
+@media (max-width: 1000px) {
+  .companyImages {
+    width: 100%;
+    height: 250px;
+  }
+  .companyImage {
+    height: 100%;
+  }
+
+  .companies {
+    padding: 1rem;
+  }
+
+  .company p {
+    /* height: auto; */
+  }
+}
+@media (max-width: 700px) {
+  .companyImages {
+    height: 150px;
+  }
+  .companyHeading {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .company h2 {
+    font-size: 1.2rem;
+  }
+}

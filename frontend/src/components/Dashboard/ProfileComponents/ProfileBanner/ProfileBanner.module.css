@@ -1,0 +1,95 @@
+.bannerContainer {
+  width: 100%;
+  background: url(../../../../assets/dashboard/profileBackgorundImage.png);
+  background-size: cover;
+  height: 200px;
+  padding: 2rem;
+  margin-bottom: 6rem;
+}
+
+.onBannerContainer {
+  display: none;
+}
+
+.profileImageContainer {
+  background-color: var(--white);
+  margin: 1rem;
+  border-radius: 20px;
+  /* height: 180px; */
+  box-shadow: 2px 2px 4px var(--dilutedPrimary);
+  display: flex;
+  align-items: center;
+}
+
+.profileImage {
+  width: 200px;
+  margin-left: 1rem;
+  border: 5px solid var(--white);
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px #ccc;
+  transform: translate(0, -3rem);
+}
+
+.details {
+  padding: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-direction: column;
+  width: 100%;
+}
+
+.StudentName {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.mainDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.contactCard {
+  display: flex;
+  gap: 0.5rem;
+  align-items: start;
+}
+
+.contactDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.headContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .onBannerContainer {
+    display: block;
+  }
+  .bannerContainer {
+    display: none;
+  }
+  .onBannerContainer .profileImageContainer {
+    margin: 1rem 0;
+  }
+
+  .onBannerContainer .profileImageContainer .profileImage {
+    transform: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .onBannerContainer .profileImageContainer {
+    flex-direction: column;
+  }
+  .onBannerContainer .profileImageContainer .profileImage {
+    margin-top: 2rem;
+  }
+}

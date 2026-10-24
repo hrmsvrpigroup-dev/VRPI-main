@@ -1,0 +1,85 @@
+.OurPartnersSection {
+  position: relative;
+}
+
+.background {
+  width: 90%;
+  position: absolute;
+}
+
+.content {
+  width: 85%;
+  /* height: 60vh; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  background: url("../../assets/aboutus/ourPartners.png");
+  background-size: cover;
+  background-position: center;
+  padding: 1rem;
+}
+
+.content h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.content p {
+  text-align: center;
+  font-weight: 500;
+  width: 70%;
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+}
+
+.partners {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.partner {
+  display: flex;
+  align-items: center;
+  width: 48%;
+  max-width: 450px;
+  background-color: var(--dilutedBlack);
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.partner img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  background-color: var(--white);
+  padding: 0.5rem;
+}
+
+.partnerContent h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.partnerContent span {
+  display: block;
+  color: var(--white);
+  font-size: 0.8rem;
+}
+
+.partnerContent a {
+  font-size: 0.8rem;
+  color: var(--white);
+}
+
+@media (max-width: 768px) {
+  .partner {
+    flex-direction: column;
+    min-width: 250px;
+  }
+}

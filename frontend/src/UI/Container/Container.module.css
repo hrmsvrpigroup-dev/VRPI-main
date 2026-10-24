@@ -1,0 +1,15 @@
+.container {
+  max-width: 1000px;
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 8px;
+  position: relative;
+  z-index: 4;
+  min-height: 80vh;
+}
+
+@media (max-width: 1000px) {
+  .container {
+    margin-top: 2rem;
+  }
+}

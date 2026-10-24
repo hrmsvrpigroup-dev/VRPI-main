@@ -1,0 +1,131 @@
+.dropdown {
+  max-height: 80vh;
+  position: absolute;
+  left: 2.5%;
+  z-index: 5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 95%;
+  background: var(--white);
+  display: flex;
+  padding: 1rem 0;
+  justify-content: center;
+  animation: slideDown 0.5s ease;
+  justify-content: space-evenly;
+}
+
+.dropdownTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.dropdownIcon {
+  font-size: 20px;
+}
+
+.dropdownContent {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+}
+
+.dropdownItem {
+  cursor: pointer;
+  text-align: start;
+  padding: 1rem 0.5rem;
+  position: relative;
+  /* margin: 0 1rem; */
+  margin-right: 1rem;
+  transform: skew(-20deg);
+  margin-bottom: 1rem;
+}
+
+/* .dropdownItem:hover {
+  background-color: #ff67013e;
+  border-bottom: 3px solid var(--primary);
+  transition: all 0.3s ease;
+} */
+
+.selectedItem {
+  background-color: #ff67013e;
+  border-bottom: 3px solid var(--primary);
+}
+
+/* .dropdownItem::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 57px solid transparent;
+  border-right: 30px solid #ff67013e;
+  position: absolute;
+  top: 0;
+  left: -29px;
+  display: none;
+}
+
+.dropdownItem:hover::before {
+  display: block;
+} */
+
+.description {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  padding: 1rem;
+}
+.description h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 2rem;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+.description .descriptionContent {
+  text-align: start;
+}
+
+.description .link {
+  border: 2px solid var(--primary);
+  width: 150px;
+  /* border-radius: 10px; */
+  margin-top: 3rem;
+  height: 50px;
+}
+
+.description .link a {
+  display: flex;
+  text-align: center;
+  width: 100%;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.description .link:hover {
+  transform: scale(1.1);
+}
+.description .link:active {
+  transform: scale(1);
+}
+.line {
+  width: 8px;
+  border-radius: 10px;
+  background-color: #ff670144;
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translate(0, -10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}

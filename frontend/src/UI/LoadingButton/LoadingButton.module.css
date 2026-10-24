@@ -1,0 +1,7 @@
+.btn {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  width: 150px;
+  justify-content: center;
+}

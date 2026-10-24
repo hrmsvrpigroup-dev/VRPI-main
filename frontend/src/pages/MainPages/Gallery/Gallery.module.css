@@ -1,0 +1,17 @@
+.galleryContainer {
+  min-height: 80vh;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #f9f9f9;
+}
+
+.galleryContainer h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.galleryContainer p {
+  font-size: 1.2rem;
+  color: #666;
+}

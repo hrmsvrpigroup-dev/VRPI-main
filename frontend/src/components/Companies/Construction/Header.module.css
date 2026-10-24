@@ -1,0 +1,72 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* padding: 20px; */
+  background-color: transparent;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 15%;
+}
+
+.logo img {
+  width: 120px;
+  height: auto;
+}
+
+.logo img:hover {
+  opacity: 0.7;
+}
+
+.nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.nav li {
+  margin-right: 2rem;
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--white);
+  font-size: 1.5rem;
+}
+
+.nav a:hover {
+  color: var(--primary);
+}
+
+/* .quoteButton button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.quoteButton button:hover {
+  background-color: #0056b3;
+} */
+
+.quoteBtn {
+  background-color: var(--primary);
+  width: 120px;
+  border: none;
+  color: var(--white);
+  border-radius: 20px;
+  font-size: 18px;
+  margin-right: 15px;
+  transition: all 0.5s ease;
+  text-align: center;
+  text-decoration: none;
+  padding: 10px 0;
+  cursor: pointer;
+}

@@ -1,0 +1,71 @@
+.container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.contentBlock {
+  width: 50%;
+  max-width: 300px;
+  display: flex;
+  gap: 1rem;
+  position: relative;
+  box-shadow: 0px 0px 3px #00000038;
+  border-radius: 30px;
+  margin: 0.5rem;
+}
+
+.content {
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.808);
+  width: 100%;
+  height: 100%;
+  gap: 1rem;
+}
+
+.content p {
+  margin: 0rem 1rem;
+}
+
+.show {
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+.image {
+  object-fit: cover;
+  width: 100%;
+}
+
+.invertedCommas {
+  color: var(--white);
+  width: 200px;
+  height: 50px;
+  background-color: var(--primary);
+  /* position: relative; */
+}
+.downInvertedCommas {
+  transform: translate(1rem);
+  margin-top: 1rem;
+}
+.upInvertedCommas {
+  transform: translate(-1rem);
+  margin-bottom: 1rem;
+}
+
+.invertedCommas img {
+  width: 45px;
+  height: 50px;
+  margin-left: 1rem;
+  transform: rotate(180deg);
+}
+
+@media (max-width: 800px) {
+  .contentBlock {
+    width: 100%;
+  }
+}

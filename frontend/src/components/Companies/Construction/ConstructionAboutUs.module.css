@@ -1,0 +1,545 @@
+/* ---- Page Wrapper ---- */
+.pageWrapper {
+  width: 100%;
+  overflow: hidden;
+  background-color: #ffffff;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ---- Floating Skewed Navigation Header ---- */
+.customHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: flex-end;
+  padding: 15px 0 0 40px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  padding-bottom: 5px;
+  flex-shrink: 0;
+}
+
+.headerLogo {
+  height: 75px;
+  width: auto;
+  cursor: pointer;
+  transition: opacity 0.25s ease;
+}
+.headerLogo:hover {
+  opacity: 0.85;
+}
+
+.headerRight {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left: 20px;
+}
+
+.joinUsBar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 8px;
+  padding-right: 40px;
+}
+
+.joinUsLabel {
+  color: #1a1a2e;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.socialIcons a {
+  display: flex;
+  align-items: center;
+}
+
+.socialIcons img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+.socialIcons img:hover {
+  transform: scale(1.15);
+}
+
+.skewedNavContainer {
+  background-color: #000000;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 40px 14px 60px;
+  box-sizing: border-box;
+  clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.navLinks {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+}
+
+.navLink {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.25s ease;
+  border-bottom: 3px solid transparent;
+  padding-bottom: 5px;
+}
+
+.navLink:hover {
+  color: #ff6501;
+}
+
+.activeLink {
+  border-bottom-color: #ff6501;
+  color: #ffffff;
+}
+
+.navIcons {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+
+.navIcon {
+  color: #ff6501;
+  font-size: 1.35rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.navIcon:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+/* ---- Breadcrumb Section ---- */
+.breadcrumbSection {
+  background-color: #fcfcfc;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 45px 20px;
+  text-align: center;
+}
+
+.breadcrumbTitle {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #1a1a2e;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.orangeLetter {
+  color: #ff6501;
+}
+
+.breadcrumbPath {
+  font-size: 0.95rem;
+  color: #718096;
+  font-weight: 500;
+}
+
+.orangePath {
+  color: #ff6501;
+  font-weight: 600;
+}
+
+/* ---- About VR Pi Group ---- */
+.aboutGroupSection {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.aboutGroupGrid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.aboutGroupTextCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionHeaderAccent {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.verticalOrangeLine {
+  width: 4px;
+  height: 30px;
+  background-color: #ff6501;
+  border-radius: 2px;
+}
+
+.accentTitle {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.largeIntroHeading {
+  font-size: 2.3rem;
+  line-height: 1.25;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0 0 25px 0;
+}
+
+.introParagraph {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #4a5568;
+  margin: 0;
+}
+
+.introParagraph strong {
+  color: #ff6501;
+}
+
+.aboutGroupImgCol {
+  display: flex;
+  justify-content: center;
+}
+
+.groupImageContainer {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+}
+
+.groupImg {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  display: block;
+}
+
+.experienceBadge {
+  position: absolute;
+  top: -25px;
+  left: -25px;
+  background-color: #ff6501;
+  color: #ffffff;
+  padding: 16px 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(255, 101, 1, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 130px;
+}
+
+.expNum {
+  font-size: 2.2rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.expText {
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* ---- Vision & Mission ---- */
+.visionMissionSection {
+  background-color: #f7fafc;
+  padding: 80px 20px;
+  box-sizing: border-box;
+}
+
+.visionMissionGrid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.visionCol, .missionCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.vmTitle {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ff6501;
+  margin: 0 0 15px 0;
+}
+
+.vmText {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #4a5568;
+  margin: 0;
+}
+
+/* ---- Consulting Team ---- */
+.teamSection {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.teamHeaderAccent {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 45px;
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+.teamCard {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 35px 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #edf2f7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.teamCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.avatarCircle {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6501 0%, #ff8e42 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(255, 101, 0, 0.2);
+}
+
+.teamCardText {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.teamCardName {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 6px 0;
+}
+
+.teamCardRole {
+  font-size: 0.9rem;
+  color: #718096;
+  font-weight: 500;
+  display: block;
+}
+
+.linkedinBtn {
+  background-color: #f7fafc;
+  color: #0077b5;
+  border: 1px solid #edf2f7;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.linkedinBtn:hover {
+  background-color: #0077b5;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+/* ---- Join Community Section ---- */
+.joinCommunitySection {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  padding: 80px 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.joinOverlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.joinContent {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 600px;
+}
+
+.joinTitle {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 30px 0;
+}
+
+.subscribeForm {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.subscribeInput {
+  flex-grow: 1;
+  background-color: rgba(255, 255, 255, 0.25);
+  border: none;
+  border-bottom: 2px solid #ffffff;
+  padding: 12px 18px;
+  color: #ffffff;
+  font-size: 1.05rem;
+  outline: none;
+}
+
+.subscribeInput::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.subscribeBtn {
+  background-color: #ff6501;
+  color: #ffffff;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.subscribeBtn:hover {
+  background-color: #e55600;
+}
+
+/* ---- Responsive Breakpoints ---- */
+@media (max-width: 1024px) {
+  .aboutGroupGrid {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  .aboutGroupImgCol {
+    order: -1;
+  }
+  .visionMissionGrid {
+    gap: 40px;
+  }
+  .teamGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .customHeader {
+    padding: 15px 20px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .headerRight {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 15px;
+    align-items: center;
+  }
+  .joinUsBar {
+    padding-right: 0;
+  }
+  .skewedNavContainer {
+    width: 100%;
+    transform: none;
+    clip-path: none;
+    border-top: 3px solid #ff6501;
+    justify-content: center;
+    padding: 12px 15px;
+  }
+  .navLinks {
+    gap: 20px;
+  }
+  .navIcons {
+    display: none;
+  }
+
+  .largeIntroHeading {
+    font-size: 1.8rem;
+  }
+  .visionMissionGrid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .teamGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .teamGrid {
+    grid-template-columns: 1fr;
+  }
+  .subscribeForm {
+    flex-direction: column;
+    gap: 15px;
+  }
+}

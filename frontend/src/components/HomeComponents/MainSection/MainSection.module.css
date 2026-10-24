@@ -1,0 +1,58 @@
+.MainScreen {
+  position: relative;
+  margin-bottom: 120px;
+}
+.numbers {
+  display: flex;
+  width: 70%;
+  justify-content: space-around;
+  margin: auto;
+  box-shadow: 1px 6px 9px #8080803b;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  position: absolute;
+  bottom: -60px;
+  left: 15%;
+  background: var(--white);
+  height: 120px;
+  align-items: center;
+  padding: 0 2rem;
+  gap: 2rem;
+}
+
+.numberItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.numberItem span {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.numberItem h2 {
+  color: var(--primary);
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 1200px) {
+  .numbers {
+    width: 95%;
+    left: 2.5%;
+  }
+}
+
+@media (max-width: 700px) {
+  .numbers {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    bottom: -120px;
+    width: 90%;
+    left: 5%;
+  }
+}

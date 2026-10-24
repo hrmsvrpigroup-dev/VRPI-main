@@ -1,0 +1,45 @@
+.container {
+  display: grid;
+  gap: 0.5rem;
+  background-color: var(--skyBlue);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.containerTitle {
+  color: var(--lightBlack);
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+.containerDescription {
+  color: var(--lightBlack);
+  font-size: 0.9rem;
+}
+
+.certificateCards {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.card {
+  padding: 0.5rem;
+  background-color: var(--white);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 2px 2px 2px var(--dilutedBlack);
+}
+
+.cardTitle {
+  color: var(--lightBlack);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+.cardDescription {
+  color: var(--lightBlack);
+  font-size: 0.7rem;
+}
+
+.uploadBtn {
+  margin-top: 0.5rem;
+}

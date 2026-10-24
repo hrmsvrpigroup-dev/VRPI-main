@@ -1,0 +1,261 @@
+.mainScreen {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: auto;
+  align-items: center;
+  height: calc(50vw - 120px);
+  justify-content: center;
+  gap: 3rem;
+  min-height: calc(400px - 120px);
+  /* background: url(../../assets/edutechPageBackground.jpeg); */
+}
+
+.mainScreen h2 {
+  text-align: center;
+  font-size: 2rem; /* Base font size */
+  font-weight: 700;
+}
+
+.backgroundImage {
+  position: absolute;
+  z-index: -1;
+  height: 100%;
+  width: calc(100% - 2rem);
+  margin: 0 1rem;
+  object-fit: cover;
+  opacity: 0.6;
+}
+
+.mainScreen p {
+  text-align: center;
+  font-size: 1.3rem; /* Base font size */
+  font-weight: 500;
+  width: 70%;
+}
+.WhatIsContent {
+  display: flex;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.WhatIsContent img {
+  width: 35%;
+  object-fit: cover;
+  min-height: 250px;
+}
+
+.WhatIsContent p {
+  background-color: var(--black);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  height: 250px;
+}
+
+.btn {
+  width: 140px;
+  border: none;
+  color: var(--white);
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  text-align: center;
+  text-decoration: none;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
+  background: var(--primary);
+}
+
+.btn:hover {
+  transform: scale(1.1);
+}
+
+.benefitsContent {
+  display: flex;
+  margin-top: 4rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.benefitsData {
+  background-color: var(--black);
+  width: 100%;
+}
+
+.benefitsData h3,
+.benefitsData p {
+  color: var(--white);
+}
+
+.imageContainer {
+  position: absolute;
+  right: 5%;
+}
+
+.imageContainer img {
+  height: 300px;
+  width: 250px;
+  object-fit: cover;
+  background: var(--dilutedPrimary);
+}
+
+.benefitData_container {
+  width: 60%;
+  padding: 1.3rem;
+}
+
+.benefit {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.benefit p {
+  margin: 5px;
+}
+
+.benefits {
+  margin-top: 1rem;
+}
+
+.cardStack {
+  grid-gap: 20px;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  /* justify-items: center; */
+}
+
+.Instructors {
+  display: flex;
+  gap: 4rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scroll-behavior: auto;
+}
+
+.Instructors::-webkit-scrollbar {
+  display: none;
+}
+
+.Instructors {
+  scrollbar-width: none;
+}
+
+.Instructors {
+  -ms-overflow-style: none;
+}
+
+.Instructor {
+  width: 100%;
+  white-space: normal;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Instructor h2 {
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.Instructor img {
+  width: auto;
+  max-width: none;
+}
+
+.partners {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.box {
+  width: 120px;
+  height: 50px;
+  background-color: grey;
+  border-radius: 2px;
+}
+
+.box:first-child {
+  margin-left: 3rem;
+}
+
+@media (min-width: 1300px) {
+  .mainScreen h2 {
+    font-size: 4rem;
+  }
+  .mainScreen p {
+    font-size: 1.5rem;
+  }
+  .btn {
+    width: 200px;
+    font-size: 1.3rem;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .mainScreen h2 {
+    font-size: 1.8rem;
+  }
+  .mainScreen p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .mainScreen h2 {
+    font-size: 1.2rem;
+  }
+  .mainScreen p {
+    font-size: 1rem;
+  }
+  .mainScreen {
+    gap: 1rem;
+  }
+  .btn {
+    padding: 5px;
+  }
+}
+
+@media (max-width: 650px) {
+  .WhatIsContent {
+    flex-direction: column;
+    background-color: var(--black);
+    padding: 1rem 0;
+  }
+  .mainScreen h2 {
+    font-size: 1.2rem;
+  }
+  .mainScreen p {
+    font-size: 0.9rem;
+    width: 80%;
+  }
+  .imageContainer img {
+    height: 250px;
+    width: 150px;
+  }
+  .benefitData_container {
+    width: 100%;
+  }
+  .Instructor img {
+    width: 120px;
+  }
+  .Instructors {
+    gap: 1rem;
+  }
+  .WhatIsContent img {
+    width: 50%;
+  }
+  .WhatIsContent p {
+    height: auto;
+  }
+}
