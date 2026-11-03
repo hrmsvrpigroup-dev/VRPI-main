@@ -1,0 +1,193 @@
+.articleRenderer {
+  font-family: inherit;
+  color: #334155;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+/* Headings H1 to H6 */
+.renderedH1 {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.25;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #ffedd5;
+  letter-spacing: -0.025em;
+}
+
+.renderedH2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.3;
+  margin-top: 2.25rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.renderedH3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.35;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.renderedH4 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #334155;
+  line-height: 1.4;
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.renderedH5 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #ff6501;
+  margin-top: 1.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.renderedH6 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 1.2rem;
+  margin-bottom: 0.4rem;
+}
+
+/* Paragraphs */
+.renderedParagraph {
+  margin-bottom: 1.35rem;
+  color: #334155;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+/* Pull Quotes & Callouts */
+.renderedQuote {
+  margin: 1.75rem 0;
+  padding: 1.25rem 1.75rem;
+  background: #fff7ed;
+  border-left: 4px solid #ff6501;
+  border-radius: 0 12px 12px 0;
+  font-style: italic;
+  color: #9a3412;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  position: relative;
+}
+
+.quoteAuthor {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ea580c;
+  margin-top: 0.5rem;
+  font-style: normal;
+  text-align: right;
+}
+
+/* Lists */
+.renderedUl {
+  list-style: none;
+  padding-left: 0;
+  margin: 1.25rem 0 1.5rem;
+}
+
+.renderedUl li {
+  position: relative;
+  padding-left: 1.6rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.7;
+}
+
+.renderedUl li::before {
+  content: "•";
+  position: absolute;
+  left: 0.3rem;
+  color: #ff6501;
+  font-weight: 900;
+  font-size: 1.3rem;
+  line-height: 1;
+  top: -0.1rem;
+}
+
+.renderedOl {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin: 1.25rem 0 1.5rem;
+}
+
+.renderedOl li {
+  padding-left: 0.4rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.7;
+}
+
+.renderedOl li::marker {
+  color: #ff6501;
+  font-weight: 700;
+}
+
+/* Code Blocks */
+.renderedCodeBlock {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 1.25rem 1.5rem;
+  border-radius: 10px;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+}
+
+.renderedCodeBlock code {
+  color: #f1f5f9;
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+/* Dividers */
+.renderedDivider {
+  border: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #e2e8f0, #ffedd5, #e2e8f0, transparent);
+  margin: 2.25rem 0;
+}
+
+/* Inline Images */
+.renderedImageFigure {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.renderedImage {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.renderedCaption {
+  display: block;
+  font-size: 0.825rem;
+  color: #64748b;
+  margin-top: 0.6rem;
+  font-style: italic;
+}
+

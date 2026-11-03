@@ -35,6 +35,8 @@ import Internships from "./pages/KnowledgeHub/Internships";
 import EduTech from "./pages/KnowledgeHub/EduTech";
 import ContactUs from "./pages/MainPages/ContactUs/ContactUs";
 import Gallery from "./pages/MainPages/Gallery/Gallery";
+import Blog from "./pages/MainPages/Blog/Blog";
+import BlogPostDetail from "./pages/MainPages/Blog/BlogPostDetail";
 import CourseDetails from "./pages/KnowledgeHub/CourseDetails/CourseDetails";
 import SignUp from "./pages/Login&Signup/SignUp/SignUp";
 
@@ -117,6 +119,16 @@ function App() {
         {
           path: "/gallery",
           element: <Gallery />,
+          errorElement: <ErrorPage errorData={GeneralErrorData} />,
+        },
+        {
+          path: "/blog",
+          element: <Blog />,
+          errorElement: <ErrorPage errorData={GeneralErrorData} />,
+        },
+        {
+          path: "/blog/:articleId",
+          element: <BlogPostDetail />,
           errorElement: <ErrorPage errorData={GeneralErrorData} />,
         },
         // {

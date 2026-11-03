@@ -1,7 +1,7 @@
 export const MainHeaderLinks = [
   { name: "Home", address: "/", active: true },
-
   { name: "About Us", address: "/about", active: true },
+  { name: "Blog", address: "/blog", active: true },
   // { name: "Services", address: "/services" },
   // { name: "Campanies", address: "/companies" },
   // { name: "Careers", address: "/careers", active: true },
@@ -195,6 +195,7 @@ export const JoinUsBarData = {
 export const footerLinks = [
   { name: "Home", address: "/", active: true },
   { name: "About Us", address: "/about", active: true },
+  { name: "Blog", address: "/blog", active: true },
   { name: "Campanies", address: "/companies", active: false },
   { name: "Services", address: "/services", active: false },
   { name: "Careers", address: "/careers", active: false },
@@ -203,6 +204,7 @@ export const footerLinks = [
 export const quickLinks = [
   { name: "Home", address: "/", active: true },
   { name: "About Us", address: "/about", active: true },
+  { name: "Blog", address: "/blog", active: true },
   { name: "Campanies", address: "/companies", active: false },
   // { name: "Services", address: "/services" , active:false},
   // { name: "Careers", address: "/careers", active: false },
@@ -283,6 +285,12 @@ export const navElementsForMobileData = [
   {
     name: "Gallery",
     link: "/gallery",
+    dropdownElement: false,
+    active: true,
+  },
+  {
+    name: "Blog",
+    link: "/blog",
     dropdownElement: false,
     active: true,
   },
