@@ -192,17 +192,6 @@ export default function InternshipLandingPage() {
 
   return (
     <div className={styles.landingWrapper}>
-      {/* Announcement Bar */}
-      <div className={styles.announcementBar}>
-        <div className={styles.container}>
-          <div className={styles.announcementInner}>
-            <span className={styles.announcementPill}>Cohort 2026 Open</span>
-            <span>Applications for Summer &amp; Fall Free Industrial Internship are now live. Zero Tuition Fee.</span>
-            <a href="#apply" className={styles.announcementLink}>Apply Now &rarr;</a>
-          </div>
-        </div>
-      </div>
-
       {/* Header */}
       <header className={styles.siteHeader}>
         <div className={`${styles.container} ${styles.headerFlex}`}>
