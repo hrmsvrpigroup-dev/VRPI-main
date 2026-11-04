@@ -702,7 +702,7 @@ button, input, select, textarea {
 .receipt-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   border-bottom: 1px dashed #cbd5e1;
   padding-bottom: 16px;
   margin-bottom: 18px;
@@ -716,7 +716,15 @@ button, input, select, textarea {
   font-weight: 800;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 10px;
+}
+
+.receipt-brand-logo-img {
+  height: 34px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
 }
 
 .receipt-brand-accent { color: var(--color-primary); }

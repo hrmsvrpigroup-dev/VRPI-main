@@ -69,15 +69,15 @@ const RootLayout = () => {
 
   const headerLinks =
     location.pathname === "/edutech" ||
-    location.pathname === "/internships" ||
-    location.pathname === "/terms-and-conditions"
+      location.pathname === "/internships" ||
+      location.pathname === "/terms-and-conditions"
       ? KnowledgeHubHeaderLinks
       : MainHeaderLinks;
 
   const dropdownLinks =
     location.pathname === "/edutech" ||
-    location.pathname === "/internships" ||
-    location.pathname === "/terms-and-conditions"
+      location.pathname === "/internships" ||
+      location.pathname === "/terms-and-conditions"
       ? null
       : MainDropdownLinks;
 
@@ -95,9 +95,8 @@ const RootLayout = () => {
         />
       )}
       <main
-        className={`${style.main} ${isHeaderHidden && style.noMargin} ${
-          !shouldRenderHeader && style.noMargin
-        }`}
+        className={`${style.main} ${isHeaderHidden && style.noMargin} ${!shouldRenderHeader && style.noMargin
+          }`}
       >
         {message && (
           <Message

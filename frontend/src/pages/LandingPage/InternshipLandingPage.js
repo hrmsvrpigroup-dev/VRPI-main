@@ -23,8 +23,6 @@ export default function InternshipLandingPage() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [applicationId, setApplicationId] = useState('');
-  const [isCopied, setIsCopied] = useState(false);
   const [activeFaq, setActiveFaq] = useState(0);
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterMsg, setNewsletterMsg] = useState('');
@@ -106,18 +104,9 @@ export default function InternshipLandingPage() {
         console.warn('LocalStorage error:', err);
       }
 
-      setApplicationId(generatedId);
       setIsSubmitting(false);
       setIsSubmitted(true);
     }, 700);
-  };
-
-  const handleCopyId = () => {
-    if (navigator.clipboard && applicationId) {
-      navigator.clipboard.writeText(applicationId);
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
-    }
   };
 
   const handleReset = () => {
@@ -476,17 +465,8 @@ export default function InternshipLandingPage() {
                   <div className={styles.admissionReceiptCard}>
                     <div className={styles.receiptHeader}>
                       <div className={styles.receiptBrand}>
-                        <span className={styles.receiptBrandAccent}>VR</span><span className={styles.receiptBrandDark}>PI</span>
+                        <img src={vrpiLogo} alt="VR PI Group of Companies" className={styles.receiptBrandLogoImg} />
                         <span className={styles.receiptBrandTag}>ADMISSIONS SLIP</span>
-                      </div>
-                      <div className={styles.receiptIdBox}>
-                        <span className={styles.receiptIdLabel}>OFFICIAL APPLICATION ID</span>
-                        <div className={styles.receiptIdRow}>
-                          <span className={styles.receiptIdValue}>{applicationId}</span>
-                          <button type="button" className={styles.btnCopyId} onClick={handleCopyId} title="Copy ID">
-                            {isCopied ? '✓ Copied' : '📋 Copy'}
-                          </button>
-                        </div>
                       </div>
                     </div>
 
@@ -548,10 +528,7 @@ export default function InternshipLandingPage() {
 
                   {/* Actions */}
                   <div className={styles.successActions}>
-                    <button type="button" className={`${styles.btn} ${styles.btnPrimary} ${styles.btnSm}`} onClick={() => window.print()}>
-                      Save / Print Slip
-                    </button>
-                    <a href="#benefits" className={`${styles.btn} ${styles.btnSecondary} ${styles.btnSm}`}>
+                    <a href="#benefits" className={`${styles.btn} ${styles.btnPrimary} ${styles.btnSm}`}>
                       Explore Curriculum
                     </a>
                     <button type="button" className={`${styles.btn} ${styles.btnOutline} ${styles.btnSm}`} onClick={handleReset}>
@@ -560,7 +537,7 @@ export default function InternshipLandingPage() {
                   </div>
 
                   <div className={styles.successHelpNote}>
-                    Need help or want to make updates? Email <strong>info@vrpigroup.co.in</strong> or call <strong>+91 91216 23456</strong> quoting your Application ID.
+                    Need help or want to make updates? Email <strong>info@vrpigroup.co.in</strong> or call <strong>+91 91216 23456</strong>.
                   </div>
                 </div>
               )}
