@@ -3,6 +3,11 @@
  * Interactive Logic & Form Handlers
  */
 
+// Google Apps Script Web App Endpoint for Google Sheet sync:
+// Sheet URL: https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit
+// After deploying the Web App from Extensions -> Apps Script, paste your deployed URL here:
+const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbw6Z_DEPLOYMENT_ID/exec";
+
 document.addEventListener('DOMContentLoaded', () => {
   // Mobile Navigation Toggle
   const mobileBtn = document.getElementById('mobileMenuBtn');
@@ -166,6 +171,24 @@ document.addEventListener('DOMContentLoaded', () => {
         statement: document.getElementById('statement').value.trim(),
         submittedAt: new Date().toISOString()
       };
+
+      // Asynchronously sync application data to Google Sheet
+      if (GOOGLE_SHEET_WEBAPP_URL && !GOOGLE_SHEET_WEBAPP_URL.includes("AKfycbw6Z_DEPLOYMENT_ID")) {
+        try {
+          fetch(GOOGLE_SHEET_WEBAPP_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(applicationData)
+          }).then(() => {
+            console.log('[Google Sheet] Application synced to Google Sheet in real time.');
+          }).catch(err => {
+            console.warn('[Google Sheet] Sync note:', err);
+          });
+        } catch (syncErr) {
+          console.warn('[Google Sheet] Sync error:', syncErr);
+        }
+      }
 
       // Simulate network latency (800ms) for professional feedback
       setTimeout(() => {

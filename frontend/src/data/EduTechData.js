@@ -11,6 +11,11 @@ const mainContent = {
   head: "For hundreds of succesful students here embrace our new COMMUNITY explore and grow",
   description: "If you are DETERMINED to learn, no one can stop YOU!!",
   button: { name: "Register", link: "register", active: false },
+  internshipButton: {
+    name: "Apply For Free Internship",
+    link: "/free-internship",
+    active: true,
+  },
 };
 
 const WhatIsSection = {

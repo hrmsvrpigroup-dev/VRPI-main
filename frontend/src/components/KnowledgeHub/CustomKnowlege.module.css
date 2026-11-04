@@ -13,7 +13,8 @@
 
 .mainScreen h2 {
   text-align: center;
-  font-size: 2rem; /* Base font size */
+  font-size: 2rem;
+  /* Base font size */
   font-weight: 700;
 }
 
@@ -29,10 +30,12 @@
 
 .mainScreen p {
   text-align: center;
-  font-size: 1.3rem; /* Base font size */
+  font-size: 1.3rem;
+  /* Base font size */
   font-weight: 500;
   width: 70%;
 }
+
 .WhatIsContent {
   display: flex;
   margin-top: 1rem;
@@ -54,26 +57,62 @@
   height: 250px;
 }
 
+.heroButtonGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
 .btn {
-  width: 140px;
+  min-width: 140px;
   border: none;
   color: var(--white);
-  border-radius: 5px;
+  border-radius: 6px;
   font-size: 1rem;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
   text-align: center;
   text-decoration: none;
-  padding: 10px;
-  display: flex;
+  padding: 12px 22px;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   background: var(--primary);
+  box-shadow: 0 4px 10px rgba(255, 101, 1, 0.25);
 }
 
 .btn:hover {
-  transform: scale(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(255, 101, 1, 0.35);
+}
+
+.btnInternshipLanding {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 101, 1, 0.4);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  gap: 8px;
+}
+
+.btnInternshipLanding:hover {
+  background: #ff6501;
+  color: #ffffff;
+  border-color: #ff6501;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(255, 101, 1, 0.4);
+}
+
+.btnArrow {
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.btnInternshipLanding:hover .btnArrow {
+  transform: translateX(4px);
 }
 
 .benefitsContent {
@@ -192,9 +231,11 @@
   .mainScreen h2 {
     font-size: 4rem;
   }
+
   .mainScreen p {
     font-size: 1.5rem;
   }
+
   .btn {
     width: 200px;
     font-size: 1.3rem;
@@ -206,6 +247,7 @@
   .mainScreen h2 {
     font-size: 1.8rem;
   }
+
   .mainScreen p {
     font-size: 1.1rem;
   }
@@ -215,12 +257,15 @@
   .mainScreen h2 {
     font-size: 1.2rem;
   }
+
   .mainScreen p {
     font-size: 1rem;
   }
+
   .mainScreen {
     gap: 1rem;
   }
+
   .btn {
     padding: 5px;
   }
@@ -232,29 +277,37 @@
     background-color: var(--black);
     padding: 1rem 0;
   }
+
   .mainScreen h2 {
     font-size: 1.2rem;
   }
+
   .mainScreen p {
     font-size: 0.9rem;
     width: 80%;
   }
+
   .imageContainer img {
     height: 250px;
     width: 150px;
   }
+
   .benefitData_container {
     width: 100%;
   }
+
   .Instructor img {
     width: 120px;
   }
+
   .Instructors {
     gap: 1rem;
   }
+
   .WhatIsContent img {
     width: 50%;
   }
+
   .WhatIsContent p {
     height: auto;
   }

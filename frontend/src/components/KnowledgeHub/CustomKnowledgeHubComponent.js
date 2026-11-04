@@ -48,24 +48,34 @@ const CustomKnowledgeHubComponent = ({ data, backgroundImage }) => {
               style={{ color: "#ff6501" }}
             ></HighlightCapsWords>
           </p>
-          {data.mainContent.button ? (
-            data.mainContent.button.active ? (
+          <div className={style.heroButtonGroup}>
+            {data.mainContent.button ? (
+              data.mainContent.button.active ? (
+                <NavLink
+                  className={style.btn}
+                  to={data.mainContent.button.link}
+                  key={Math.random()}
+                >
+                  {data.mainContent.button.name}
+                </NavLink>
+              ) : (
+                <button className={style.btn} onClick={() => navigate("/signup")}>
+                  {" "}
+                  {data.mainContent.button.name}
+                </button>
+              )
+            ) : null}
+
+            {data.mainContent.internshipButton ? (
               <NavLink
-                className={style.btn}
-                to={data.mainContent.button.link}
-                key={Math.random()}
+                className={`${style.btn} ${style.btnInternshipLanding}`}
+                to={data.mainContent.internshipButton.link}
               >
-                {data.mainContent.button.name}
+                <span>{data.mainContent.internshipButton.name}</span>
+                <span className={style.btnArrow}>&rarr;</span>
               </NavLink>
-            ) : (
-              <button className={style.btn} onClick={() => navigate("/signup")}>
-                {" "}
-                {data.mainContent.button.name}
-              </button>
-            )
-          ) : (
-            <></>
-          )}
+            ) : null}
+          </div>
         </div>
       </div>
       <AllCardsSection data={data} />

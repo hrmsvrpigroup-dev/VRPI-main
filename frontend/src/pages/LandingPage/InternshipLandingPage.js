@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import styles from './InternshipLandingPage.module.css';
 import vrpiLogo from '../../assets/vrpiLogo.png';
 
+// Google Apps Script Web App Endpoint for Google Sheet sync:
+// Sheet: https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit
+const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbw6Z_DEPLOYMENT_ID/exec";
+
 export default function InternshipLandingPage() {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -69,14 +73,34 @@ export default function InternshipLandingPage() {
     const code = Math.floor(1000 + Math.random() * 9000);
     const generatedId = `VRPI-INT-2026-${code}`;
 
+    const newApplication = {
+      ...formData,
+      applicationId: generatedId,
+      submittedAt: new Date().toISOString()
+    };
+
+    // Asynchronously sync to Google Sheet via Google Apps Script Web App
+    if (GOOGLE_SHEET_WEBAPP_URL && !GOOGLE_SHEET_WEBAPP_URL.includes("AKfycbw6Z_DEPLOYMENT_ID")) {
+      try {
+        fetch(GOOGLE_SHEET_WEBAPP_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(newApplication)
+        }).then(() => {
+          console.log('[Google Sheet] Application synced in real time.');
+        }).catch(err => {
+          console.warn('[Google Sheet] Sync note:', err);
+        });
+      } catch (syncErr) {
+        console.warn('[Google Sheet] Sync error:', syncErr);
+      }
+    }
+
     setTimeout(() => {
       try {
         const existing = JSON.parse(localStorage.getItem('vrpi_internship_applications') || '[]');
-        existing.unshift({
-          ...formData,
-          applicationId: generatedId,
-          submittedAt: new Date().toISOString()
-        });
+        existing.unshift(newApplication);
         localStorage.setItem('vrpi_internship_applications', JSON.stringify(existing));
       } catch (err) {
         console.warn('LocalStorage error:', err);
