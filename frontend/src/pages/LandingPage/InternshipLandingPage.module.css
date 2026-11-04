@@ -67,12 +67,24 @@
 }
 
 .brandLogo {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 800;
-  font-size: 1.55rem;
+  gap: 12px;
   text-decoration: none;
+  cursor: pointer;
+}
+
+.siteLogoImg {
+  height: 52px;
+  width: auto;
+  max-width: 190px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.brandLogo:hover .siteLogoImg {
+  transform: scale(1.04);
 }
 
 .logoAccent { color: #ff5722; }
@@ -82,21 +94,39 @@
 .logoTag {
   background-color: #fff2ed;
   color: #ff5722;
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 9999px;
-  margin-left: 6px;
+  letter-spacing: 0.6px;
+  border: 1px solid rgba(255, 87, 34, 0.2);
+  white-space: nowrap;
+}
+
+.footerLogoWrap {
+  background-color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.footerLogoImg {
+  height: 42px;
+  max-width: 145px;
 }
 
 .logoTagLight {
   background-color: rgba(255, 87, 34, 0.15);
   color: #ff8a65;
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 9999px;
+  border: 1px solid rgba(255, 87, 34, 0.3);
   margin-left: 6px;
+  white-space: nowrap;
 }
 
 .navLinks {
@@ -927,3 +957,4 @@
     grid-template-columns: 1fr;
   }
 }
+

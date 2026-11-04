@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './InternshipLandingPage.module.css';
+import vrpiLogo from './vrpiLogo.png';
 
 export default function InternshipLandingPage() {
   const [formData, setFormData] = useState({
@@ -196,8 +197,8 @@ export default function InternshipLandingPage() {
       {/* Header */}
       <header className={styles.siteHeader}>
         <div className={`${styles.container} ${styles.headerFlex}`}>
-          <a href="/" className={styles.brandLogo}>
-            <span className={styles.logoAccent}>VR</span><span className={styles.logoDark}>PI</span>
+          <a href="/" className={styles.brandLogo} aria-label="VR PI Group">
+            <img src={vrpiLogo} alt="VR PI Group of Companies" className={styles.siteLogoImg} />
             <span className={styles.logoTag}>INTERNSHIPS</span>
           </a>
 
@@ -651,9 +652,11 @@ export default function InternshipLandingPage() {
         <div className={styles.container}>
           <div className={styles.footerContentBlock}>
             <div className={styles.footerBrandColumn}>
-              <a href="/" className={styles.brandLogo}>
-                <span className={styles.logoAccent}>VR</span><span className={styles.logoLight}>PI</span>
-                <span className={styles.logoTagLight}>GROUP OF COMPANIES</span>
+              <a href="/" className={styles.brandLogo} aria-label="VR PI Group">
+                <div className={styles.footerLogoWrap}>
+                  <img src={vrpiLogo} alt="VR PI Group of Companies" className={`${styles.siteLogoImg} ${styles.footerLogoImg}`} />
+                </div>
+                <span className={styles.logoTagLight}>INTERNSHIPS</span>
               </a>
               <p className={styles.footerDesc}>
                 VR PI Group is an integrated conglomerate operating across Technology Solutions, Infrastructure, Financial Services, and Global Trade.

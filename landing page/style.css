@@ -153,13 +153,24 @@ button, input, select, textarea {
 }
 
 .brand-logo {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 4px;
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 1.6rem;
-  letter-spacing: -0.5px;
+  gap: 12px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.site-logo-img {
+  height: 52px;
+  width: auto;
+  max-width: 190px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brand-logo:hover .site-logo-img {
+  transform: scale(1.05);
 }
 
 .logo-accent {
@@ -173,12 +184,27 @@ button, input, select, textarea {
 .logo-tag {
   background-color: var(--color-primary-light);
   color: var(--color-primary);
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: var(--radius-pill);
-  margin-left: 6px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
+  border: 1px solid rgba(255, 87, 34, 0.2);
+  white-space: nowrap;
+}
+
+.footer-logo-wrap {
+  background-color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.footer-logo-img {
+  height: 42px;
+  max-width: 145px;
 }
 
 .nav-links {
