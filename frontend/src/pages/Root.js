@@ -23,15 +23,10 @@ const hideHeaderRoutes = [
   "/educationaldetails",
   "/companydetails",
   "/free-internship",
+  "/free internship",
+  "/free%20internship",
   "/landing-page",
   "/free-internship-landing",
-  // "/dashboard",
-  // "/dashboard/courses",
-  // "/dashboard/internships",
-  // "/dashboard/helpAndSupport",
-  // "/dashboard/settings",
-  // "/forgetPassword",
-  // "/resetPassword",
 ].map((route) => route.replace(/\/+$/, ""));
 
 const RootLayout = () => {
@@ -60,9 +55,20 @@ const RootLayout = () => {
   // }, [isVRPIUserLoggedIn, userId]);
 
   const isHeaderHidden = hideHeaderRoutes.some((route) => {
-    const normalizedPath = location.pathname.replace(/\/+$/, "").toLowerCase();
+    let rawPath = location.pathname || "";
+    try {
+      rawPath = decodeURIComponent(rawPath);
+    } catch (e) {}
+    const normalizedPath = rawPath.replace(/\/+$/, "").toLowerCase();
     const r = route.toLowerCase();
-    return normalizedPath === r || normalizedPath.endsWith(r) || normalizedPath.startsWith(r);
+    return (
+      normalizedPath === r ||
+      normalizedPath.endsWith(r) ||
+      normalizedPath.startsWith(r) ||
+      normalizedPath.includes("free-internship") ||
+      normalizedPath.includes("free internship") ||
+      normalizedPath.includes("landing-page")
+    );
   });
 
   const shouldRenderHeader = email === undefined || otp === undefined;

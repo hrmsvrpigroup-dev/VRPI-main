@@ -8,23 +8,20 @@
  * HOW TO DEPLOY:
  * 1. Open your Google Sheet: https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit
  * 2. Click Extensions -> Apps Script.
- * 3. Delete any default code in Code.gs and paste this entire script.
+ * 3. Delete everything in Code.gs and paste this entire script.
  * 4. Click the Save icon (Ctrl+S).
- * 5. Click "Deploy" (top right) -> "New deployment".
- * 6. Select type: "Web app" (click gear icon next to "Select type" if needed).
- * 7. Fill in settings:
- *    - Description: "VR PI Internship Form Webhook"
+ * 5. (OPTIONAL) Select 'createHeadersNow' from the dropdown at the top and click 'Run'.
+ *    Check your Sheet1 — the orange headers will appear instantly!
+ * 6. Click "Deploy" (top right) -> "Manage deployments" (or "New deployment").
+ *    - Click the pencil (edit) icon or "New deployment"
+ *    - Type: Web app
  *    - Execute as: "Me" (your Google account)
- *    - Who has access: "Anyone" (VERY IMPORTANT so students can submit without login)
- * 8. Click "Deploy".
- * 9. Authorize access when prompted (Click "Advanced" -> "Go to ... (unsafe)").
- * 10. Copy the "Web app URL" (starts with https://script.google.com/macros/s/.../exec).
- * 11. Paste that Web App URL in your landing page script.js:
- *     const GOOGLE_SCRIPT_WEBAPP_URL = "YOUR_COPIED_URL";
+ *    - Who has access: "Anyone" (CRITICAL: MUST BE 'Anyone' so student forms submit without login!)
+ * 7. Click "Deploy".
+ * 8. Copy the Web app URL (ends in /exec) and use it in your code!
  * ============================================================================
  */
 
-// Spreadsheet ID from your URL
 const SPREADSHEET_ID = "18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA";
 
 /**
@@ -32,24 +29,36 @@ const SPREADSHEET_ID = "18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA";
  */
 function doPost(e) {
   const lock = LockService.getScriptLock();
-  // Wait up to 30 seconds for concurrent submissions to prevent collision
-  lock.tryLock(30000);
+  try {
+    lock.tryLock(30000);
+  } catch (err) {}
 
   try {
     let data = {};
-    if (e.postData && e.postData.contents) {
+    if (e && e.postData && e.postData.contents) {
       try {
         data = JSON.parse(e.postData.contents);
       } catch (err) {
-        data = e.parameter || {};
+        data = (e && e.parameter) || {};
       }
-    } else if (e.parameter) {
+    } else if (e && e.parameter) {
       data = e.parameter;
     }
 
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    
-    // Row data to write
+    const timestamp = data.timestamp || Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy-MM-dd HH:mm:ss");
+    const applicationId = data.applicationId || ("VRPI-INT-" + Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy") + "-" + Math.floor(1000 + Math.random() * 9000));
+    const fullName = data.fullName || data.name || "";
+    const email = data.email || "";
+    const phone = data.phone || data.whatsapp || "";
+    const college = data.college || data.university || "";
+    const qualification = data.qualification || data.degree || "";
+    const domain = data.domain || data.track || "";
+    const internshipMode = data.internshipMode || data.mode || "Virtual / Remote (Pan-India Online)";
+    const portfolioUrl = data.portfolioUrl || data.linkedin || "";
+    const statement = data.statement || data.goals || "";
+    const status = data.status || "Under Technical Review";
+
+    // Row data to write (12 columns)
     const rowData = [
       timestamp,
       applicationId,
@@ -65,15 +74,27 @@ function doPost(e) {
       status
     ];
 
-    // Write to Sheet1 (first tab)
-    const sheet1 = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
+    // Open target spreadsheet
+    let ss;
+    try {
+      ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    } catch (err) {
+      ss = SpreadsheetApp.getActiveSpreadsheet();
+    }
+
+    // Write to Sheet1 (tab gid=0 or first tab)
+    let sheet1 = ss.getSheetByName("Sheet1");
+    if (!sheet1) {
+      sheet1 = ss.getSheets()[0];
+    }
+
     if (sheet1.getLastRow() === 0) {
       setupHeaders(sheet1);
     }
     sheet1.appendRow(rowData);
     formatRow(sheet1, sheet1.getLastRow());
 
-    // Also write to "Internship Applications" tab if it exists
+    // Also write to "Internship Applications" tab if it exists and is distinct
     const appsSheet = ss.getSheetByName("Internship Applications");
     if (appsSheet && appsSheet.getSheetId() !== sheet1.getSheetId()) {
       if (appsSheet.getLastRow() === 0) {
@@ -87,7 +108,8 @@ function doPost(e) {
       JSON.stringify({
         status: "success",
         message: "Application recorded successfully!",
-        applicationId: applicationId
+        applicationId: applicationId,
+        row: sheet1.getLastRow()
       })
     ).setMimeType(ContentService.MimeType.JSON);
 
@@ -98,26 +120,93 @@ function doPost(e) {
         message: error.toString()
       })
     ).setMimeType(ContentService.MimeType.JSON);
-
   } finally {
-    lock.releaseLock();
+    try {
+      lock.releaseLock();
+    } catch (err) {}
   }
 }
 
+/**
+ * Handle GET requests (Health check or browser URL testing)
+ */
+function doGet(e) {
+  if (e && e.parameter && e.parameter.fullName) {
+    return doPost(e);
+  }
+
+  return ContentService.createTextOutput(
+    JSON.stringify({
+      status: "online",
+      service: "VR PI Internship Application Collector API",
+      spreadsheetId: SPREADSHEET_ID,
+      activeSheet: "Sheet1",
+      instructions: "Send a POST request with candidate JSON payload"
+    })
+  ).setMimeType(ContentService.MimeType.JSON);
+}
+
 function formatRow(sheet, rowNum) {
-  if (rowNum < 1) return;
+  if (rowNum < 2) return;
   sheet.getRange(rowNum, 1, 1, 12).setVerticalAlignment("middle");
   sheet.getRange(rowNum, 2).setFontFamily("Courier New").setFontWeight("bold");
 }
 
 /**
- * Run this function once in Apps Script (select 'syncToSheet1' and click Run)
- * to immediately format Sheet1 and copy any existing applications to Sheet1!
+ * Run this function once in Apps Script (select 'createHeadersNow' and click Run)
+ * to immediately format and create headers on Sheet1!
  */
-function syncToSheet1() {
-  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+function createHeadersNow() {
+  let ss;
+  try {
+    ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  } catch (err) {
+    ss = SpreadsheetApp.getActiveSpreadsheet();
+  }
   const sheet1 = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
   setupHeaders(sheet1);
+  Logger.log("Headers created successfully on: " + sheet1.getName());
+}
+
+/**
+ * Run this function in Apps Script to insert a test application row!
+ */
+function testInsert() {
+  createHeadersNow();
+  const testPayload = {
+    postData: {
+      contents: JSON.stringify({
+        fullName: "Test Candidate",
+        email: "candidate@vrpigroup.com",
+        phone: "+91 98765 43210",
+        college: "VR PI Academy / JNTU",
+        qualification: "B.Tech Final Year (2026)",
+        domain: "Tech Solutions: Full Stack Web & Mobile",
+        internshipMode: "Virtual / Remote (Pan-India Online)",
+        portfolioUrl: "https://linkedin.com",
+        statement: "Automated test application verified."
+      })
+    }
+  };
+  const result = doPost(testPayload);
+  Logger.log("Test Result: " + result.getContent());
+}
+
+/**
+ * Run this function once in Apps Script (select 'syncToSheet1' and click Run)
+ * to copy any existing applications from other tabs to Sheet1!
+ */
+function syncToSheet1() {
+  let ss;
+  try {
+    ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  } catch (err) {
+    ss = SpreadsheetApp.getActiveSpreadsheet();
+  }
+  const sheet1 = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
+  if (sheet1.getLastRow() === 0) {
+    setupHeaders(sheet1);
+  }
 
   const appsSheet = ss.getSheetByName("Internship Applications");
   if (appsSheet && appsSheet.getSheetId() !== sheet1.getSheetId()) {
@@ -131,32 +220,6 @@ function syncToSheet1() {
       Logger.log("Successfully copied " + data.length + " rows to Sheet1!");
     }
   }
-}
-
-/**
- * Run this function once in Apps Script (select 'createHeadersNow' and click Run)
- * to immediately format and create headers on Sheet1!
- */
-function createHeadersNow() {
-  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet1 = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
-  setupHeaders(sheet1);
-  Logger.log("Headers created successfully on " + sheet1.getName());
-}
-
-/**
- * Handle GET requests (Health check)
- */
-function doGet(e) {
-  return ContentService.createTextOutput(
-    JSON.stringify({
-      status: "online",
-      service: "VR PI Internship Application Collector API",
-      spreadsheetId: SPREADSHEET_ID,
-      activeSheet: SHEET_NAME,
-      instructions: "Send a POST request with candidate JSON payload"
-    })
-  ).setMimeType(ContentService.MimeType.JSON);
 }
 
 /**
@@ -206,4 +269,3 @@ function setupHeaders(sheet) {
   sheet.setColumnWidth(11, 280); // Statement
   sheet.setColumnWidth(12, 140); // Status
 }
-

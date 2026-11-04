@@ -193,6 +193,16 @@ function App() {
       errorElement: <ErrorPage errorData={GeneralErrorData} />,
     },
     {
+      path: "/free internship",
+      element: <InternshipLandingPage />,
+      errorElement: <ErrorPage errorData={GeneralErrorData} />,
+    },
+    {
+      path: "/free%20internship",
+      element: <InternshipLandingPage />,
+      errorElement: <ErrorPage errorData={GeneralErrorData} />,
+    },
+    {
       path: "/landing-page",
       element: <InternshipLandingPage />,
       errorElement: <ErrorPage errorData={GeneralErrorData} />,

@@ -3,9 +3,10 @@
  * Interactive Logic & Form Handlers
  */
 
-// Google Apps Script Web App Endpoint for Google Sheet sync:
+// Google Apps Script Web App Endpoints for Google Sheet sync:
 // Sheet URL: https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit
 const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzT6sEvG6PvL7U2f6X0Ukp_ur8kMWC6XetMij4G3Y3fQyGYc-rMJYa5DnYiX_vY4YP3/exec";
+const BACKUP_GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyKKJUk6_pe1qtpqBZp6jYsCA8O97g5IlbwNRetYQ-6pjJql29fnEUKqPrV795kh9FI8g/exec";
 
 document.addEventListener('DOMContentLoaded', () => {
   // Mobile Navigation Toggle
@@ -171,23 +172,24 @@ document.addEventListener('DOMContentLoaded', () => {
         submittedAt: new Date().toISOString()
       };
 
-      // Asynchronously sync application data to Google Sheet
-      if (GOOGLE_SHEET_WEBAPP_URL && !GOOGLE_SHEET_WEBAPP_URL.includes("AKfycbw6Z_DEPLOYMENT_ID")) {
+      // Asynchronously sync application data to Google Sheet (Primary & Fallback)
+      const endpoints = [GOOGLE_SHEET_WEBAPP_URL, BACKUP_GOOGLE_SHEET_URL].filter(Boolean);
+      endpoints.forEach((targetUrl) => {
         try {
-          fetch(GOOGLE_SHEET_WEBAPP_URL, {
+          fetch(targetUrl, {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify(applicationData)
           }).then(() => {
-            console.log('[Google Sheet] Application synced to Google Sheet in real time.');
-          }).catch(err => {
+            console.log('[Google Sheet] Application synced to Google Sheet in real time:', targetUrl);
+          }).catch((err) => {
             console.warn('[Google Sheet] Sync note:', err);
           });
         } catch (syncErr) {
           console.warn('[Google Sheet] Sync error:', syncErr);
         }
-      }
+      });
 
       // Simulate network latency (800ms) for professional feedback
       setTimeout(() => {
