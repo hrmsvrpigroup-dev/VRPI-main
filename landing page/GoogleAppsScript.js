@@ -48,33 +48,9 @@ function doPost(e) {
     }
 
     const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    // Write directly to Sheet1 (first sheet)
-    let sheet = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
-
-    // If sheet is empty or headers are missing, setup headers automatically
-    if (sheet.getLastRow() === 0) {
-      setupHeaders(sheet);
-    }
-
-    // Extract fields
-    const timestamp = data.submittedAt
-      ? new Date(data.submittedAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })
-      : new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
-
-    const applicationId = data.applicationId || "VRPI-INT-2026-" + Math.floor(1000 + Math.random() * 9000);
-    const fullName = data.fullName || "";
-    const email = data.email || "";
-    const phone = data.phone || "";
-    const college = data.college || "";
-    const qualification = data.qualification || "";
-    const domain = data.domain || "";
-    const internshipMode = data.internshipMode || "Virtual / Remote (Pan-India)";
-    const portfolioUrl = data.portfolioUrl || "";
-    const statement = data.statement || "";
-    const status = "Under Review";
-
-    // Append new row
-    sheet.appendRow([
+    
+    // Row data to write
+    const rowData = [
       timestamp,
       applicationId,
       fullName,
@@ -87,12 +63,25 @@ function doPost(e) {
       portfolioUrl,
       statement,
       status
-    ]);
+    ];
 
-    // Format new row
-    const lastRow = sheet.getLastRow();
-    sheet.getRange(lastRow, 1, 1, 12).setVerticalAlignment("middle");
-    sheet.getRange(lastRow, 2).setFontFamily("Courier New").setFontWeight("bold");
+    // Write to Sheet1 (first tab)
+    const sheet1 = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
+    if (sheet1.getLastRow() === 0) {
+      setupHeaders(sheet1);
+    }
+    sheet1.appendRow(rowData);
+    formatRow(sheet1, sheet1.getLastRow());
+
+    // Also write to "Internship Applications" tab if it exists
+    const appsSheet = ss.getSheetByName("Internship Applications");
+    if (appsSheet && appsSheet.getSheetId() !== sheet1.getSheetId()) {
+      if (appsSheet.getLastRow() === 0) {
+        setupHeaders(appsSheet);
+      }
+      appsSheet.appendRow(rowData);
+      formatRow(appsSheet, appsSheet.getLastRow());
+    }
 
     return ContentService.createTextOutput(
       JSON.stringify({
@@ -115,15 +104,44 @@ function doPost(e) {
   }
 }
 
+function formatRow(sheet, rowNum) {
+  if (rowNum < 1) return;
+  sheet.getRange(rowNum, 1, 1, 12).setVerticalAlignment("middle");
+  sheet.getRange(rowNum, 2).setFontFamily("Courier New").setFontWeight("bold");
+}
+
+/**
+ * Run this function once in Apps Script (select 'syncToSheet1' and click Run)
+ * to immediately format Sheet1 and copy any existing applications to Sheet1!
+ */
+function syncToSheet1() {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const sheet1 = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
+  setupHeaders(sheet1);
+
+  const appsSheet = ss.getSheetByName("Internship Applications");
+  if (appsSheet && appsSheet.getSheetId() !== sheet1.getSheetId()) {
+    const lastRow = appsSheet.getLastRow();
+    if (lastRow > 1) {
+      const data = appsSheet.getRange(2, 1, lastRow - 1, 12).getValues();
+      for (let i = 0; i < data.length; i++) {
+        sheet1.appendRow(data[i]);
+        formatRow(sheet1, sheet1.getLastRow());
+      }
+      Logger.log("Successfully copied " + data.length + " rows to Sheet1!");
+    }
+  }
+}
+
 /**
  * Run this function once in Apps Script (select 'createHeadersNow' and click Run)
  * to immediately format and create headers on Sheet1!
  */
 function createHeadersNow() {
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
-  setupHeaders(sheet);
-  Logger.log("Headers created successfully on " + sheet.getName());
+  const sheet1 = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
+  setupHeaders(sheet1);
+  Logger.log("Headers created successfully on " + sheet1.getName());
 }
 
 /**
