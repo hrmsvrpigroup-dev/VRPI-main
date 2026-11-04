@@ -1,0 +1,20 @@
+{
+  "name": "vrpi-internship-landing-page",
+  "version": "1.0.0",
+  "description": "VR PI Group Free Industrial Internship Landing Page (Reference: recrot.webflow.io)",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "serve": "node server.js",
+    "build": "echo \"Landing page is production-ready static HTML/CSS/JS in current folder.\""
+  },
+  "keywords": [
+    "vrpi",
+    "internship",
+    "landing-page",
+    "free-internship"
+  ],
+  "author": "VR PI Group",
+  "license": "ISC"
+}
