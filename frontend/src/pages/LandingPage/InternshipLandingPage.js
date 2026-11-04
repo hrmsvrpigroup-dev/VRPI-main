@@ -240,7 +240,7 @@ export default function InternshipLandingPage() {
                 <span className={styles.statLabel}>Zero Tuition Fee</span>
               </div>
               <div className={styles.statPill}>
-                <strong className={styles.statNumber}>8–12</strong>
+                <strong className={styles.statNumber}>0–4</strong>
                 <span className={styles.statLabel}>Weeks Duration</span>
               </div>
               <div className={styles.statPill}>
