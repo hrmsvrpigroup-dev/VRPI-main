@@ -233,14 +233,111 @@
 
           <!-- Success Confirmation Modal / Banner -->
           <div id="formSuccessMessage" class="success-message" style="display: none;">
+            <!-- Top Verified Badge -->
             <div class="success-icon-wrap">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="success-icon-pulse"></span>
+              <svg class="success-checkmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
             </div>
-            <h3>Application Received Successfully!</h3>
-            <p>Your application ID is <strong id="applicationIdDisplay">VRPI-INT-2026-XXXX</strong>. Our academic onboarding team will review your profile and send interview/selection details to your registered email address within 48 business hours.</p>
+
+            <div class="success-status-badge">
+              <span class="badge-dot-green"></span>
+              <span>Application Verified &amp; Recorded</span>
+            </div>
+
+            <h3 class="success-title">Application Received Successfully!</h3>
+            <p class="success-subtitle">
+              Thank you, <strong id="successApplicantName">Candidate</strong>! Your application for the <strong>VR PI Free Industrial Internship Program 2026</strong> has been logged into our technical admissions portal.
+            </p>
+
+            <!-- Digital Admission Slip / Receipt Card -->
+            <div class="admission-receipt-card" id="receiptPrintArea">
+              <div class="receipt-header">
+                <div class="receipt-brand">
+                  <span class="receipt-brand-accent">VR</span><span class="receipt-brand-dark">PI</span>
+                  <span class="receipt-brand-tag">ADMISSIONS SLIP</span>
+                </div>
+                <div class="receipt-id-box">
+                  <span class="receipt-id-label">OFFICIAL APPLICATION ID</span>
+                  <div class="receipt-id-row">
+                    <span class="receipt-id-value" id="applicationIdDisplay">VRPI-INT-2026-XXXX</span>
+                    <button type="button" class="btn-copy-id" id="copyIdBtn" title="Copy Application ID">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                      <span id="copyBtnText">Copy</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="receipt-grid">
+                <div class="receipt-item">
+                  <span class="receipt-label">Candidate Name</span>
+                  <span class="receipt-val" id="applicantNameDisplay">—</span>
+                </div>
+                <div class="receipt-item">
+                  <span class="receipt-label">Registered Email</span>
+                  <span class="receipt-val" id="applicantEmailDisplay">—</span>
+                </div>
+                <div class="receipt-item">
+                  <span class="receipt-label">Selected Track</span>
+                  <span class="receipt-val highlight" id="applicantDomainDisplay">—</span>
+                </div>
+                <div class="receipt-item">
+                  <span class="receipt-label">Program Duration</span>
+                  <span class="receipt-val">0–4 Weeks (₹0 Tuition)</span>
+                </div>
+              </div>
+
+              <div class="receipt-footer-status">
+                <div class="status-indicator">
+                  <span class="status-pulse-dot"></span>
+                  <span><strong>Status:</strong> Under Technical Review</span>
+                </div>
+                <span class="sla-text">Target SLA: Response within 48 Business Hours</span>
+              </div>
+            </div>
+
+            <!-- Next Steps Roadmap -->
+            <div class="next-steps-section">
+              <h4 class="next-steps-title">What Happens Next?</h4>
+              <div class="next-steps-grid">
+                <div class="next-step-card">
+                  <div class="next-step-num">1</div>
+                  <div class="next-step-content">
+                    <h5>Academic Screening</h5>
+                    <p>Admissions committee reviews your degree &amp; interest statement.</p>
+                  </div>
+                </div>
+                <div class="next-step-card">
+                  <div class="next-step-num">2</div>
+                  <div class="next-step-content">
+                    <h5>Onboarding Invitation</h5>
+                    <p>Selected candidates receive sprint portal link &amp; batch schedule via email.</p>
+                  </div>
+                </div>
+                <div class="next-step-card">
+                  <div class="next-step-num">3</div>
+                  <div class="next-step-content">
+                    <h5>Live Project Kickoff</h5>
+                    <p>Assigned mentor director and work on real enterprise client deliverables.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Actions -->
             <div class="success-actions">
-              <button type="button" class="btn btn-secondary btn-sm" id="resetFormBtn">Submit Another Application</button>
-              <a href="#benefits" class="btn btn-outline btn-sm">Explore Curriculum</a>
+              <button type="button" class="btn btn-primary btn-sm" id="printReceiptBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                <span>Save / Print Slip</span>
+              </button>
+              <a href="#benefits" class="btn btn-secondary btn-sm">Explore Curriculum</a>
+              <button type="button" class="btn btn-outline btn-sm" id="resetFormBtn">Submit Another Application</button>
+            </div>
+
+            <div class="success-help-note">
+              <span>Need help or want to make updates? Email <strong>internships@vrpigroup.com</strong> or call <strong>+91 91216 23456</strong> quoting your Application ID.</span>
             </div>
           </div>
         </div>

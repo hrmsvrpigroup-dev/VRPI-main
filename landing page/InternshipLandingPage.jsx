@@ -20,6 +20,7 @@ export default function InternshipLandingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [applicationId, setApplicationId] = useState('');
+  const [isCopied, setIsCopied] = useState(false);
   const [activeFaq, setActiveFaq] = useState(0);
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterMsg, setNewsletterMsg] = useState('');
@@ -85,6 +86,14 @@ export default function InternshipLandingPage() {
       setIsSubmitting(false);
       setIsSubmitted(true);
     }, 700);
+  };
+
+  const handleCopyId = () => {
+    if (navigator.clipboard && applicationId) {
+      navigator.clipboard.writeText(applicationId);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    }
   };
 
   const handleReset = () => {
@@ -435,18 +444,110 @@ export default function InternshipLandingPage() {
                 </>
               ) : (
                 <div className={styles.successMessage}>
-                  <div className={styles.successIconWrap}>✓</div>
-                  <h3>Application Submitted Successfully!</h3>
-                  <p>
-                    Your Reference ID is <strong>{applicationId}</strong>. Our academic admissions desk will evaluate your profile and contact you via email within 48 business hours.
+                  <div className={styles.successIconWrap}>
+                    <span className={styles.successIconPulse}></span>
+                    <span className={styles.successCheckmark}>✓</span>
+                  </div>
+
+                  <div className={styles.successStatusBadge}>
+                    <span className={styles.badgeDotGreen}></span>
+                    <span>Application Verified &amp; Recorded</span>
+                  </div>
+
+                  <h3 className={styles.successTitle}>Application Received Successfully!</h3>
+                  <p className={styles.successSubtitle}>
+                    Thank you, <strong>{formData.fullName}</strong>! Your application for the <strong>VR PI Free Industrial Internship Program 2026</strong> has been logged into our technical admissions portal.
                   </p>
+
+                  {/* Digital Admission Slip / Receipt */}
+                  <div className={styles.admissionReceiptCard}>
+                    <div className={styles.receiptHeader}>
+                      <div className={styles.receiptBrand}>
+                        <span className={styles.receiptBrandAccent}>VR</span><span className={styles.receiptBrandDark}>PI</span>
+                        <span className={styles.receiptBrandTag}>ADMISSIONS SLIP</span>
+                      </div>
+                      <div className={styles.receiptIdBox}>
+                        <span className={styles.receiptIdLabel}>OFFICIAL APPLICATION ID</span>
+                        <div className={styles.receiptIdRow}>
+                          <span className={styles.receiptIdValue}>{applicationId}</span>
+                          <button type="button" className={styles.btnCopyId} onClick={handleCopyId} title="Copy ID">
+                            {isCopied ? '✓ Copied' : '📋 Copy'}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={styles.receiptGrid}>
+                      <div className={styles.receiptItem}>
+                        <span className={styles.receiptLabel}>Candidate Name</span>
+                        <span className={styles.receiptVal}>{formData.fullName}</span>
+                      </div>
+                      <div className={styles.receiptItem}>
+                        <span className={styles.receiptLabel}>Registered Email</span>
+                        <span className={styles.receiptVal}>{formData.email}</span>
+                      </div>
+                      <div className={styles.receiptItem}>
+                        <span className={styles.receiptLabel}>Selected Track</span>
+                        <span className={`${styles.receiptVal} ${styles.receiptValHighlight}`}>{formData.domain}</span>
+                      </div>
+                      <div className={styles.receiptItem}>
+                        <span className={styles.receiptLabel}>Program Duration</span>
+                        <span className={styles.receiptVal}>0–4 Weeks (₹0 Tuition)</span>
+                      </div>
+                    </div>
+
+                    <div className={styles.receiptFooterStatus}>
+                      <div className={styles.statusIndicator}>
+                        <span className={styles.statusPulseDot}></span>
+                        <span><strong>Status:</strong> Under Technical Review</span>
+                      </div>
+                      <span className={styles.slaText}>Target SLA: Response within 48 Business Hours</span>
+                    </div>
+                  </div>
+
+                  {/* Next Steps Roadmap */}
+                  <div className={styles.nextStepsSection}>
+                    <h4 className={styles.nextStepsTitle}>What Happens Next?</h4>
+                    <div className={styles.nextStepsGrid}>
+                      <div className={styles.nextStepCard}>
+                        <div className={styles.nextStepNum}>1</div>
+                        <div className={styles.nextStepContent}>
+                          <h5>Academic Screening</h5>
+                          <p>Admissions committee reviews your degree &amp; interest statement.</p>
+                        </div>
+                      </div>
+                      <div className={styles.nextStepCard}>
+                        <div className={styles.nextStepNum}>2</div>
+                        <div className={styles.nextStepContent}>
+                          <h5>Onboarding Invitation</h5>
+                          <p>Selected candidates receive sprint portal link &amp; batch schedule via email.</p>
+                        </div>
+                      </div>
+                      <div className={styles.nextStepCard}>
+                        <div className={styles.nextStepNum}>3</div>
+                        <div className={styles.nextStepContent}>
+                          <h5>Live Project Kickoff</h5>
+                          <p>Assigned mentor director and work on real enterprise client deliverables.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Actions */}
                   <div className={styles.successActions}>
-                    <button type="button" className={`${styles.btn} ${styles.btnSecondary} ${styles.btnSm}`} onClick={handleReset}>
+                    <button type="button" className={`${styles.btn} ${styles.btnPrimary} ${styles.btnSm}`} onClick={() => window.print()}>
+                      Save / Print Slip
+                    </button>
+                    <a href="#benefits" className={`${styles.btn} ${styles.btnSecondary} ${styles.btnSm}`}>
+                      Explore Curriculum
+                    </a>
+                    <button type="button" className={`${styles.btn} ${styles.btnOutline} ${styles.btnSm}`} onClick={handleReset}>
                       Submit Another Application
                     </button>
-                    <a href="#benefits" className={`${styles.btn} ${styles.btnOutline} ${styles.btnSm}`}>
-                      View Curriculum
-                    </a>
+                  </div>
+
+                  <div className={styles.successHelpNote}>
+                    Need help or want to make updates? Email <strong>internships@vrpigroup.com</strong> or call <strong>+91 91216 23456</strong> quoting your Application ID.
                   </div>
                 </div>
               )}

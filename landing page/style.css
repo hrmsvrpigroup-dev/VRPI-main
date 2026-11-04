@@ -597,43 +597,353 @@ button, input, select, textarea {
   to { transform: rotate(360deg); }
 }
 
-/* Success Confirmation Banner */
+/* ==========================================================================
+   Success Confirmation / Thank You Card
+   ========================================================================== */
 .success-message {
   text-align: center;
-  padding: 36px 20px;
+  padding: 10px 0 20px;
+  animation: fadeInSuccess 0.4s ease-out;
+}
+
+@keyframes fadeInSuccess {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .success-icon-wrap {
-  width: 64px;
-  height: 64px;
-  background-color: var(--color-success-bg);
-  color: var(--color-success);
+  position: relative;
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 18px;
+  margin: 0 auto 16px;
+  box-shadow: 0 10px 25px -4px rgba(16, 185, 129, 0.4);
 }
 
-.success-message h3 {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-  color: var(--color-dark);
+.success-icon-pulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(16, 185, 129, 0.35);
+  animation: pulseSuccess 2s infinite ease-out;
+}
+
+@keyframes pulseSuccess {
+  0% { transform: scale(0.95); opacity: 1; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+.success-checkmark {
+  width: 36px;
+  height: 36px;
+  stroke: #ffffff;
+}
+
+.success-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ecfdf5;
+  color: #047857;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 4px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(16, 185, 129, 0.25);
   margin-bottom: 12px;
 }
 
-.success-message p {
+.badge-dot-green {
+  width: 8px;
+  height: 8px;
+  background-color: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
+}
+
+.success-title {
+  font-family: var(--font-heading);
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--color-dark);
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.success-subtitle {
   color: var(--color-text-muted);
   font-size: 0.95rem;
   line-height: 1.6;
-  max-width: 480px;
+  max-width: 540px;
   margin: 0 auto 24px;
+}
+
+/* Digital Admission Slip / Receipt */
+.admission-receipt-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  text-align: left;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 28px;
+  position: relative;
+  background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.receipt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px dashed #cbd5e1;
+  padding-bottom: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.receipt-brand {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.receipt-brand-accent { color: var(--color-primary); }
+.receipt-brand-dark { color: var(--color-dark); }
+
+.receipt-brand-tag {
+  background-color: #f1f5f9;
+  color: #475569;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  margin-left: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+.receipt-id-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.receipt-id-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 0.6px;
+}
+
+.receipt-id-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.receipt-id-value {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  background-color: #fff2ed;
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px dashed rgba(255, 87, 34, 0.4);
+}
+
+.btn-copy-id {
+  background: #f8fafc;
+  border: 1px solid var(--color-border);
+  color: #475569;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: var(--transition);
+}
+
+.btn-copy-id:hover {
+  background: var(--color-dark);
+  color: #ffffff;
+  border-color: var(--color-dark);
+}
+
+.receipt-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.receipt-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.receipt-label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+}
+
+.receipt-val {
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: var(--color-dark);
+  word-break: break-word;
+}
+
+.receipt-val.highlight {
+  color: var(--color-primary);
+}
+
+.receipt-footer-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px dashed #cbd5e1;
+  padding-top: 14px;
+  font-size: 0.82rem;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #0f172a;
+}
+
+.status-pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #f59e0b;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.3);
+}
+
+.sla-text {
+  color: #64748b;
+  font-size: 0.8rem;
+}
+
+/* Next Steps Roadmap */
+.next-steps-section {
+  text-align: left;
+  margin-bottom: 28px;
+  background-color: #f8fafc;
+  padding: 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.next-steps-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: 14px;
+}
+
+.next-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.next-step-card {
+  display: flex;
+  gap: 10px;
+}
+
+.next-step-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: var(--color-dark);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.next-step-content h5 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: 2px;
+}
+
+.next-step-content p {
+  font-size: 0.78rem;
+  color: #64748b;
+  line-height: 1.45;
 }
 
 .success-actions {
   display: flex;
   gap: 12px;
   justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.success-help-note {
+  font-size: 0.82rem;
+  color: #64748b;
+  line-height: 1.5;
+  background: #ffffff;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+@media (max-width: 640px) {
+  .receipt-grid {
+    grid-template-columns: 1fr;
+  }
+  .next-steps-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .receipt-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .receipt-id-box {
+    align-items: flex-start;
+  }
+  .success-actions {
+    flex-direction: column;
+  }
+  .success-actions .btn {
+    width: 100%;
+  }
 }
 
 /* ==========================================================================

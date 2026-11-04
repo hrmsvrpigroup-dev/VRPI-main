@@ -178,14 +178,27 @@ document.addEventListener('DOMContentLoaded', () => {
           console.warn('LocalStorage save failed:', err);
         }
 
-        // Display Success Card
+        // Display Success Card with Candidate Information
         if (appIdDisplay) {
           appIdDisplay.textContent = generatedAppId;
         }
+        const nameDisplay = document.getElementById('applicantNameDisplay');
+        if (nameDisplay) nameDisplay.textContent = applicationData.fullName;
+        
+        const successName = document.getElementById('successApplicantName');
+        if (successName) successName.textContent = applicationData.fullName;
+
+        const emailDisplay = document.getElementById('applicantEmailDisplay');
+        if (emailDisplay) emailDisplay.textContent = applicationData.email;
+
+        const domainDisplay = document.getElementById('applicantDomainDisplay');
+        if (domainDisplay) domainDisplay.textContent = applicationData.domain;
 
         internshipForm.style.display = 'none';
         if (successCard) {
           successCard.style.display = 'block';
+          // Smooth scroll to top of success card
+          successCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
         // Reset submit button state
@@ -196,6 +209,33 @@ document.addEventListener('DOMContentLoaded', () => {
           submitBtn.disabled = false;
         }
       }, 750);
+    });
+  }
+
+  // Copy Application ID Handler
+  const copyBtn = document.getElementById('copyIdBtn');
+  const copyText = document.getElementById('copyBtnText');
+  if (copyBtn && appIdDisplay) {
+    copyBtn.addEventListener('click', () => {
+      const idToCopy = appIdDisplay.textContent.trim();
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(idToCopy).then(() => {
+          if (copyText) copyText.textContent = 'Copied!';
+          setTimeout(() => {
+            if (copyText) copyText.textContent = 'Copy';
+          }, 2000);
+        }).catch(() => {
+          alert(`Application ID: ${idToCopy}`);
+        });
+      }
+    });
+  }
+
+  // Print / Save Slip Handler
+  const printBtn = document.getElementById('printReceiptBtn');
+  if (printBtn) {
+    printBtn.addEventListener('click', () => {
+      window.print();
     });
   }
 

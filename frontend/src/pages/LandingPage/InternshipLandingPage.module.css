@@ -426,39 +426,321 @@
 /* Success Card */
 .successMessage {
   text-align: center;
-  padding: 36px 20px;
+  padding: 10px 0 20px;
+  animation: fadeInSuccess 0.4s ease-out;
+}
+
+@keyframes fadeInSuccess {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .successIconWrap {
-  width: 60px;
-  height: 60px;
-  background-color: #ecfdf5;
-  color: #10b981;
+  position: relative;
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
-  font-weight: bold;
   margin: 0 auto 16px;
+  box-shadow: 0 10px 25px -4px rgba(16, 185, 129, 0.4);
 }
 
-.successMessage h3 {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.5rem;
+.successIconPulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(16, 185, 129, 0.35);
+  animation: pulseSuccess 2s infinite ease-out;
+}
+
+@keyframes pulseSuccess {
+  0% { transform: scale(0.95); opacity: 1; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+.successCheckmark {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.successStatusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ecfdf5;
+  color: #047857;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  border: 1px solid rgba(16, 185, 129, 0.25);
   margin-bottom: 12px;
 }
 
-.successMessage p {
+.badgeDotGreen {
+  width: 8px;
+  height: 8px;
+  background-color: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
+}
+
+.successTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.successSubtitle {
   color: #64748b;
-  max-width: 460px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 540px;
   margin: 0 auto 24px;
+}
+
+/* Digital Admission Slip / Receipt */
+.admissionReceiptCard {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: left;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
+  margin-bottom: 28px;
+  background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.receiptHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px dashed #cbd5e1;
+  padding-bottom: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.receiptBrand {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.receiptBrandAccent { color: #ff5722; }
+.receiptBrandDark { color: #0f172a; }
+
+.receiptBrandTag {
+  background-color: #f1f5f9;
+  color: #475569;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  margin-left: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+.receiptIdBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.receiptIdLabel {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 0.6px;
+}
+
+.receiptIdRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.receiptIdValue {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ff5722;
+  background-color: #fff2ed;
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px dashed rgba(255, 87, 34, 0.4);
+}
+
+.btnCopyId {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btnCopyId:hover {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+.receiptGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.receiptItem {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.receiptLabel {
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+}
+
+.receiptVal {
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: #0f172a;
+  word-break: break-word;
+}
+
+.receiptValHighlight {
+  color: #ff5722;
+}
+
+.receiptFooterStatus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px dashed #cbd5e1;
+  padding-top: 14px;
+  font-size: 0.82rem;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.statusIndicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #0f172a;
+}
+
+.statusPulseDot {
+  width: 8px;
+  height: 8px;
+  background-color: #f59e0b;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.3);
+}
+
+.slaText {
+  color: #64748b;
+  font-size: 0.8rem;
+}
+
+/* Next Steps Roadmap */
+.nextStepsSection {
+  text-align: left;
+  margin-bottom: 28px;
+  background-color: #f8fafc;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.nextStepsTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 14px;
+}
+
+.nextStepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.nextStepCard {
+  display: flex;
+  gap: 10px;
+}
+
+.nextStepNum {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #0f172a;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.nextStepContent h5 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+
+.nextStepContent p {
+  font-size: 0.78rem;
+  color: #64748b;
+  line-height: 1.45;
 }
 
 .successActions {
   display: flex;
   gap: 12px;
   justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.successHelpNote {
+  font-size: 0.82rem;
+  color: #64748b;
+  line-height: 1.5;
+  background: #ffffff;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
 }
 
 /* Contact Info Column */
