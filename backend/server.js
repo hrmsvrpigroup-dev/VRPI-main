@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const fs = require("fs");
+const path = require("path");
 require("dotenv").config();
 const { Pool } = require("pg");
 const { Resend } = require("resend");
@@ -8,9 +10,22 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Enable CORS for frontend requests
+// Enable CORS for frontend requests (supports both live domain and local/laptop development)
+const allowedOrigins = [
+  "https://www.thevrpigroup.com",
+  "https://thevrpigroup.com",
+  "http://localhost:3000",
+  "http://localhost:3001"
+];
+
 app.use(cors({
-  origin: "https://www.thevrpigroup.com",  // your frontend domain
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin) || origin.endsWith("thevrpigroup.com") || origin.includes("localhost")) {
+      callback(null, true);
+    } else {
+      callback(null, true);
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Origin", "Content-Type", "Accept", "Authorization"]
@@ -66,6 +81,13 @@ const initDb = async () => {
         status VARCHAR(50) DEFAULT 'Pending Review',
         "appliedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
+      CREATE TABLE IF NOT EXISTS blog_articles (
+        id VARCHAR(255) PRIMARY KEY,
+        title TEXT NOT NULL,
+        slug VARCHAR(255),
+        "fullArticleData" JSONB NOT NULL,
+        "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
     `);
     
     // Add profileData column if it doesn't exist (migration for existing table)
@@ -81,6 +103,28 @@ const initDb = async () => {
       END
       $$;
     `);
+    
+    // Auto-seed baseline articles if table is empty
+    try {
+      const blogCountResult = await pool.query('SELECT count(*) FROM blog_articles;');
+      if (parseInt(blogCountResult.rows[0].count, 10) === 0) {
+        const seedPath = path.join(__dirname, "seed_articles.json");
+        if (fs.existsSync(seedPath)) {
+          const defaultArticles = JSON.parse(fs.readFileSync(seedPath, "utf8"));
+          for (const art of defaultArticles) {
+            await pool.query(
+              `INSERT INTO blog_articles (id, title, slug, "fullArticleData", "updatedAt")
+               VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP)
+               ON CONFLICT (id) DO NOTHING;`,
+              [art.id, art.title, art.slug || art.id, art]
+            );
+          }
+          console.log(`Auto-seeded ${defaultArticles.length} initial blog articles.`);
+        }
+      }
+    } catch (seedErr) {
+      console.warn("Blog auto-seed warning:", seedErr.message);
+    }
     
     console.log("Database initialized successfully.");
   } catch (error) {
@@ -540,6 +584,11 @@ app.use("/api/internships", internshipRoutes);
 app.use("/internships", internshipRoutes);
 app.use("/api", internshipRoutes); // Covers POST /api/apply-internship
 app.use("/", internshipRoutes);    // Covers POST /apply-internship
+
+// Blog Articles API Routes
+const blogRoutes = require("./routes/blog")(pool);
+app.use("/api/blogs", blogRoutes);
+app.use("/blogs", blogRoutes);
 
 // Health check endpoint
 app.get("/health", async (req, res) => {

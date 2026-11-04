@@ -57,10 +57,10 @@ function doPost(e) {
     }
 
     // Extract fields
-    const timestamp = data.submittedAt 
+    const timestamp = data.submittedAt
       ? new Date(data.submittedAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })
       : new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
-      
+
     const applicationId = data.applicationId || "VRPI-INT-2026-" + Math.floor(1000 + Math.random() * 9000);
     const fullName = data.fullName || "";
     const email = data.email || "";

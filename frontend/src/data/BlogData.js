@@ -328,6 +328,77 @@ export const BLOG_POSTS = [
 
 export const STORAGE_KEY = "vrpi_blog_posts";
 export const ADMIN_AUTH_KEY = "vrpi_blog_admin_auth";
+export const FALLBACK_CLOUD_URL = "https://vrpi-backend.onrender.com";
+
+/**
+ * Determine the active central Cloud API Base URL
+ */
+export function getBlogApiBaseUrl() {
+  try {
+    const custom = localStorage.getItem("vrpi_custom_blog_api_url");
+    if (custom && custom.trim()) {
+      return custom.trim().replace(/\/$/, "");
+    }
+  } catch (e) {}
+
+  if (process.env.REACT_APP_BACKEND_URL) {
+    return process.env.REACT_APP_BACKEND_URL.replace(/\/$/, "");
+  }
+
+  if (
+    typeof window !== "undefined" &&
+    (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+  ) {
+    return "http://localhost:8080";
+  }
+
+  return FALLBACK_CLOUD_URL;
+}
+
+/**
+ * Robust fetch helper that tries the primary endpoint and falls back to Render cloud backend
+ */
+async function callBlogApi(endpoint, options = {}, timeoutMs = 8000) {
+  const primaryBase = getBlogApiBaseUrl();
+  const primaryUrl = `${primaryBase}${endpoint}`;
+
+  const fetchWithTimeout = async (targetUrl) => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const res = await fetch(targetUrl, {
+        ...options,
+        signal: controller.signal,
+      });
+      clearTimeout(timer);
+      return res;
+    } catch (err) {
+      clearTimeout(timer);
+      throw err;
+    }
+  };
+
+  try {
+    const response = await fetchWithTimeout(primaryUrl);
+    if (response.ok) {
+      return await response.json();
+    }
+  } catch (primaryErr) {
+    // If primary failed and it wasn't already the fallback cloud URL, try fallback
+    if (primaryBase !== FALLBACK_CLOUD_URL) {
+      try {
+        const fallbackUrl = `${FALLBACK_CLOUD_URL}${endpoint}`;
+        const fallbackRes = await fetchWithTimeout(fallbackUrl);
+        if (fallbackRes.ok) {
+          return await fallbackRes.json();
+        }
+      } catch (fbErr) {
+        // Fallback also failed
+      }
+    }
+  }
+  return null;
+}
 
 // Known legacy dummy counts to auto-sanitize from user browser storage
 const LEGACY_DUMMY_VIEWS = new Set([3420, 2190, 1850, 4120, 1640, 1410, 2950, 17580]);
@@ -376,6 +447,124 @@ export function saveStoredPosts(posts) {
 }
 
 /**
+ * Fetch all blog posts from the Central Cloud Database (PostgreSQL).
+ * If successful, syncs local storage and dispatches storage event.
+ */
+export async function fetchBlogPostsFromCloud() {
+  try {
+    const data = await callBlogApi("/api/blogs");
+    if (data && data.status === "success" && Array.isArray(data.articles)) {
+      if (data.articles.length > 0) {
+        saveStoredPosts(data.articles);
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new Event("storage"));
+        }
+        return { success: true, articles: data.articles, source: "cloud" };
+      }
+    }
+  } catch (err) {
+    console.warn("Cloud blog fetch warning:", err.message);
+  }
+  return { success: false, articles: getStoredPosts(), source: "local" };
+}
+
+/**
+ * Save / Update a single article directly to Central Cloud Database (PostgreSQL)
+ * as well as instant local storage.
+ */
+export async function saveBlogPostToCloud(article) {
+  if (!article || !article.id) return { success: false, message: "Invalid article" };
+
+  // 1. Update local storage immediately for zero-lag UI
+  const currentPosts = getStoredPosts();
+  const existsIndex = currentPosts.findIndex((p) => p.id === article.id);
+  let updatedPosts;
+  if (existsIndex >= 0) {
+    updatedPosts = [...currentPosts];
+    updatedPosts[existsIndex] = article;
+  } else {
+    updatedPosts = [article, ...currentPosts];
+  }
+  saveStoredPosts(updatedPosts);
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event("storage"));
+  }
+
+  // 2. Persist to central cloud PostgreSQL database
+  try {
+    const res = await callBlogApi("/api/blogs", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(article),
+    });
+
+    if (res && res.status === "success") {
+      return { success: true, article, cloudSynced: true };
+    }
+  } catch (err) {
+    console.error("Failed to sync article to cloud:", err);
+  }
+
+  return { success: true, article, cloudSynced: false };
+}
+
+/**
+ * Delete an article from Central Cloud Database and local storage
+ */
+export async function deleteBlogPostFromCloud(articleId) {
+  if (!articleId) return { success: false };
+
+  // 1. Update local storage
+  const currentPosts = getStoredPosts();
+  const updated = currentPosts.filter((p) => p.id !== articleId);
+  saveStoredPosts(updated);
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event("storage"));
+  }
+
+  // 2. Delete from cloud database
+  try {
+    const res = await callBlogApi(`/api/blogs/${encodeURIComponent(articleId)}`, {
+      method: "DELETE",
+    });
+    if (res && res.status === "success") {
+      return { success: true, cloudSynced: true };
+    }
+  } catch (err) {
+    console.error("Failed to delete article from cloud:", err);
+  }
+
+  return { success: true, cloudSynced: false };
+}
+
+/**
+ * Batch synchronize all local articles (from this laptop) to the cloud database.
+ * Use this to push articles edited locally to PostgreSQL so all other laptops see them.
+ */
+export async function syncAllLocalPostsToCloud(posts = null) {
+  const articlesToSync = posts || getStoredPosts();
+  if (!articlesToSync || articlesToSync.length === 0) {
+    return { success: false, message: "No articles to sync" };
+  }
+
+  try {
+    const res = await callBlogApi("/api/blogs/batch-sync", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ articles: articlesToSync }),
+    });
+
+    if (res && res.status === "success") {
+      return { success: true, syncedCount: res.syncedCount || articlesToSync.length };
+    }
+  } catch (err) {
+    console.error("Batch sync to cloud failed:", err);
+  }
+
+  return { success: false, message: "Cloud sync failed. Verify internet connection." };
+}
+
+/**
  * Real-time Telemetry: Increment real view counter when an article is loaded
  */
 export function recordArticleView(articleId) {
@@ -393,6 +582,12 @@ export function recordArticleView(articleId) {
       });
       saveStoredPosts(updated);
       window.dispatchEvent(new Event("storage"));
+
+      // Fire-and-forget sync to cloud
+      callBlogApi(`/api/blogs/${encodeURIComponent(articleId)}/view`, {
+        method: "POST",
+      }).catch(() => {});
+
       return updated;
     }
   } catch (e) {
@@ -420,6 +615,14 @@ export function recordArticleLike(articleId, increment = true) {
     });
     saveStoredPosts(updated);
     window.dispatchEvent(new Event("storage"));
+
+    // Fire-and-forget sync to cloud
+    callBlogApi(`/api/blogs/${encodeURIComponent(articleId)}/like`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ increment }),
+    }).catch(() => {});
+
     return updated;
   } catch (e) {
     console.error("Error recording article like:", e);

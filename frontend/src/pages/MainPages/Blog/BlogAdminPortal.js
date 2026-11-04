@@ -1,6 +1,13 @@
 import React, { useState, useMemo, useRef } from "react";
 import style from "./BlogAdminPortal.module.css";
-import { BLOG_CATEGORIES, saveStoredPosts, resetTelemetryStats } from "../../../data/BlogData";
+import {
+  BLOG_CATEGORIES,
+  resetTelemetryStats,
+  fetchBlogPostsFromCloud,
+  syncAllLocalPostsToCloud,
+  saveBlogPostToCloud,
+  deleteBlogPostFromCloud,
+} from "../../../data/BlogData";
 import RichArticleRenderer from "./RichArticleRenderer";
 import {
   FaCrown,
@@ -21,6 +28,7 @@ import {
   FaTimes,
   FaShieldAlt,
   FaCloudUploadAlt,
+  FaSyncAlt,
   FaLink,
   FaBold,
   FaItalic,
@@ -955,24 +963,103 @@ export default function BlogAdminPortal({
     setEditorViewMode("write");
   };
 
-  // Delete article handler
-  const handleDeleteArticle = (articleId, title) => {
+  // Delete article handler with full Central Database Sync
+  const handleDeleteArticle = async (articleId, title) => {
     const confirmed = window.confirm(
       `Are you sure you want to delete the article:\n"${title}"?`
     );
     if (!confirmed) return;
 
+    await deleteBlogPostFromCloud(articleId);
     const updated = posts.filter((p) => p.id !== articleId);
-    saveStoredPosts(updated);
-    try {
-      window.dispatchEvent(new Event("storage"));
-    } catch (err) {}
     onSavePosts(updated);
-    showToast("Article successfully deleted.");
+    showToast("Article deleted from local and cloud database across all devices.");
+  };
+
+  // Central Cloud Database Sync State & Handlers
+  const [isCloudSyncing, setIsCloudSyncing] = useState(false);
+  const [cloudSyncError, setCloudSyncError] = useState(false);
+  const importJsonRef = useRef(null);
+
+  const handleSyncToCloud = async () => {
+    setIsCloudSyncing(true);
+    setCloudSyncError(false);
+    try {
+      const res = await syncAllLocalPostsToCloud(posts);
+      if (res && res.success) {
+        showToast(`✓ Cloud Synced! ${res.syncedCount || posts.length} articles synchronized with central database.`);
+      } else {
+        setCloudSyncError(true);
+        showToast("⚠️ Cloud sync warning. Saved locally; will retry when connected.");
+      }
+    } catch (e) {
+      setCloudSyncError(true);
+      showToast("⚠️ Cloud sync failed. Check internet connection.");
+    } finally {
+      setIsCloudSyncing(false);
+    }
+  };
+
+  const handlePullFromCloud = async () => {
+    setIsCloudSyncing(true);
+    setCloudSyncError(false);
+    try {
+      const res = await fetchBlogPostsFromCloud();
+      if (res && res.articles && res.articles.length > 0) {
+        onSavePosts(res.articles);
+        showToast(`✓ Cloud pull complete! ${res.articles.length} articles updated from database.`);
+      } else {
+        showToast("No newer articles found in cloud database.");
+      }
+    } catch (e) {
+      showToast("Failed to fetch from cloud database.");
+    } finally {
+      setIsCloudSyncing(false);
+    }
+  };
+
+  const handleExportJson = () => {
+    try {
+      const jsonStr = JSON.stringify(posts, null, 2);
+      const blob = new Blob([jsonStr], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `vrpi_blog_articles_backup_${new Date().toISOString().slice(0, 10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("✓ Articles exported to JSON backup file!");
+    } catch (e) {
+      showToast("Export failed.");
+    }
+  };
+
+  const handleImportJson = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      try {
+        const imported = JSON.parse(event.target.result);
+        if (Array.isArray(imported) && imported.length > 0 && imported[0].id) {
+          onSavePosts(imported);
+          await syncAllLocalPostsToCloud(imported);
+          showToast(`✓ Imported ${imported.length} articles and synced to cloud!`);
+        } else {
+          alert("Invalid JSON format. Expected an array of blog articles.");
+        }
+      } catch (err) {
+        alert("Failed to parse JSON file: " + err.message);
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = "";
   };
 
   // Save / Update form submit
-  const handleSavePost = (e) => {
+  const handleSavePost = async (e) => {
     if (e && e.preventDefault) e.preventDefault();
     if (!formData.title || !formData.title.trim()) {
       alert("Please provide an article headline.");
@@ -1014,9 +1101,10 @@ export default function BlogAdminPortal({
 
     if (editingArticleId) {
       // Update existing article
+      let updatedArticleObj = null;
       const updated = posts.map((p) => {
         if (p.id === editingArticleId) {
-          return {
+          updatedArticleObj = {
             ...p,
             title: (formData.title || "").trim(),
             subtitle: (formData.subtitle || "").trim(),
@@ -1038,17 +1126,16 @@ export default function BlogAdminPortal({
             contentParagraphs: formData.contentParagraphs || "",
             content: formattedContent,
           };
+          return updatedArticleObj;
         }
         return p;
       });
 
-      saveStoredPosts(updated);
-      try {
-        window.dispatchEvent(new Event("storage"));
-      } catch (err) {}
-
+      if (updatedArticleObj) {
+        saveBlogPostToCloud(updatedArticleObj);
+      }
       onSavePosts(updated);
-      showToast("Article updated successfully!");
+      showToast("Article updated and synced to cloud database!");
       setActiveTab("articles");
       setEditingArticleId(null);
       if (onClearEdit) onClearEdit();
@@ -1085,13 +1172,9 @@ export default function BlogAdminPortal({
       };
 
       const updated = [newArticle, ...posts];
-      saveStoredPosts(updated);
-      try {
-        window.dispatchEvent(new Event("storage"));
-      } catch (err) {}
-
+      saveBlogPostToCloud(newArticle);
       onSavePosts(updated);
-      showToast("New article published successfully!");
+      showToast("New article published and synced to cloud database!");
       setActiveTab("articles");
       if (onClearEdit) onClearEdit();
     }
@@ -1177,6 +1260,152 @@ export default function BlogAdminPortal({
           >
             Reset Telemetry to 0
           </button>
+        </div>
+
+        {/* Central Cloud Database Synchronization Banner */}
+        <div
+          style={{
+            background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
+            color: "#f8fafc",
+            borderRadius: "12px",
+            padding: "1rem 1.25rem",
+            marginBottom: "1.25rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: "1rem",
+            boxShadow: "0 4px 14px rgba(15, 23, 42, 0.15)",
+            border: "1px solid #334155",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
+            <div
+              style={{
+                width: "42px",
+                height: "42px",
+                borderRadius: "10px",
+                background: "rgba(255, 101, 1, 0.18)",
+                color: "#ff6501",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "1.3rem",
+              }}
+            >
+              <FaCloudUploadAlt />
+            </div>
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                <span style={{ fontWeight: 700, fontSize: "0.96rem" }}>
+                  Central Cloud Database (PostgreSQL)
+                </span>
+                <span
+                  style={{
+                    fontSize: "0.72rem",
+                    padding: "0.15rem 0.55rem",
+                    borderRadius: "9999px",
+                    background: isCloudSyncing ? "#fef08a" : cloudSyncError ? "#fee2e2" : "#dcfce7",
+                    color: isCloudSyncing ? "#854d0e" : cloudSyncError ? "#991b1b" : "#166534",
+                    fontWeight: 700,
+                  }}
+                >
+                  {isCloudSyncing ? "Syncing..." : cloudSyncError ? "Sync Alert" : "Online & Shared"}
+                </span>
+              </div>
+              <p style={{ margin: "0.2rem 0 0", fontSize: "0.8rem", color: "#94a3b8" }}>
+                Articles saved here automatically sync to all laptops and the live website in real-time.
+              </p>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
+            <button
+              type="button"
+              onClick={handleSyncToCloud}
+              disabled={isCloudSyncing}
+              style={{
+                background: "#ff6501",
+                color: "#fff",
+                border: "none",
+                padding: "0.45rem 0.9rem",
+                borderRadius: "8px",
+                fontSize: "0.82rem",
+                fontWeight: 600,
+                cursor: "pointer",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.4rem",
+              }}
+              title="Push all local articles on this laptop to the central cloud database"
+            >
+              <FaCloudUploadAlt /> Push All to Cloud
+            </button>
+
+            <button
+              type="button"
+              onClick={handlePullFromCloud}
+              disabled={isCloudSyncing}
+              style={{
+                background: "#334155",
+                color: "#e2e8f0",
+                border: "1px solid #475569",
+                padding: "0.45rem 0.85rem",
+                borderRadius: "8px",
+                fontSize: "0.82rem",
+                fontWeight: 600,
+                cursor: "pointer",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.4rem",
+              }}
+              title="Fetch latest articles from central cloud database"
+            >
+              <FaSyncAlt /> Pull Latest
+            </button>
+
+            <button
+              type="button"
+              onClick={handleExportJson}
+              style={{
+                background: "#1e293b",
+                color: "#cbd5e1",
+                border: "1px solid #475569",
+                padding: "0.45rem 0.75rem",
+                borderRadius: "8px",
+                fontSize: "0.82rem",
+                fontWeight: 500,
+                cursor: "pointer",
+              }}
+              title="Download backup file of all articles (.json)"
+            >
+              📥 Export JSON
+            </button>
+
+            <label
+              style={{
+                background: "#1e293b",
+                color: "#cbd5e1",
+                border: "1px solid #475569",
+                padding: "0.45rem 0.75rem",
+                borderRadius: "8px",
+                fontSize: "0.82rem",
+                fontWeight: 500,
+                cursor: "pointer",
+                margin: 0,
+              }}
+              title="Import articles from another laptop (.json)"
+            >
+              📤 Import JSON
+              <input
+                type="file"
+                ref={importJsonRef}
+                accept=".json"
+                style={{ display: "none" }}
+                onChange={handleImportJson}
+              />
+            </label>
+          </div>
         </div>
 
         {/* Global Statistics Overview */}

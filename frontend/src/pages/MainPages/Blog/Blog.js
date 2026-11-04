@@ -1,7 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import style from "./Blog.module.css";
-import { BLOG_CATEGORIES, getStoredPosts, saveStoredPosts, recordArticleLike } from "../../../data/BlogData";
+import {
+  BLOG_CATEGORIES,
+  getStoredPosts,
+  saveStoredPosts,
+  recordArticleLike,
+  fetchBlogPostsFromCloud,
+  syncAllLocalPostsToCloud,
+} from "../../../data/BlogData";
 import BlogAdminPortal from "./BlogAdminPortal";
 import {
   FaSearch,
@@ -43,6 +50,19 @@ export default function Blog() {
     return () => {
       window.removeEventListener("storage", handleStorageChange);
       window.removeEventListener("focus", handleStorageChange);
+    };
+  }, []);
+
+  // Synchronize latest articles from Central PostgreSQL Cloud Database
+  useEffect(() => {
+    let isMounted = true;
+    fetchBlogPostsFromCloud().then((res) => {
+      if (isMounted && res && res.articles && res.articles.length > 0) {
+        setPosts(res.articles);
+      }
+    });
+    return () => {
+      isMounted = false;
     };
   }, []);
 
@@ -278,6 +298,7 @@ export default function Blog() {
           onSavePosts={(updatedPosts) => {
             setPosts(updatedPosts);
             saveStoredPosts(updatedPosts);
+            syncAllLocalPostsToCloud(updatedPosts);
           }}
           onLogout={handleAdminLogout}
           onViewLiveSite={() => {

@@ -3,9 +3,10 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import style from "./BlogPostDetail.module.css";
 import {
   getStoredPosts,
-  saveStoredPosts,
   recordArticleView,
   recordArticleLike,
+  fetchBlogPostsFromCloud,
+  deleteBlogPostFromCloud,
   ADMIN_AUTH_KEY,
 } from "../../../data/BlogData";
 import RichArticleRenderer from "./RichArticleRenderer";
@@ -39,6 +40,19 @@ export default function BlogPostDetail() {
   });
   const [toastMessage, setToastMessage] = useState(null);
   const [readingProgress, setReadingProgress] = useState(0);
+
+  // Fetch latest articles from cloud database in background so cross-laptop edits appear
+  useEffect(() => {
+    let isMounted = true;
+    fetchBlogPostsFromCloud().then((res) => {
+      if (isMounted && res && res.articles && res.articles.length > 0) {
+        setPosts(res.articles);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // Record real-time view and sync stored posts
   useEffect(() => {
@@ -158,9 +172,8 @@ export default function BlogPostDetail() {
     if (!article) return;
     const confirmed = window.confirm(`Are you sure you want to delete "${article.title}"?`);
     if (confirmed) {
-      const updated = posts.filter((p) => p.id !== article.id);
-      saveStoredPosts(updated);
-      alert("Article deleted successfully.");
+      deleteBlogPostFromCloud(article.id);
+      alert("Article deleted successfully across all devices.");
       navigate("/blog");
     }
   };
