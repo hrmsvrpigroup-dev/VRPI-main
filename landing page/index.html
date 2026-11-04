@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VR PI Group — Free Industrial Internship Program 2026</title>
+  <meta name="description" content="Apply for VR PI Group's 100% Free Industrial Internship Program. Gain real-world corporate experience across Tech, Infrastructure, Finance, Food Processing, and Management with zero tuition fees." />
+  
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Top Notification Bar -->
+  <div class="announcement-bar">
+    <div class="container announcement-content">
+      <span class="announcement-pill">Cohort 2026 Open</span>
+      <span>Applications for Summer &amp; Fall Free Industrial Internship are now live. Zero Tuition Fee.</span>
+      <a href="#apply" class="announcement-link">Apply Now &rarr;</a>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="#" class="brand-logo">
+        <span class="logo-accent">VR</span><span class="logo-dark">PI</span>
+        <span class="logo-tag">INTERNSHIPS</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#about" class="nav-link">About Program</a>
+        <a href="#benefits" class="nav-link">Why VR PI</a>
+        <a href="#domains" class="nav-link">Domains</a>
+        <a href="#faq" class="nav-link">FAQs</a>
+        <a href="#contact-info" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="#apply" class="btn btn-primary btn-sm">
+          <span>Apply For Free</span>
+          <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero / Banner Section -->
+  <section class="banner-section" id="about">
+    <div class="container banner-inner">
+      <div class="sub-title-v2">
+        <span class="badge-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </span>
+        <span>100% Free Industrial Internship • 2026 Batch</span>
+      </div>
+
+      <h1 class="banner-title">
+        Launch Your Career with <span class="highlight-text">VR PI Free Industrial</span> Internship
+      </h1>
+
+      <p class="banner-description">
+        Bridging the academic-to-corporate gap. Work on live enterprise client projects under executive industry directors across Software, AI, Civil Infra, Finance, and Management. Absolutely zero training charges.
+      </p>
+
+      <div class="banner-stats-row">
+        <div class="stat-pill">
+          <strong class="stat-number">₹0</strong>
+          <span class="stat-label">Zero Tuition Fee</span>
+        </div>
+        <div class="stat-pill">
+          <strong class="stat-number">8–12</strong>
+          <span class="stat-label">Weeks Duration</span>
+        </div>
+        <div class="stat-pill">
+          <strong class="stat-number">1,250+</strong>
+          <span class="stat-label">Interns Trained</span>
+        </div>
+        <div class="stat-pill">
+          <strong class="stat-number">100%</strong>
+          <span class="stat-label">Verified Certificate &amp; LOR</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Application Form & Contact Info Section (Recrot Style Layout) -->
+  <section class="contact-section" id="apply">
+    <div class="container">
+      <div class="contact-layout">
+
+        <!-- Application Form Column (Left / Main) -->
+        <div class="contact-form-block">
+          <div class="form-header">
+            <span class="form-tag">Official Registration</span>
+            <h2 class="form-title">Candidate Application Form</h2>
+            <p class="form-subtitle">Fill in your information accurately. Our academic review panel reviews applications within 48 business hours.</p>
+          </div>
+
+          <form id="internshipForm" class="internship-form" novalidate>
+            <!-- Name & Email Row -->
+            <div class="form-grid-2">
+              <div class="input-field-wrap">
+                <label for="fullName" class="input-label">Full Name <span class="required">*</span></label>
+                <div class="input-control">
+                  <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <input type="text" id="fullName" name="fullName" class="input-field" placeholder="e.g. Rahul Sharma" required />
+                </div>
+                <span class="error-text" id="nameError"></span>
+              </div>
+
+              <div class="input-field-wrap">
+                <label for="email" class="input-label">Email Address <span class="required">*</span></label>
+                <div class="input-control">
+                  <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  <input type="email" id="email" name="email" class="input-field" placeholder="rahul@example.com" required />
+                </div>
+                <span class="error-text" id="emailError"></span>
+              </div>
+            </div>
+
+            <!-- Phone & College Row -->
+            <div class="form-grid-2">
+              <div class="input-field-wrap">
+                <label for="phone" class="input-label">WhatsApp / Phone Number <span class="required">*</span></label>
+                <div class="input-control">
+                  <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  <input type="tel" id="phone" name="phone" class="input-field" placeholder="+91 98765 43210" required />
+                </div>
+                <span class="error-text" id="phoneError"></span>
+              </div>
+
+              <div class="input-field-wrap">
+                <label for="college" class="input-label">College / University <span class="required">*</span></label>
+                <div class="input-control">
+                  <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                  <input type="text" id="college" name="college" class="input-field" placeholder="e.g. IIT, NIT, JNTU, Osmania..." required />
+                </div>
+                <span class="error-text" id="collegeError"></span>
+              </div>
+            </div>
+
+            <!-- Qualification & Domain Row -->
+            <div class="form-grid-2">
+              <div class="input-field-wrap">
+                <label for="qualification" class="input-label">Degree &amp; Passing Year <span class="required">*</span></label>
+                <div class="input-control">
+                  <select id="qualification" name="qualification" class="input-field select-field" required>
+                    <option value="">Select Qualification</option>
+                    <option value="B.Tech / B.E (2024-2027)">B.Tech / B.E (Engineering)</option>
+                    <option value="MCA / BCA (2024-2027)">MCA / BCA (Computer Applications)</option>
+                    <option value="B.Sc / M.Sc (IT/Data/Science)">B.Sc / M.Sc (Computer Science / Data)</option>
+                    <option value="MBA / BBA / B.Com (Finance/HR)">MBA / BBA / B.Com (Business/Finance)</option>
+                    <option value="Civil / Structural / Mech">Civil / Architectural / Mech Eng</option>
+                    <option value="Recent Graduate / Career Changer">Recent Graduate / Career Switcher</option>
+                  </select>
+                </div>
+                <span class="error-text" id="qualificationError"></span>
+              </div>
+
+              <div class="input-field-wrap">
+                <label for="domain" class="input-label">Internship Domain Track <span class="required">*</span></label>
+                <div class="input-control">
+                  <select id="domain" name="domain" class="input-field select-field" required>
+                    <option value="">Choose Specialization Track</option>
+                    <option value="Tech Solutions: Full Stack Web & Mobile">Tech Solutions: Full Stack Web &amp; Mobile</option>
+                    <option value="Cloud Architecture & AI/ML Engineering">Cloud Architecture &amp; AI/ML Engineering</option>
+                    <option value="Civil & Infrastructure BIM Modeling">Civil &amp; Infrastructure BIM Modeling</option>
+                    <option value="Financial Valuation & FinTech Analytics">Financial Valuation &amp; FinTech Analytics</option>
+                    <option value="AgriTech & Food Processing Engineering">AgriTech &amp; Food Processing Engineering</option>
+                    <option value="Management Consulting & Business Analytics">Management Consulting &amp; Business Analytics</option>
+                  </select>
+                </div>
+                <span class="error-text" id="domainError"></span>
+              </div>
+            </div>
+
+            <!-- Mode & Portfolio Link -->
+            <div class="form-grid-2">
+              <div class="input-field-wrap">
+                <label for="internshipMode" class="input-label">Preferred Internship Mode <span class="required">*</span></label>
+                <div class="input-control">
+                  <select id="internshipMode" name="internshipMode" class="input-field select-field" required>
+                    <option value="Virtual / Remote (Pan-India)">Virtual / Remote (Pan-India Online)</option>
+                    <option value="Hybrid (Office & Remote)">Hybrid (Office &amp; Remote)</option>
+                    <option value="On-Site (Corporate Office, Hyderabad)">On-Site (Corporate Office, Hyderabad)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="input-field-wrap">
+                <label for="portfolioUrl" class="input-label">LinkedIn / GitHub / Portfolio Link</label>
+                <div class="input-control">
+                  <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                  <input type="url" id="portfolioUrl" name="portfolioUrl" class="input-field" placeholder="https://linkedin.com/in/username" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Statement of Interest -->
+            <div class="input-field-wrap">
+              <label for="statement" class="input-label">Why do you want to join this Free Internship? (Optional)</label>
+              <textarea id="statement" name="statement" class="input-field textarea-field" rows="3" placeholder="Tell us about your learning goals, current technical projects, and what you aim to achieve..."></textarea>
+            </div>
+
+            <!-- Terms & Consent -->
+            <div class="form-checkbox-wrap">
+              <input type="checkbox" id="termsCheck" name="termsCheck" required checked />
+              <label for="termsCheck">
+                I understand this is a <strong>100% Free Industrial Program</strong> with ₹0 tuition fee, sponsored by VR PI Group. I commit to attending scheduled project reviews and submitting deliverables responsibly.
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-button-block">
+              <button type="submit" id="submitBtn" class="btn btn-primary btn-block">
+                <span class="btn-text">Submit Free Application</span>
+                <span class="btn-loader" style="display: none;">
+                  <span class="spinner"></span> Processing...
+                </span>
+                <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </form>
+
+          <!-- Success Confirmation Modal / Banner -->
+          <div id="formSuccessMessage" class="success-message" style="display: none;">
+            <div class="success-icon-wrap">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3>Application Received Successfully!</h3>
+            <p>Your application ID is <strong id="applicationIdDisplay">VRPI-INT-2026-XXXX</strong>. Our academic onboarding team will review your profile and send interview/selection details to your registered email address within 48 business hours.</p>
+            <div class="success-actions">
+              <button type="button" class="btn btn-secondary btn-sm" id="resetFormBtn">Submit Another Application</button>
+              <a href="#benefits" class="btn btn-outline btn-sm">Explore Curriculum</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Info & Support Column (Right / Matching Recrot Style) -->
+        <div class="contact-info-block" id="contact-info">
+          <div class="contact-info-title">
+            <span class="info-tag">Candidate Support</span>
+            <h2 class="h4">Program Helpdesk</h2>
+            <div class="text-sm">Have queries regarding domain eligibility, project allocation, or interview scheduling? Reach out to our program coordinators directly.</div>
+          </div>
+
+          <div class="contact-button-block">
+            <!-- Office Address -->
+            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="contact-card">
+              <div class="contact-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="contact-text">
+                <span class="contact-label">Corporate Headquarters</span>
+                <span class="contact-value">VR PI Group, HITEC City, Madhapur, Hyderabad, Telangana 500081</span>
+              </div>
+            </a>
+
+            <!-- Direct Phone -->
+            <a href="tel:+919121623456" class="contact-card">
+              <div class="contact-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div class="contact-text">
+                <span class="contact-label">Candidate Admissions Desk</span>
+                <span class="contact-value">+91 91216 23456 / +91 40 4567 8900</span>
+              </div>
+            </a>
+
+            <!-- Email Inquiries -->
+            <a href="mailto:internships@vrpigroup.com" class="contact-card">
+              <div class="contact-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="contact-text">
+                <span class="contact-label">Official Inquiries &amp; Verification</span>
+                <span class="contact-value">internships@vrpigroup.com</span>
+              </div>
+            </a>
+
+            <!-- Working Hours -->
+            <div class="contact-card no-hover">
+              <div class="contact-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="contact-text">
+                <span class="contact-label">Working Hours &amp; Sprints</span>
+                <span class="contact-value">Monday – Saturday: 9:30 AM – 6:30 PM IST</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Highlight Trust Card -->
+          <div class="trust-highlight-card">
+            <div class="trust-header">
+              <span class="trust-badge">CSR Initiative</span>
+              <h4>Why is this Internship 100% Free?</h4>
+            </div>
+            <p>
+              VR PI Group believes in empowering budding engineers and professionals. We do not charge students for technical training, portal access, project assignments, or certification. Selection is strictly merit and enthusiasm-based.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Benefits / Why Choose VR PI -->
+  <section class="benefits-section" id="benefits">
+    <div class="container">
+      <div class="section-title-wrap text-center">
+        <span class="sub-title-v2 centered">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+          Industrial Advantages
+        </span>
+        <h2 class="section-heading">Everything You Need to Step Into Top Corporate Careers</h2>
+        <p class="section-subheading">Designed for university students and fresh graduates who want practical execution over theoretical slideshows.</p>
+      </div>
+
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3 class="benefit-title">Live Enterprise Codebases</h3>
+          <p class="benefit-desc">Work on real client deliverables, microservices, and production pipelines instead of toy to-do apps. Build portfolio-ready software.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3 class="benefit-title">1-on-1 Executive Mentorship</h3>
+          <p class="benefit-desc">Weekly one-on-one code reviews, architectural feedback, and career guidance from senior tech leaders and department heads.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          </div>
+          <h3 class="benefit-title">Verified Certification &amp; LOR</h3>
+          <p class="benefit-desc">Receive a tamper-proof QR-verifiable Internship Completion Certificate and formal Letter of Recommendation for top contributors.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h3 class="benefit-title">Pre-Placement Offer (PPO)</h3>
+          <p class="benefit-desc">Exceptional interns are offered fast-track pre-placement offers (PPOs) across VR PI Group subsidiary companies.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+          </div>
+          <h3 class="benefit-title">Flexible Timings</h3>
+          <p class="benefit-desc">College-friendly pacing with evening and weekend sprint catch-ups so your academic exams are never disrupted.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="benefit-title">100% Free Guarantee</h3>
+          <p class="benefit-desc">Zero deposit, zero study-material fee, zero test fee. Everything from software tools to mentor sessions is completely complimentary.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Domain Specialization Tracks -->
+  <section class="domains-section" id="domains">
+    <div class="container">
+      <div class="section-title-wrap text-center">
+        <span class="sub-title-v2 centered">Specialized Tracks</span>
+        <h2 class="section-heading">Available Internship Domains</h2>
+        <p class="section-subheading">Choose the track that fits your career aspirations. Work directly with respective group companies.</p>
+      </div>
+
+      <div class="domains-grid">
+        <!-- Track 1: Tech Solutions -->
+        <div class="domain-card">
+          <div class="domain-badge">Tech Solutions</div>
+          <h3 class="domain-title">Full Stack Web &amp; Mobile</h3>
+          <p class="domain-summary">Build scalable enterprise apps using React 18, Next.js, Node.js, Express, PostgreSQL, and AWS cloud deployment.</p>
+          <div class="domain-tags">
+            <span>React</span><span>Node.js</span><span>Next.js</span><span>PostgreSQL</span><span>Docker</span>
+          </div>
+          <a href="#apply" class="domain-apply-link">Apply For This Track &rarr;</a>
+        </div>
+
+        <!-- Track 2: AI & Cloud -->
+        <div class="domain-card">
+          <div class="domain-badge">AI &amp; Data</div>
+          <h3 class="domain-title">Cloud &amp; Generative AI</h3>
+          <p class="domain-summary">Deploy autonomous agent workflows, LLM fine-tuning, vector databases, RAG architecture, and Kubernetes pipelines.</p>
+          <div class="domain-tags">
+            <span>Python</span><span>FastAPI</span><span>LangChain</span><span>Pinecone</span><span>AWS</span>
+          </div>
+          <a href="#apply" class="domain-apply-link">Apply For This Track &rarr;</a>
+        </div>
+
+        <!-- Track 3: Civil & Infra -->
+        <div class="domain-card">
+          <div class="domain-badge">Infrastructure</div>
+          <h3 class="domain-title">Civil BIM &amp; Smart Modeling</h3>
+          <p class="domain-summary">Work on structural analysis, Revit BIM models, AutoCAD drafting, and sustainable urban infrastructure plans.</p>
+          <div class="domain-tags">
+            <span>AutoCAD</span><span>Revit</span><span>ETABS</span><span>BIM</span><span>GIS</span>
+          </div>
+          <a href="#apply" class="domain-apply-link">Apply For This Track &rarr;</a>
+        </div>
+
+        <!-- Track 4: Finance -->
+        <div class="domain-card">
+          <div class="domain-badge">Financial Services</div>
+          <h3 class="domain-title">Corporate Finance &amp; FinTech</h3>
+          <p class="domain-summary">Financial statement analysis, discounted cash flow (DCF) modeling, portfolio risk hedging, and algorithmic reconciliation.</p>
+          <div class="domain-tags">
+            <span>Financial Modeling</span><span>PowerBI</span><span>FinTech</span><span>Valuation</span>
+          </div>
+          <a href="#apply" class="domain-apply-link">Apply For This Track &rarr;</a>
+        </div>
+
+        <!-- Track 5: Food Tech -->
+        <div class="domain-card">
+          <div class="domain-badge">Food Processing</div>
+          <h3 class="domain-title">Food Tech &amp; Supply Chain QA</h3>
+          <p class="domain-summary">HACCP compliance standards, cold-chain logistics optimization, food safety inspection, and export traceability.</p>
+          <div class="domain-tags">
+            <span>QA/QC</span><span>HACCP</span><span>Supply Chain</span><span>Cold Chain</span>
+          </div>
+          <a href="#apply" class="domain-apply-link">Apply For This Track &rarr;</a>
+        </div>
+
+        <!-- Track 6: Management -->
+        <div class="domain-card">
+          <div class="domain-badge">Consulting</div>
+          <h3 class="domain-title">Management Consulting &amp; Strategy</h3>
+          <p class="domain-summary">Market research, operational KPI audits, corporate pitch decks, competitor reconnaissance, and client proposals.</p>
+          <div class="domain-tags">
+            <span>Strategy</span><span>Market Analysis</span><span>Agile Scrum</span><span>KPIs</span>
+          </div>
+          <a href="#apply" class="domain-apply-link">Apply For This Track &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive FAQ Accordion -->
+  <section class="faq-section" id="faq">
+    <div class="container faq-container">
+      <div class="section-title-wrap text-center">
+        <span class="sub-title-v2 centered">Clear Answers</span>
+        <h2 class="section-heading">Frequently Asked Questions</h2>
+        <p class="section-subheading">Everything you need to know about eligibility, selection, and program deliverables.</p>
+      </div>
+
+      <div class="faq-accordion">
+        <div class="faq-item active">
+          <button class="faq-question">
+            <span>Is this internship really 100% free of cost?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, absolutely. VR PI Group does not charge any application fee, registration fee, examination charge, or training fee. This is an industry talent initiative aimed at grooming high-potential talent.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Who is eligible to apply for this internship?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Undergraduate and postgraduate students (B.Tech, B.E, MCA, BCA, B.Sc, MBA, B.Com, Civil/Mechanical) from any recognized university across India are eligible. Fresh graduates and self-taught developers are also encouraged to apply.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What is the selection and screening process?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>After submitting the application form, candidates are screened based on their academic background, project interest, and statement. Shortlisted candidates receive an online assessment or technical interaction link within 48 business hours.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Will I receive a certificate and Letter of Recommendation (LOR)?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. Upon successful completion of assigned sprint deliverables and project evaluation, all interns receive an official VR PI Group Internship Certificate with digital verification ID. High-performing interns receive a formal Letter of Recommendation (LOR) signed by the department director.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Can I do this internship alongside my college classes?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Yes! Our remote and hybrid tracks are structured with flexible sprint milestones and recorded weekend mentor workshops to ensure candidates can balance academic commitments seamlessly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Newsletter / Stay Updated (Matching Recrot Newsletter Section) -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content-block">
+        <div class="cta-text-block">
+          <h2 class="cta-title">Subscribe to VR PI Internship &amp; Placement Alerts</h2>
+          <p class="cta-description">Receive notifications regarding upcoming cohort schedules, guest director lectures, and campus recruitment drives directly to your inbox.</p>
+        </div>
+        <div class="cta-form-block">
+          <form id="newsletterForm" class="newsletter-form">
+            <input type="email" id="newsletterEmail" class="newsletter-input" placeholder="Enter your college or personal email" required />
+            <button type="submit" class="btn btn-secondary">
+              <span>Subscribe</span>
+              <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </form>
+          <span class="newsletter-status" id="newsletterStatus"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section (Matching Recrot Layout & Brand) -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content-block">
+        <div class="footer-brand-column">
+          <a href="#" class="brand-logo footer-logo">
+            <span class="logo-accent">VR</span><span class="logo-light">PI</span>
+            <span class="logo-tag-light">GROUP OF COMPANIES</span>
+          </a>
+          <p class="footer-desc">
+            VR PI Group is an integrated conglomerate operating across Technology Solutions, Infrastructure &amp; Construction, Financial Services, Food Processing, and Global Trade.
+          </p>
+          <div class="footer-social-links">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.13-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-links-group">
+          <div class="footer-links-block">
+            <h4 class="footer-link-title">Internship Tracks</h4>
+            <div class="footer-links-wrap">
+              <a href="#domains" class="footer-link">Tech Solutions</a>
+              <a href="#domains" class="footer-link">AI &amp; Data Engineering</a>
+              <a href="#domains" class="footer-link">Civil BIM Modeling</a>
+              <a href="#domains" class="footer-link">Corporate Finance</a>
+              <a href="#domains" class="footer-link">Food Processing</a>
+            </div>
+          </div>
+
+          <div class="footer-links-block">
+            <h4 class="footer-link-title">Quick Links</h4>
+            <div class="footer-links-wrap">
+              <a href="#about" class="footer-link">Program Overview</a>
+              <a href="#benefits" class="footer-link">Why Choose Us</a>
+              <a href="#apply" class="footer-link">Apply Now</a>
+              <a href="#faq" class="footer-link">Candidate FAQs</a>
+              <a href="#contact-info" class="footer-link">Support Desk</a>
+            </div>
+          </div>
+
+          <div class="footer-links-block">
+            <h4 class="footer-link-title">Group Entities</h4>
+            <div class="footer-links-wrap">
+              <a href="https://vrpitechsolutions.com/" target="_blank" rel="noopener noreferrer" class="footer-link">VR PI Tech Solutions &nearr;</a>
+              <a href="/" class="footer-link">VR PI Constructions</a>
+              <a href="/" class="footer-link">VR PI Financial Services</a>
+              <a href="/" class="footer-link">VR PI Agro Foods</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom-row">
+        <p>&copy; 2026 VR PI Group of Companies. All Rights Reserved. Empowering future professionals through merit-based industrial internships.</p>
+        <div class="footer-legal-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Non-Disclosure Agreement</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

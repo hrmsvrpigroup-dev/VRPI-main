@@ -37,6 +37,7 @@ import ContactUs from "./pages/MainPages/ContactUs/ContactUs";
 import Gallery from "./pages/MainPages/Gallery/Gallery";
 import Blog from "./pages/MainPages/Blog/Blog";
 import BlogPostDetail from "./pages/MainPages/Blog/BlogPostDetail";
+import InternshipLandingPage from "./pages/LandingPage/InternshipLandingPage";
 import CourseDetails from "./pages/KnowledgeHub/CourseDetails/CourseDetails";
 import SignUp from "./pages/Login&Signup/SignUp/SignUp";
 
@@ -183,7 +184,23 @@ function App() {
           element: <TermsAndConditions />,
           errorElement: <ErrorPage errorData={GeneralErrorData} />,
         },
+        {
+          path: "/landing-page",
+          element: <InternshipLandingPage />,
+          errorElement: <ErrorPage errorData={GeneralErrorData} />,
+        },
+        {
+          path: "/free-internship",
+          element: <InternshipLandingPage />,
+          errorElement: <ErrorPage errorData={GeneralErrorData} />,
+        },
       ],
+    },
+
+    {
+      path: "/free-internship-landing",
+      element: <InternshipLandingPage />,
+      errorElement: <ErrorPage errorData={GeneralErrorData} />,
     },
 
     {
