@@ -4,7 +4,7 @@ import vrpiLogo from '../../assets/vrpiLogo.png';
 
 // Google Apps Script Web App Endpoint for Google Sheet sync:
 // Sheet: https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit
-const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbw6Z_DEPLOYMENT_ID/exec";
+const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyKKJUk6_pe1qtpqBZp6jYsCA8O97g5IlbwNRetYQ-6pjJql29fnEUKqPrV795kh9FI8g/exec";
 
 export default function InternshipLandingPage() {
   const [formData, setFormData] = useState({
