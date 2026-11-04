@@ -547,7 +547,7 @@ export default function InternshipLandingPage() {
                   </div>
 
                   <div className={styles.successHelpNote}>
-                    Need help or want to make updates? Email <strong>internships@vrpigroup.com</strong> or call <strong>+91 91216 23456</strong> quoting your Application ID.
+                    Need help or want to make updates? Email <strong>info@vrpigroup.co.in</strong> or call <strong>+91 91216 23456</strong> quoting your Application ID.
                   </div>
                 </div>
               )}
@@ -568,7 +568,7 @@ export default function InternshipLandingPage() {
                   <div className={styles.contactIconWrap}>📍</div>
                   <div className={styles.contactText}>
                     <span className={styles.contactLabel}>Corporate Headquarters</span>
-                    <span className={styles.contactValue}>VR PI Group, HITEC City, Madhapur, Hyderabad, Telangana 500081</span>
+                    <span className={styles.contactValue}>8th Floor (B-Block), Meenakshi Tech Park, Phase-2, Gachibowli, Hyderabad, Telangana 500032, India</span>
                   </div>
                 </div>
 
@@ -580,11 +580,11 @@ export default function InternshipLandingPage() {
                   </div>
                 </a>
 
-                <a href="mailto:internships@vrpigroup.com" className={styles.contactCard}>
+                <a href="mailto:info@vrpigroup.co.in" className={styles.contactCard}>
                   <div className={styles.contactIconWrap}>✉️</div>
                   <div className={styles.contactText}>
                     <span className={styles.contactLabel}>Official Inquiries</span>
-                    <span className={styles.contactValue}>internships@vrpigroup.com</span>
+                    <span className={styles.contactValue}>info@vrpigroup.co.in</span>
                   </div>
                 </a>
 

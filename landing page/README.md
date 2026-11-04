@@ -33,8 +33,8 @@ landing page/
    - Automatically stores applications in browser `localStorage` (`vrpi_internship_applications`).
 
 3. **Corporate Contact Cards**:
-   - Headquarters address (HITEC City, Madhapur, Hyderabad).
-   - Direct helpline numbers and official inquiry email (`internships@vrpigroup.com`).
+   - Headquarters address: `8th Floor (B-Block), Meenakshi Tech Park, Phase-2, Gachibowli, Hyderabad, Telangana 500032, India`.
+   - Direct helpline numbers and official inquiry email (`info@vrpigroup.co.in`).
    - Operating hours and sprint schedule.
    - CSR trust card explaining why the program is completely free with ₹0 tuition.
 
