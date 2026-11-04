@@ -51,13 +51,24 @@ function NavbarForMobile({ navElements, dashboard }) {
           links.map((link) => (
             <li key={Math.random()}>
               {link.active ? (
-                <NavLink
-                  to={link.link}
-                  className={({ isActive }) => (isActive ? "active" : null)}
-                  onClick={toggleMenuIcon}
-                >
-                  {link.name}
-                </NavLink>
+                link.link &&
+                (link.link.startsWith("http://") ||
+                  link.link.startsWith("https://")) ? (
+                  <a
+                    href={link.link}
+                    onClick={toggleMenuIcon}
+                  >
+                    {link.name}
+                  </a>
+                ) : (
+                  <NavLink
+                    to={link.link}
+                    className={({ isActive }) => (isActive ? "active" : null)}
+                    onClick={toggleMenuIcon}
+                  >
+                    {link.name}
+                  </NavLink>
+                )
               ) : (
                 <button
                   onClick={() => dispatch(setComingSoon(true))}

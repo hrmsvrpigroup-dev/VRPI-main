@@ -110,7 +110,7 @@ export const MainDropdownLinks = [
           descriptionHead: "Tech Solutions",
           descriptionContent:
             "Our technology solutions leverage advanced innovations and specialized expertise to address diverse challenges across industries. From software development to system integration and cybersecurity, we deliver customized strategies that optimize operations, enhance security, and drive digital transformation for businesses worldwide.",
-          link: "/tech-solutions",
+          link: "https://vrpitechsolutions.com/",
           active: true,
         },
       },
@@ -260,7 +260,7 @@ export const navElementsForMobileData = [
       { name: "Food Processing", link: "/food-processing", active: true },
       { name: "Imports & Exports", link: "/imports-exports", active: true },
       { name: "Management & Consulting", link: "/management-consulting", active: true },
-      { name: "Tech Solutions", link: "/tech-solutions", active: true },
+      { name: "Tech Solutions", link: "https://vrpitechsolutions.com/", active: true },
     ],
   },
 

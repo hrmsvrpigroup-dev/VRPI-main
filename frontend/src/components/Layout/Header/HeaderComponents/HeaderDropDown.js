@@ -18,7 +18,15 @@ const HeaderDropdown = ({ data, onMouseEnter, onMouseLeave, onClose, style }) =>
     // Close dropdown immediately before navigating
     if (onClose) onClose();
     if (selectedItem.description.active) {
-      navigate(selectedItem.description.link);
+      const targetLink = selectedItem.description.link;
+      if (
+        targetLink &&
+        (targetLink.startsWith("http://") || targetLink.startsWith("https://"))
+      ) {
+        window.location.href = targetLink;
+      } else {
+        navigate(targetLink);
+      }
     } else {
       dispatch(setComingSoon(true));
     }
