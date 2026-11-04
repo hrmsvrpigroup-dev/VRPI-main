@@ -26,7 +26,6 @@
 
 // Spreadsheet ID from your URL
 const SPREADSHEET_ID = "18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA";
-const SHEET_NAME = "Internship Applications";
 
 /**
  * Handle POST requests from the Landing Page form submission
@@ -49,13 +48,11 @@ function doPost(e) {
     }
 
     const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    let sheet = ss.getSheetByName(SHEET_NAME);
+    // Write directly to Sheet1 (first sheet)
+    let sheet = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
 
-    // If sheet doesn't exist, create it and setup headers
-    if (!sheet) {
-      sheet = ss.insertSheet(SHEET_NAME);
-      setupHeaders(sheet);
-    } else if (sheet.getLastRow() === 0) {
+    // If sheet is empty or headers are missing, setup headers automatically
+    if (sheet.getLastRow() === 0) {
       setupHeaders(sheet);
     }
 
@@ -116,6 +113,17 @@ function doPost(e) {
   } finally {
     lock.releaseLock();
   }
+}
+
+/**
+ * Run this function once in Apps Script (select 'createHeadersNow' and click Run)
+ * to immediately format and create headers on Sheet1!
+ */
+function createHeadersNow() {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const sheet = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
+  setupHeaders(sheet);
+  Logger.log("Headers created successfully on " + sheet.getName());
 }
 
 /**
