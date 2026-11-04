@@ -42,3 +42,4 @@ seed().catch((err) => {
   console.error("Seeding failed:", err.message);
   pool.end();
 });
+

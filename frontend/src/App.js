@@ -184,19 +184,19 @@ function App() {
           element: <TermsAndConditions />,
           errorElement: <ErrorPage errorData={GeneralErrorData} />,
         },
-        {
-          path: "/landing-page",
-          element: <InternshipLandingPage />,
-          errorElement: <ErrorPage errorData={GeneralErrorData} />,
-        },
-        {
-          path: "/free-internship",
-          element: <InternshipLandingPage />,
-          errorElement: <ErrorPage errorData={GeneralErrorData} />,
-        },
       ],
     },
 
+    {
+      path: "/free-internship",
+      element: <InternshipLandingPage />,
+      errorElement: <ErrorPage errorData={GeneralErrorData} />,
+    },
+    {
+      path: "/landing-page",
+      element: <InternshipLandingPage />,
+      errorElement: <ErrorPage errorData={GeneralErrorData} />,
+    },
     {
       path: "/free-internship-landing",
       element: <InternshipLandingPage />,
