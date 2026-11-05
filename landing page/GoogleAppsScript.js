@@ -6,11 +6,12 @@
  * ============================================================================
  *
  * HOW TO DEPLOY:
- * 1. Open your Google Sheet: https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit
+ * 1. Open your Google Sheet:
+ *    https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit
  * 2. Click Extensions -> Apps Script.
  * 3. Delete everything in Code.gs and paste this entire script.
  * 4. Click the Save icon (Ctrl+S).
- * 5. (OPTIONAL) Select 'createHeadersNow' from the dropdown at the top and click 'Run'.
+ * 5. (OPTIONAL) Select 'createHeadersNow' from the function dropdown at the top and click 'Run'.
  *    Check your Sheet1 — the orange headers will appear instantly!
  * 6. Click "Deploy" (top right) -> "Manage deployments" (or "New deployment").
  *    - Click the pencil (edit) icon or "New deployment"
@@ -34,7 +35,7 @@ function doPost(e) {
   } catch (err) {}
 
   try {
-    let data = {};
+    var data = {};
     if (e && e.postData && e.postData.contents) {
       try {
         data = JSON.parse(e.postData.contents);
@@ -45,21 +46,21 @@ function doPost(e) {
       data = e.parameter;
     }
 
-    const timestamp = data.timestamp || Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy-MM-dd HH:mm:ss");
-    const applicationId = data.applicationId || ("VRPI-INT-" + Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy") + "-" + Math.floor(1000 + Math.random() * 9000));
-    const fullName = data.fullName || data.name || "";
-    const email = data.email || "";
-    const phone = data.phone || data.whatsapp || "";
-    const college = data.college || data.university || "";
-    const qualification = data.qualification || data.degree || "";
-    const domain = data.domain || data.track || "";
-    const internshipMode = data.internshipMode || data.mode || "Virtual / Remote (Pan-India Online)";
-    const portfolioUrl = data.portfolioUrl || data.linkedin || "";
-    const statement = data.statement || data.goals || "";
-    const status = data.status || "Under Technical Review";
+    var timestamp = data.timestamp || Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy-MM-dd HH:mm:ss");
+    var applicationId = data.applicationId || ("VRPI-INT-" + Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy") + "-" + Math.floor(1000 + Math.random() * 9000));
+    var fullName = data.fullName || data.name || "";
+    var email = data.email || "";
+    var phone = data.phone || data.whatsapp || "";
+    var college = data.college || data.university || "";
+    var qualification = data.qualification || data.degree || "";
+    var domain = data.domain || data.track || "";
+    var internshipMode = data.internshipMode || data.mode || "Virtual / Remote (Pan-India Online)";
+    var portfolioUrl = data.portfolioUrl || data.linkedin || "";
+    var statement = data.statement || data.goals || "";
+    var status = data.status || "Under Technical Review";
 
-    // Row data to write (12 columns)
-    const rowData = [
+    // Row data to write (12 columns matching form)
+    var rowData = [
       timestamp,
       applicationId,
       fullName,
@@ -75,7 +76,7 @@ function doPost(e) {
     ];
 
     // Open target spreadsheet
-    let ss;
+    var ss;
     try {
       ss = SpreadsheetApp.openById(SPREADSHEET_ID);
     } catch (err) {
@@ -83,7 +84,7 @@ function doPost(e) {
     }
 
     // Write to Sheet1 (tab gid=0 or first tab)
-    let sheet1 = ss.getSheetByName("Sheet1");
+    var sheet1 = ss.getSheetByName("Sheet1");
     if (!sheet1) {
       sheet1 = ss.getSheets()[0];
     }
@@ -95,7 +96,7 @@ function doPost(e) {
     formatRow(sheet1, sheet1.getLastRow());
 
     // Also write to "Internship Applications" tab if it exists and is distinct
-    const appsSheet = ss.getSheetByName("Internship Applications");
+    var appsSheet = ss.getSheetByName("Internship Applications");
     if (appsSheet && appsSheet.getSheetId() !== sheet1.getSheetId()) {
       if (appsSheet.getLastRow() === 0) {
         setupHeaders(appsSheet);
@@ -131,7 +132,7 @@ function doPost(e) {
  * Handle GET requests (Health check or browser URL testing)
  */
 function doGet(e) {
-  if (e && e.parameter && e.parameter.fullName) {
+  if (e && e.parameter && (e.parameter.fullName || e.parameter.name)) {
     return doPost(e);
   }
 
@@ -157,13 +158,13 @@ function formatRow(sheet, rowNum) {
  * to immediately format and create headers on Sheet1!
  */
 function createHeadersNow() {
-  let ss;
+  var ss;
   try {
     ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   } catch (err) {
     ss = SpreadsheetApp.getActiveSpreadsheet();
   }
-  const sheet1 = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
+  var sheet1 = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
   setupHeaders(sheet1);
   Logger.log("Headers created successfully on: " + sheet1.getName());
 }
@@ -173,7 +174,7 @@ function createHeadersNow() {
  */
 function testInsert() {
   createHeadersNow();
-  const testPayload = {
+  var testPayload = {
     postData: {
       contents: JSON.stringify({
         fullName: "Test Candidate",
@@ -188,7 +189,7 @@ function testInsert() {
       })
     }
   };
-  const result = doPost(testPayload);
+  var result = doPost(testPayload);
   Logger.log("Test Result: " + result.getContent());
 }
 
@@ -197,23 +198,23 @@ function testInsert() {
  * to copy any existing applications from other tabs to Sheet1!
  */
 function syncToSheet1() {
-  let ss;
+  var ss;
   try {
     ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   } catch (err) {
     ss = SpreadsheetApp.getActiveSpreadsheet();
   }
-  const sheet1 = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
+  var sheet1 = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
   if (sheet1.getLastRow() === 0) {
     setupHeaders(sheet1);
   }
 
-  const appsSheet = ss.getSheetByName("Internship Applications");
+  var appsSheet = ss.getSheetByName("Internship Applications");
   if (appsSheet && appsSheet.getSheetId() !== sheet1.getSheetId()) {
-    const lastRow = appsSheet.getLastRow();
+    var lastRow = appsSheet.getLastRow();
     if (lastRow > 1) {
-      const data = appsSheet.getRange(2, 1, lastRow - 1, 12).getValues();
-      for (let i = 0; i < data.length; i++) {
+      var data = appsSheet.getRange(2, 1, lastRow - 1, 12).getValues();
+      for (var i = 0; i < data.length; i++) {
         sheet1.appendRow(data[i]);
         formatRow(sheet1, sheet1.getLastRow());
       }
@@ -226,7 +227,7 @@ function syncToSheet1() {
  * Initialize Headers & Table Formatting
  */
 function setupHeaders(sheet) {
-  const headers = [
+  var headers = [
     "Timestamp",
     "Application ID",
     "Full Name",
@@ -244,7 +245,7 @@ function setupHeaders(sheet) {
   sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
 
   // Style header row with VR PI Orange and Bold White text
-  const headerRange = sheet.getRange(1, 1, 1, headers.length);
+  var headerRange = sheet.getRange(1, 1, 1, headers.length);
   headerRange.setBackground("#FF5722");
   headerRange.setFontColor("#FFFFFF");
   headerRange.setFontWeight("bold");

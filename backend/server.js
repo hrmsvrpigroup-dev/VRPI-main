@@ -506,8 +506,17 @@ app.post("/client/post-internship", postInternshipHandler);
 
 // 13. Mount Google Sheets Internship Application Route & Database Insert
 app.post(["/api/apply-internship", "/apply-internship"], async (req, res, next) => {
-  const { name, email, phone, internshipRole, qualification, graduationYear, resumeLink, message } = req.body;
-  if (email && internshipRole) {
+  const candidateName = req.body.fullName || req.body.name || "";
+  const candidateEmail = req.body.email || "";
+  const candidatePhone = req.body.phone || req.body.whatsapp || "";
+  const candidateCollege = req.body.college || req.body.university || "";
+  const candidateQualification = req.body.qualification || req.body.degree || "";
+  const candidateRole = req.body.domain || req.body.internshipRole || req.body.track || "";
+  const candidateMode = req.body.internshipMode || req.body.mode || "Virtual / Remote (Pan-India Online)";
+  const candidatePortfolio = req.body.portfolioUrl || req.body.resumeLink || req.body.linkedin || "";
+  const candidateMessage = req.body.statement || req.body.message || "";
+
+  if (candidateEmail) {
     try {
       const id = "app_" + Math.random().toString(36).substr(2, 9);
       const query = `
@@ -516,14 +525,56 @@ app.post(["/api/apply-internship", "/apply-internship"], async (req, res, next) 
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
       `;
       await pool.query(query, [
-        id, name || "", email.toLowerCase(), phone || "", internshipRole, 
-        qualification || "", graduationYear || "", resumeLink || "", message || ""
+        id, candidateName, candidateEmail.toLowerCase(), candidatePhone, candidateRole, 
+        candidateQualification, candidateCollege, candidatePortfolio, candidateMessage
       ]);
-      console.log(`Recorded internship application for ${email} - Role: ${internshipRole}`);
+      console.log(`Recorded internship application for ${candidateEmail} - Role: ${candidateRole}`);
 
-      // Google Sheets Integration
+      // Forward to Google Apps Script Web App endpoints
+      const https = require("https");
+      const webAppPayload = JSON.stringify({
+        fullName: candidateName,
+        email: candidateEmail,
+        phone: candidatePhone,
+        college: candidateCollege,
+        qualification: candidateQualification,
+        domain: candidateRole,
+        internshipMode: candidateMode,
+        portfolioUrl: candidatePortfolio,
+        statement: candidateMessage,
+        timestamp: new Date().toISOString()
+      });
+
+      const webAppUrls = [
+        "https://script.google.com/macros/s/AKfycbzT6sEvG6PvL7U2f6X0Ukp_ur8kMWC6XetMij4G3Y3fQyGYc-rMJYa5DnYiX_vY4YP3/exec",
+        "https://script.google.com/macros/s/AKfycbyKKJUk6_pe1qtpqBZp6jYsCA8O97g5IlbwNRetYQ-6pjJql29fnEUKqPrV795kh9FI8g/exec"
+      ];
+
+      webAppUrls.forEach(urlStr => {
+        try {
+          const u = new URL(urlStr);
+          const postReq = https.request({
+            hostname: u.hostname,
+            path: u.pathname + u.search,
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Content-Length": Buffer.byteLength(webAppPayload)
+            }
+          }, (postRes) => {
+            if (postRes.statusCode === 302 && postRes.headers.location) {
+              https.get(postRes.headers.location, () => {});
+            }
+          });
+          postReq.on("error", (e) => console.warn("Google Apps Script forward error:", e.message));
+          postReq.write(webAppPayload);
+          postReq.end();
+        } catch (e) {}
+      });
+
+      // Google Sheets Integration (Service Account if configured)
       const INTERNSHIP_SPREADSHEET_ID = process.env.GOOGLE_INTERNSHIP_SPREADSHEET_ID;
-      if (INTERNSHIP_SPREADSHEET_ID) {
+      if (INTERNSHIP_SPREADSHEET_ID && credentials && credentials.client_email) {
         try {
           const auth = new google.auth.GoogleAuth({
             credentials,
@@ -541,20 +592,20 @@ app.post(["/api/apply-internship", "/apply-internship"], async (req, res, next) 
             valueInputOption: "USER_ENTERED",
             requestBody: {
               values: [[
-                date, time, name || "", email || "", phone || "", 
-                internshipRole || "", qualification || "", 
-                graduationYear || "", resumeLink || "", message || ""
+                date, time, candidateName, candidateEmail, candidatePhone, 
+                candidateRole, candidateQualification, 
+                candidateCollege, candidatePortfolio, candidateMessage
               ]],
             },
           });
-          console.log(`Saved Internship Application for ${email} to Google Sheets`);
+          console.log(`Saved Internship Application for ${candidateEmail} to Google Sheets`);
         } catch (sheetError) {
-          console.error("Error saving internship to Google Sheets:", sheetError);
+          console.error("Error saving internship to Google Sheets:", sheetError.message);
         }
       }
 
     } catch (error) {
-      console.error("Error saving internship application:", error);
+      console.error("Error saving internship application:", error.message);
     }
   }
   

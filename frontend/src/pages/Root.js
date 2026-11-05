@@ -27,6 +27,13 @@ const hideHeaderRoutes = [
   "/free%20internship",
   "/landing-page",
   "/free-internship-landing",
+  // "/dashboard",
+  // "/dashboard/courses",
+  // "/dashboard/internships",
+  // "/dashboard/helpAndSupport",
+  // "/dashboard/settings",
+  // "/forgetPassword",
+  // "/resetPassword",
 ].map((route) => route.replace(/\/+$/, ""));
 
 const RootLayout = () => {

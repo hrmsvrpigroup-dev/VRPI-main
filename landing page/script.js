@@ -3,6 +3,7 @@
  * Interactive Logic & Form Handlers
  */
 
+// Google Apps Script Web App Endpoint for Google Sheet sync:
 // Google Apps Script Web App Endpoints for Google Sheet sync:
 // Sheet URL: https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit
 const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzT6sEvG6PvL7U2f6X0Ukp_ur8kMWC6XetMij4G3Y3fQyGYc-rMJYa5DnYiX_vY4YP3/exec";
@@ -190,6 +191,26 @@ document.addEventListener('DOMContentLoaded', () => {
           console.warn('[Google Sheet] Sync error:', syncErr);
         }
       });
+
+      // Also forward to local/cloud backend API
+      try {
+        fetch('/api/apply-internship', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: applicationData.fullName,
+            email: applicationData.email,
+            phone: applicationData.phone,
+            college: applicationData.college,
+            qualification: applicationData.qualification,
+            internshipRole: applicationData.domain,
+            graduationYear: applicationData.qualification,
+            internshipMode: applicationData.internshipMode,
+            resumeLink: applicationData.portfolioUrl || 'https://linkedin.com',
+            message: applicationData.statement
+          })
+        }).catch(() => {});
+      } catch (e) {}
 
       // Simulate network latency (800ms) for professional feedback
       setTimeout(() => {
