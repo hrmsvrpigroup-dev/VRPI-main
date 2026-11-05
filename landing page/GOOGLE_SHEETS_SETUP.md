@@ -1,75 +1,87 @@
-# Google Sheet Integration Guide for VR PI Internship Applications
+# 📊 Automated Google Sheet Integration Guide
 
-This guide explains how to connect your Google Sheet to the Free Industrial Internship Landing Page so that every student application is automatically saved into your spreadsheet in real time.
-
----
-
-## 📊 Your Target Google Sheet
-
-**URL**: [https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit](https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit)  
+**Your Spreadsheet URL**: [https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit?usp=sharing](https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit?usp=sharing)  
 **Spreadsheet ID**: `18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA`  
-**Active Web App Endpoint**: `https://script.google.com/macros/s/AKfycbyKKJUk6_pe1qtpqBZp6jYsCA8O97g5IlbwNRetYQ-6pjJql29fnEUKqPrV795kh9FI8g/exec`  
-**Deployment ID**: `AKfycbyKKJUk6_pe1qtpqBZp6jYsCA8O97g5IlbwNRetYQ-6pjJql29fnEUKqPrV795kh9FI8g`
+**Target Tab**: `Sheet1` (First Tab)
 
 ---
 
-## ⚡ Step-by-Step Setup (Takes 2 Minutes)
+## 🚀 How to Enable Automatic Form Filling (Takes 2 Minutes)
 
-### Step 1: Open Apps Script in your Google Sheet
-1. Open your Google Sheet in your web browser.
-2. In the top menu bar, click on **Extensions** &rarr; **Apps Script**.
-3. A new tab will open with the script editor containing an empty `Code.gs` file.
+### Step 1: Open Apps Script in Your Google Sheet
+1. Open your Google Sheet in Chrome: [https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit](https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit)
+2. In the top menu bar, click **Extensions** &rarr; **Apps Script**.
+3. The Apps Script editor tab will open (`Untitled project - Project Editor`).
 
-### Step 2: Paste the Collector Script
-1. Delete any existing code in the editor (`function myFunction() { ... }`).
-2. Open [`landing page/GoogleAppsScript.js`](./GoogleAppsScript.js) in your project.
-3. Copy the entire contents and paste it into the Apps Script editor.
-4. Click the **Save** icon at the top (or press `Ctrl + S`).
+---
 
-### Step 3: Deploy as a Web App
-1. In the top right corner of Apps Script, click the blue **Deploy** button &rarr; select **New deployment**.
-2. Click the gear icon (**Select type**) next to "Select type" and choose **Web app**.
-3. Configure the settings:
-   - **Description**: `VR PI Internship Application Collector`
-   - **Execute as**: `Me (your email)`
-   - **Who has access**: `Anyone` *(⚠️ Crucial: Must be "Anyone" so students submitting the form from any device can submit without needing Google account permission).*
+### Step 2: Paste the Updated Collector Script
+1. Delete any existing code inside `Code.gs`.
+2. Copy the entire contents of [`landing page/GoogleAppsScript.js`](./GoogleAppsScript.js).
+3. Paste it directly into `Code.gs`.
+4. Press `Ctrl + S` to save the project.
+
+---
+
+### Step 3: Automatically Generate the 12 Headers (Instant)
+1. At the top of the Apps Script screen, locate the function dropdown (it currently says `doPost` or `myFunction`).
+2. Click the dropdown and select **`createHeadersNow`**.
+3. Click the **Run** button (play icon ▶️).
+4. If Google asks for authorization:
+   - Click **Review permissions** &rarr; select your Google account.
+   - Click **Advanced** (small link at bottom left) &rarr; click **Go to Untitled project (unsafe)**.
+   - Click **Allow**.
+5. Switch to your Google Sheet tab — all 12 official orange column headers will instantly appear on **`Sheet1`**!
+
+---
+
+### Step 4: Test Automatic Row Insertion (Instant Verification)
+1. In Apps Script, select **`testInsert`** from the top function dropdown.
+2. Click **Run** (▶️).
+3. Switch to your Google Sheet — row 2 will immediately fill with a sample test candidate application!
+
+---
+
+### Step 5: Deploy with Public Access ("Anyone")
+⚠️ **This is the critical step so candidate submissions from your website can reach the sheet without Google blocking them with a login screen**:
+1. Click the blue **Deploy** button (top right) &rarr; **Manage deployments**.
+2. Click the **Pencil (Edit)** icon next to your Web App deployment.
+3. Check these exact settings:
+   - **Execute as**: `Me (your google email)`
+   - **Who has access**: **`Anyone`**  *(⚠️ MUST be "Anyone", NOT "Only myself")*
 4. Click **Deploy**.
-
-### Step 4: Authorize Permissions
-1. Google will show an "Authorization required" popup. Click **Authorize access**.
-2. Choose your Google account.
-3. Click **Advanced** (at the bottom of the warning screen).
-4. Click **Go to Untitled project (unsafe)**.
-5. Click **Allow**.
-
-### Step 5: Copy Your Web App URL
-1. You will see a popup showing:
-   - **Web app URL**: `https://script.google.com/macros/s/AKfycb.../exec`
-2. Copy this URL.
-
-### Step 6: Paste the URL in the Landing Page
-Open [`landing page/script.js`](./script.js) and [`landing page/InternshipLandingPage.jsx`](./InternshipLandingPage.jsx):
-Find the line:
-```javascript
-const GOOGLE_SCRIPT_WEBAPP_URL = "https://script.google.com/macros/s/AKfycb.../exec";
-```
-Paste your copied Web App URL inside the quotation marks!
+5. Copy the **Web app URL** (starts with `https://script.google.com/macros/s/.../exec`).
 
 ---
 
-## 📋 What Gets Saved to the Google Sheet?
+### Step 6: Verify Endpoint in Code
+The Web App URL is already registered in:
+- `frontend/src/pages/LandingPage/InternshipLandingPage.js`
+- `landing page/InternshipLandingPage.jsx`
+- `landing page/script.js`
 
-Every time a student submits an application, the script appends a new row with:
-1. **Timestamp**: Date & Time (IST)
-2. **Application ID**: Unique tracking code (`VRPI-INT-2026-XXXX`)
-3. **Full Name**: Official candidate name
-4. **Email Address**: Registered student email
-5. **WhatsApp / Phone**: Contact number
-6. **College / University**: Academic institution
-7. **Degree / Passing Year**: e.g., B.Tech CSE (2024-2027)
-8. **Internship Domain Track**: e.g., Tech Solutions, AI, Civil, etc.
-9. **Preferred Mode**: Virtual / Remote, Hybrid, or On-Site
-10. **Portfolio / LinkedIn**: Profile link
-11. **Statement of Purpose**: Candidate's motivation statement
-12. **Status**: Set automatically to `Under Review`
+If Google generated a new deployment URL in Step 5, paste it into line 7 of those files:
+```javascript
+const GOOGLE_SHEET_WEBAPP_URL = "YOUR_NEW_WEB_APP_URL";
+```
 
+---
+
+## 📋 The 12 Details Automatically Filled Into Google Sheets
+
+Every candidate who clicks **"Submit Free Application"** automatically fills:
+
+| Col | Header | Form Input Field | Example Value |
+|---|---|---|---|
+| **A** | **Timestamp** | Auto-generated Date & Time | `2026-11-05 10:45:00` |
+| **B** | **Application ID** | Auto-generated Reference ID | `VRPI-INT-2026-7438` |
+| **C** | **Full Name** | Full Name * | `Rahul Sharma` |
+| **D** | **Email Address** | Email Address * | `rahul@example.com` |
+| **E** | **WhatsApp / Phone** | WhatsApp / Contact No * | `+91 98765 43210` |
+| **F** | **College / University** | College / University * | `IIT Hyderabad` |
+| **G** | **Degree / Passing Year** | Degree & Passing Year * | `B.Tech CSE (2024-2027)` |
+| **H** | **Internship Domain Track** | Specialization Track * | `Tech Solutions: Full Stack Web & Mobile` |
+| **I** | **Preferred Mode** | Internship Mode | `Virtual / Remote (Pan-India Online)` |
+| **J** | **Portfolio / LinkedIn URL** | LinkedIn / GitHub URL | `https://linkedin.com/in/rahul` |
+| **K** | **Statement of Purpose** | Statement of Purpose / Goals | `Looking to gain hands-on production experience...` |
+| **L** | **Application Status** | Initial Review Status | `Under Technical Review` |
