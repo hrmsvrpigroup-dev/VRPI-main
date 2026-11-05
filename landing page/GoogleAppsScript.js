@@ -46,7 +46,7 @@ function doPost(e) {
     }
 
     var timestamp = data.timestamp || Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy-MM-dd HH:mm:ss");
-    var applicationId = data.applicationId || ("VRPI-INT-" + Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy") + "-" + Math.floor(1000 + Math.random() * 9000));
+    var applicationId = data.applicationId || ("VRPI-INT-" + Math.floor(1000 + Math.random() * 9000));
     var fullName = data.fullName || data.name || "";
     var email = data.email || "";
     var phone = (data.phone || data.whatsapp || "").toString().trim();
