@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
 import styles from './InternshipLandingPage.module.css';
 import vrpiLogo from './vrpiLogo.png';
+import {
+  FaYoutube,
+  FaInstagram,
+  FaWhatsapp,
+  FaLinkedin,
+  FaFilePdf,
+  FaExternalLinkAlt,
+  FaCloudUploadAlt,
+  FaTimes
+} from 'react-icons/fa';
 
-// Google Apps Script Web App Endpoint for Google Sheet sync:
 // Google Apps Script Web App Endpoints for Google Sheet sync:
 // Sheet: https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit
 const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbygbJUZdlzss3YOlkCS3_V6CRAtbflEr9DI2xgwhFDbUp-Wrlu2tqnQgb1e6mP-LlC_6w/exec";
@@ -22,6 +31,12 @@ export default function InternshipLandingPage() {
     termsAccepted: true
   });
 
+  const [resumeFile, setResumeFile] = useState(null); // { name, size, base64, type }
+  const [youtubeProof, setYoutubeProof] = useState(null); // { name, base64, type }
+  const [instagramProof, setInstagramProof] = useState(null); // { name, base64, type }
+  const [whatsappProof, setWhatsappProof] = useState(null); // { name, base64, type }
+  const [linkedinProof, setLinkedinProof] = useState(null); // { name, base64, type }
+
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -38,6 +53,104 @@ export default function InternshipLandingPage() {
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
+  };
+
+  // Resume file handler (Strictly PDF format only)
+  const handleResumeChange = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+
+    const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+    if (!isPdf) {
+      setErrors(prev => ({ ...prev, resume: 'Please upload your resume in PDF format only (.pdf)' }));
+      return;
+    }
+
+    if (file.size > 8 * 1024 * 1024) {
+      setErrors(prev => ({ ...prev, resume: 'File size must be under 8MB' }));
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const formattedSize = file.size > 1024 * 1024
+        ? (file.size / (1024 * 1024)).toFixed(2) + ' MB'
+        : Math.round(file.size / 1024) + ' KB';
+
+      setResumeFile({
+        name: file.name,
+        size: formattedSize,
+        base64: event.target.result,
+        type: 'application/pdf'
+      });
+      setErrors(prev => ({ ...prev, resume: '' }));
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const removeResume = () => {
+    setResumeFile(null);
+  };
+
+  // Screenshot proof upload handler with client-side canvas compression (max 900px, JPEG 0.72)
+  const handleScreenshotChange = (field, e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      setErrors(prev => ({ ...prev, [field + 'Proof']: 'Please upload an image screenshot (PNG, JPG, JPEG)' }));
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (loadEv) => {
+      const img = new Image();
+      img.onload = () => {
+        const MAX_DIM = 900;
+        let width = img.width;
+        let height = img.height;
+        if (width > height) {
+          if (width > MAX_DIM) {
+            height = Math.round((height * MAX_DIM) / width);
+            width = MAX_DIM;
+          }
+        } else {
+          if (height > MAX_DIM) {
+            width = Math.round((width * MAX_DIM) / height);
+            height = MAX_DIM;
+          }
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        const compressedBase64 = canvas.toDataURL('image/jpeg', 0.72);
+
+        const proofData = {
+          name: file.name,
+          base64: compressedBase64,
+          type: 'image/jpeg'
+        };
+
+        if (field === 'youtube') setYoutubeProof(proofData);
+        else if (field === 'instagram') setInstagramProof(proofData);
+        else if (field === 'whatsapp') setWhatsappProof(proofData);
+        else if (field === 'linkedin') setLinkedinProof(proofData);
+
+        setErrors(prev => ({ ...prev, [field + 'Proof']: '' }));
+      };
+      img.src = loadEv.target.result;
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const removeScreenshot = (field) => {
+    if (field === 'youtube') setYoutubeProof(null);
+    else if (field === 'instagram') setInstagramProof(null);
+    else if (field === 'whatsapp') setWhatsappProof(null);
+    else if (field === 'linkedin') setLinkedinProof(null);
   };
 
   const validate = () => {
@@ -61,13 +174,36 @@ export default function InternshipLandingPage() {
     if (!formData.domain) {
       newErrors.domain = 'Please choose an internship specialization track';
     }
+
+    // Resume validation (Mandatory, PDF only)
+    if (!resumeFile) {
+      newErrors.resume = 'Please upload your Resume / CV in PDF format only (.pdf)';
+    }
+
+    // Social Verification Tasks (YouTube, Instagram, WhatsApp are mandatory; LinkedIn is optional)
+    if (!youtubeProof) {
+      newErrors.youtubeProof = 'YouTube subscription screenshot is mandatory';
+    }
+    if (!instagramProof) {
+      newErrors.instagramProof = 'Instagram follow screenshot is mandatory';
+    }
+    if (!whatsappProof) {
+      newErrors.whatsappProof = 'WhatsApp channel follow screenshot is mandatory';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!validate()) return;
+    if (!validate()) {
+      const firstError = document.querySelector(`.${styles.inputError}, .${styles.errorText}`);
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
 
     setIsSubmitting(true);
     const code = Math.floor(1000 + Math.random() * 9000);
@@ -76,7 +212,12 @@ export default function InternshipLandingPage() {
     const newApplication = {
       ...formData,
       applicationId: generatedId,
-      submittedAt: new Date().toISOString()
+      submittedAt: new Date().toISOString(),
+      resume: resumeFile ? { name: resumeFile.name, data: resumeFile.base64, type: 'application/pdf' } : null,
+      youtubeProof: youtubeProof ? { name: youtubeProof.name, data: youtubeProof.base64, type: 'image/jpeg' } : null,
+      instagramProof: instagramProof ? { name: instagramProof.name, data: instagramProof.base64, type: 'image/jpeg' } : null,
+      whatsappProof: whatsappProof ? { name: whatsappProof.name, data: whatsappProof.base64, type: 'image/jpeg' } : null,
+      linkedinProof: linkedinProof ? { name: linkedinProof.name, data: linkedinProof.base64, type: 'image/jpeg' } : null
     };
 
     // Asynchronously sync to Google Sheet via Google Apps Script Web App (Primary & Fallback)
@@ -145,6 +286,11 @@ export default function InternshipLandingPage() {
       statement: '',
       termsAccepted: true
     });
+    setResumeFile(null);
+    setYoutubeProof(null);
+    setInstagramProof(null);
+    setWhatsappProof(null);
+    setLinkedinProof(null);
     setErrors({});
     setIsSubmitted(false);
   };
@@ -451,6 +597,272 @@ export default function InternshipLandingPage() {
                         value={formData.statement}
                         onChange={handleChange}
                       />
+                    </div>
+
+                    {/* Resume Upload Field (PDF Format Only) */}
+                    <div className={styles.resumeSection}>
+                      <label className={styles.inputLabel}>
+                        Resume / CV (PDF Only) <span className={styles.required}>*</span>
+                      </label>
+                      
+                      {!resumeFile ? (
+                        <label className={`${styles.resumeDropZone} ${errors.resume ? styles.inputError : ''}`}>
+                          <input
+                            type="file"
+                            accept=".pdf,application/pdf"
+                            className={styles.taskFileInputHidden}
+                            onChange={handleResumeChange}
+                          />
+                          <div className={styles.resumeIconWrap}>
+                            <FaFilePdf />
+                          </div>
+                          <div className={styles.resumeTitle}>Click to upload your Resume</div>
+                          <div className={styles.resumeHint}>PDF format only • Max file size 8MB</div>
+                        </label>
+                      ) : (
+                        <div className={styles.resumeFileInfo}>
+                          <div className={styles.resumeFileDetails}>
+                            <FaFilePdf className={styles.resumeFileIcon} />
+                            <div>
+                              <div className={styles.resumeFileName}>{resumeFile.name}</div>
+                              <div className={styles.resumeFileSize}>{resumeFile.size} • PDF Document</div>
+                            </div>
+                          </div>
+                          <button
+                            type="button"
+                            className={styles.fileRemoveBtn}
+                            onClick={removeResume}
+                            title="Remove Resume"
+                          >
+                            <FaTimes /> Remove
+                          </button>
+                        </div>
+                      )}
+                      {errors.resume && <span className={styles.errorText}>{errors.resume}</span>}
+                    </div>
+
+                    {/* Social Verification Tasks Block */}
+                    <div className={styles.verificationTasksBlock}>
+                      <div className={styles.tasksHeaderBlock}>
+                        <span className={styles.tasksBadge}>MANDATORY VERIFICATION TASKS</span>
+                        <h4 className={styles.tasksMainTitle}>Complete Social Tasks &amp; Upload Screenshot Proof</h4>
+                        <p className={styles.tasksSubtitle}>
+                          Follow our official channels to qualify for the 100% Free Internship. YouTube, Instagram, and WhatsApp are mandatory; LinkedIn is optional. Upload a screenshot proof for each.
+                        </p>
+                      </div>
+
+                      <div className={styles.tasksCardsGrid}>
+                        {/* 1. YouTube (Mandatory) */}
+                        <div className={styles.taskItemCard}>
+                          <div className={styles.taskItemHeader}>
+                            <div className={styles.taskPlatformLeft}>
+                              <div className={`${styles.platformIconWrap} ${styles.ytIcon}`}>
+                                <FaYoutube />
+                              </div>
+                              <div>
+                                <div className={styles.taskTitleText}>YouTube Channel</div>
+                                <a
+                                  href="https://youtube.com/@vrpitechsolutions?si=bi-gMNum0Am-3pmL"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className={styles.taskActionBtn}
+                                >
+                                  Subscribe Channel <FaExternalLinkAlt size={10} />
+                                </a>
+                              </div>
+                            </div>
+                            <span className={styles.taskTagMandatory}>Required *</span>
+                          </div>
+
+                          <div className={styles.taskUploadWrap}>
+                            {!youtubeProof ? (
+                              <label className={styles.uploadProofBtn}>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className={styles.taskFileInputHidden}
+                                  onChange={(e) => handleScreenshotChange('youtube', e)}
+                                />
+                                <FaCloudUploadAlt size={16} /> Upload Screenshot Proof
+                              </label>
+                            ) : (
+                              <div className={styles.proofSuccessBox}>
+                                <div className={styles.proofThumbWrap}>
+                                  <img src={youtubeProof.base64} alt="YouTube Proof" className={styles.proofThumb} />
+                                  <span className={styles.proofName} title={youtubeProof.name}>{youtubeProof.name}</span>
+                                </div>
+                                <button
+                                  type="button"
+                                  className={styles.proofRemoveBtn}
+                                  onClick={() => removeScreenshot('youtube')}
+                                  title="Remove proof"
+                                >
+                                  <FaTimes />
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                          {errors.youtubeProof && <span className={styles.errorText}>{errors.youtubeProof}</span>}
+                        </div>
+
+                        {/* 2. Instagram (Mandatory) */}
+                        <div className={styles.taskItemCard}>
+                          <div className={styles.taskItemHeader}>
+                            <div className={styles.taskPlatformLeft}>
+                              <div className={`${styles.platformIconWrap} ${styles.instaIcon}`}>
+                                <FaInstagram />
+                              </div>
+                              <div>
+                                <div className={styles.taskTitleText}>Instagram Page</div>
+                                <a
+                                  href="https://www.instagram.com/vrpitechsolutions?rpxt=eGM0Z3doenN6aTRs"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className={styles.taskActionBtn}
+                                >
+                                  Follow Instagram <FaExternalLinkAlt size={10} />
+                                </a>
+                              </div>
+                            </div>
+                            <span className={styles.taskTagMandatory}>Required *</span>
+                          </div>
+
+                          <div className={styles.taskUploadWrap}>
+                            {!instagramProof ? (
+                              <label className={styles.uploadProofBtn}>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className={styles.taskFileInputHidden}
+                                  onChange={(e) => handleScreenshotChange('instagram', e)}
+                                />
+                                <FaCloudUploadAlt size={16} /> Upload Screenshot Proof
+                              </label>
+                            ) : (
+                              <div className={styles.proofSuccessBox}>
+                                <div className={styles.proofThumbWrap}>
+                                  <img src={instagramProof.base64} alt="Instagram Proof" className={styles.proofThumb} />
+                                  <span className={styles.proofName} title={instagramProof.name}>{instagramProof.name}</span>
+                                </div>
+                                <button
+                                  type="button"
+                                  className={styles.proofRemoveBtn}
+                                  onClick={() => removeScreenshot('instagram')}
+                                  title="Remove proof"
+                                >
+                                  <FaTimes />
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                          {errors.instagramProof && <span className={styles.errorText}>{errors.instagramProof}</span>}
+                        </div>
+
+                        {/* 3. WhatsApp Channel (Mandatory) */}
+                        <div className={styles.taskItemCard}>
+                          <div className={styles.taskItemHeader}>
+                            <div className={styles.taskPlatformLeft}>
+                              <div className={`${styles.platformIconWrap} ${styles.waIcon}`}>
+                                <FaWhatsapp />
+                              </div>
+                              <div>
+                                <div className={styles.taskTitleText}>WhatsApp Channel</div>
+                                <a
+                                  href="https://whatsapp.com/channel/0029VbCkRWbIHphGP6mW1A1V"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className={styles.taskActionBtn}
+                                >
+                                  Follow 24/7 Channel <FaExternalLinkAlt size={10} />
+                                </a>
+                              </div>
+                            </div>
+                            <span className={styles.taskTagMandatory}>Required *</span>
+                          </div>
+
+                          <div className={styles.taskUploadWrap}>
+                            {!whatsappProof ? (
+                              <label className={styles.uploadProofBtn}>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className={styles.taskFileInputHidden}
+                                  onChange={(e) => handleScreenshotChange('whatsapp', e)}
+                                />
+                                <FaCloudUploadAlt size={16} /> Upload Screenshot Proof
+                              </label>
+                            ) : (
+                              <div className={styles.proofSuccessBox}>
+                                <div className={styles.proofThumbWrap}>
+                                  <img src={whatsappProof.base64} alt="WhatsApp Proof" className={styles.proofThumb} />
+                                  <span className={styles.proofName} title={whatsappProof.name}>{whatsappProof.name}</span>
+                                </div>
+                                <button
+                                  type="button"
+                                  className={styles.proofRemoveBtn}
+                                  onClick={() => removeScreenshot('whatsapp')}
+                                  title="Remove proof"
+                                >
+                                  <FaTimes />
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                          {errors.whatsappProof && <span className={styles.errorText}>{errors.whatsappProof}</span>}
+                        </div>
+
+                        {/* 4. LinkedIn (Optional) */}
+                        <div className={styles.taskItemCard}>
+                          <div className={styles.taskItemHeader}>
+                            <div className={styles.taskPlatformLeft}>
+                              <div className={`${styles.platformIconWrap} ${styles.liIcon}`}>
+                                <FaLinkedin />
+                              </div>
+                              <div>
+                                <div className={styles.taskTitleText}>LinkedIn Page</div>
+                                <a
+                                  href="https://www.linkedin.com/company/vr-pi-tech-solutions-llp-in/home/"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className={styles.taskActionBtn}
+                                >
+                                  Follow LinkedIn <FaExternalLinkAlt size={10} />
+                                </a>
+                              </div>
+                            </div>
+                            <span className={styles.taskTagOptional}>Optional</span>
+                          </div>
+
+                          <div className={styles.taskUploadWrap}>
+                            {!linkedinProof ? (
+                              <label className={styles.uploadProofBtn}>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className={styles.taskFileInputHidden}
+                                  onChange={(e) => handleScreenshotChange('linkedin', e)}
+                                />
+                                <FaCloudUploadAlt size={16} /> Upload Proof (Optional)
+                              </label>
+                            ) : (
+                              <div className={styles.proofSuccessBox}>
+                                <div className={styles.proofThumbWrap}>
+                                  <img src={linkedinProof.base64} alt="LinkedIn Proof" className={styles.proofThumb} />
+                                  <span className={styles.proofName} title={linkedinProof.name}>{linkedinProof.name}</span>
+                                </div>
+                                <button
+                                  type="button"
+                                  className={styles.proofRemoveBtn}
+                                  onClick={() => removeScreenshot('linkedin')}
+                                  title="Remove proof"
+                                >
+                                  <FaTimes />
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
                     <div className={styles.formCheckboxWrap}>

@@ -81,6 +81,154 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // State variables for uploaded files
+  let resumeFileData = null;     // { name, size, base64, type }
+  let youtubeProofData = null;   // { name, base64, type }
+  let instagramProofData = null; // { name, base64, type }
+  let whatsappProofData = null;  // { name, base64, type }
+  let linkedinProofData = null;  // { name, base64, type }
+
+  // Canvas image compression helper (max 900px, JPEG 0.72)
+  function compressImageFile(file, callback) {
+    if (!file || !file.type.startsWith('image/')) {
+      alert('Please upload a valid image screenshot (JPG, PNG).');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (loadEv) => {
+      const img = new Image();
+      img.onload = () => {
+        const MAX_DIM = 900;
+        let width = img.width;
+        let height = img.height;
+        if (width > height) {
+          if (width > MAX_DIM) {
+            height = Math.round((height * MAX_DIM) / width);
+            width = MAX_DIM;
+          }
+        } else {
+          if (height > MAX_DIM) {
+            width = Math.round((width * MAX_DIM) / height);
+            height = MAX_DIM;
+          }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        const compressedBase64 = canvas.toDataURL('image/jpeg', 0.72);
+        callback({
+          name: file.name,
+          base64: compressedBase64,
+          type: 'image/jpeg'
+        });
+      };
+      img.src = loadEv.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Resume File Upload (Strictly PDF only)
+  const resumeFileInput = document.getElementById('resumeFileInput');
+  const resumeDropZoneWrap = document.getElementById('resumeDropZoneWrap');
+  const resumeFileInfo = document.getElementById('resumeFileInfo');
+  const resumeFileNameDisplay = document.getElementById('resumeFileNameDisplay');
+  const resumeFileSizeDisplay = document.getElementById('resumeFileSizeDisplay');
+  const resumeRemoveBtn = document.getElementById('resumeRemoveBtn');
+  const resumeError = document.getElementById('resumeError');
+
+  if (resumeFileInput) {
+    resumeFileInput.addEventListener('change', (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+      if (!isPdf) {
+        if (resumeError) resumeError.textContent = 'Please upload your Resume in PDF format only (.pdf)';
+        resumeFileInput.value = '';
+        return;
+      }
+
+      if (file.size > 8 * 1024 * 1024) {
+        if (resumeError) resumeError.textContent = 'File size exceeds 8MB limit';
+        resumeFileInput.value = '';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const formattedSize = file.size > 1024 * 1024
+          ? (file.size / (1024 * 1024)).toFixed(2) + ' MB'
+          : Math.round(file.size / 1024) + ' KB';
+
+        resumeFileData = {
+          name: file.name,
+          size: formattedSize,
+          base64: ev.target.result,
+          type: 'application/pdf'
+        };
+
+        if (resumeFileNameDisplay) resumeFileNameDisplay.textContent = file.name;
+        if (resumeFileSizeDisplay) resumeFileSizeDisplay.textContent = formattedSize + ' • PDF Document';
+        if (resumeDropZoneWrap) resumeDropZoneWrap.style.display = 'none';
+        if (resumeFileInfo) resumeFileInfo.style.display = 'flex';
+        if (resumeError) resumeError.textContent = '';
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  if (resumeRemoveBtn) {
+    resumeRemoveBtn.addEventListener('click', () => {
+      resumeFileData = null;
+      if (resumeFileInput) resumeFileInput.value = '';
+      if (resumeDropZoneWrap) resumeDropZoneWrap.style.display = 'block';
+      if (resumeFileInfo) resumeFileInfo.style.display = 'none';
+    });
+  }
+
+  // Setup Screenshot Proof Handler Helper
+  function setupProofUploader(inputId, btnId, boxId, thumbId, nameId, removeId, errorId, onSet, onClear) {
+    const input = document.getElementById(inputId);
+    const btn = document.getElementById(btnId);
+    const box = document.getElementById(boxId);
+    const thumb = document.getElementById(thumbId);
+    const nameEl = document.getElementById(nameId);
+    const removeBtn = document.getElementById(removeId);
+    const errorEl = errorId ? document.getElementById(errorId) : null;
+
+    if (input) {
+      input.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+
+        compressImageFile(file, (proofObj) => {
+          onSet(proofObj);
+          if (thumb) thumb.src = proofObj.base64;
+          if (nameEl) nameEl.textContent = proofObj.name;
+          if (btn) btn.style.display = 'none';
+          if (box) box.style.display = 'flex';
+          if (errorEl) errorEl.textContent = '';
+        });
+      });
+    }
+
+    if (removeBtn) {
+      removeBtn.addEventListener('click', () => {
+        onClear();
+        if (input) input.value = '';
+        if (btn) btn.style.display = 'flex';
+        if (box) box.style.display = 'none';
+      });
+    }
+  }
+
+  setupProofUploader('ytProofInput', 'ytUploadBtn', 'ytProofBox', 'ytProofThumb', 'ytProofName', 'ytRemoveBtn', 'youtubeError', (d) => { youtubeProofData = d; }, () => { youtubeProofData = null; });
+  setupProofUploader('igProofInput', 'igUploadBtn', 'igProofBox', 'igProofThumb', 'igProofName', 'igRemoveBtn', 'instagramError', (d) => { instagramProofData = d; }, () => { instagramProofData = null; });
+  setupProofUploader('waProofInput', 'waUploadBtn', 'waProofBox', 'waProofThumb', 'waProofName', 'waRemoveBtn', 'whatsappError', (d) => { whatsappProofData = d; }, () => { whatsappProofData = null; });
+  setupProofUploader('liProofInput', 'liUploadBtn', 'liProofBox', 'liProofThumb', 'liProofName', 'liRemoveBtn', null, (d) => { linkedinProofData = d; }, () => { linkedinProofData = null; });
+
   // Internship Application Form Validation & Submission
   const internshipForm = document.getElementById('internshipForm');
   const successCard = document.getElementById('formSuccessMessage');
@@ -140,7 +288,37 @@ document.addEventListener('DOMContentLoaded', () => {
         isValid = false;
       }
 
+      // Resume Validation (Mandatory PDF only)
+      if (!resumeFileData) {
+        const resumeErrEl = document.getElementById('resumeError');
+        if (resumeErrEl) resumeErrEl.textContent = 'Please upload your Resume in PDF format (.pdf only)';
+        isValid = false;
+      }
+
+      // Verification Tasks Validation (YouTube, Instagram, WhatsApp are mandatory; LinkedIn optional)
+      if (!youtubeProofData) {
+        const ytErr = document.getElementById('youtubeError');
+        if (ytErr) ytErr.textContent = 'YouTube subscription screenshot is mandatory';
+        isValid = false;
+      }
+
+      if (!instagramProofData) {
+        const igErr = document.getElementById('instagramError');
+        if (igErr) igErr.textContent = 'Instagram follow screenshot is mandatory';
+        isValid = false;
+      }
+
+      if (!whatsappProofData) {
+        const waErr = document.getElementById('whatsappError');
+        if (waErr) waErr.textContent = 'WhatsApp channel follow screenshot is mandatory';
+        isValid = false;
+      }
+
       if (!isValid) {
+        const firstError = document.querySelector('.error-text:not(:empty)');
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
         return;
       }
 
@@ -170,7 +348,12 @@ document.addEventListener('DOMContentLoaded', () => {
         internshipMode: document.getElementById('internshipMode').value,
         portfolioUrl: document.getElementById('portfolioUrl').value.trim(),
         statement: document.getElementById('statement').value.trim(),
-        submittedAt: new Date().toISOString()
+        submittedAt: new Date().toISOString(),
+        resume: resumeFileData ? { name: resumeFileData.name, data: resumeFileData.base64, type: 'application/pdf' } : null,
+        youtubeProof: youtubeProofData ? { name: youtubeProofData.name, data: youtubeProofData.base64, type: 'image/jpeg' } : null,
+        instagramProof: instagramProofData ? { name: instagramProofData.name, data: instagramProofData.base64, type: 'image/jpeg' } : null,
+        whatsappProof: whatsappProofData ? { name: whatsappProofData.name, data: whatsappProofData.base64, type: 'image/jpeg' } : null,
+        linkedinProof: linkedinProofData ? { name: linkedinProofData.name, data: linkedinProofData.base64, type: 'image/jpeg' } : null
       };
 
       // Asynchronously sync application data to Google Sheet (Primary & Fallback)
@@ -288,6 +471,19 @@ document.addEventListener('DOMContentLoaded', () => {
   if (resetBtn && internshipForm && successCard) {
     resetBtn.addEventListener('click', () => {
       internshipForm.reset();
+      resumeFileData = null;
+      youtubeProofData = null;
+      instagramProofData = null;
+      whatsappProofData = null;
+      linkedinProofData = null;
+      if (resumeDropZoneWrap) resumeDropZoneWrap.style.display = 'block';
+      if (resumeFileInfo) resumeFileInfo.style.display = 'none';
+      ['yt', 'ig', 'wa', 'li'].forEach(prefix => {
+        const btn = document.getElementById(prefix + 'UploadBtn');
+        const box = document.getElementById(prefix + 'ProofBox');
+        if (btn) btn.style.display = 'flex';
+        if (box) box.style.display = 'none';
+      });
       internshipForm.style.display = 'flex';
       successCard.style.display = 'none';
     });

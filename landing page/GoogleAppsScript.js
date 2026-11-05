@@ -5,25 +5,24 @@
  * https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit
  * ============================================================================
  *
- * HOW TO DEPLOY:
+ * HOW TO UPDATE YOUR SCRIPT IN GOOGLE APPS SCRIPT:
  * 1. Open your Google Sheet:
  *    https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit
  * 2. Click Extensions -> Apps Script.
- * 3. Delete everything in Code.gs and paste this entire script.
+ * 3. Delete everything in Code.gs and replace it with this entire script.
  * 4. Click the Save icon (Ctrl+S).
  * 5. (OPTIONAL) Select 'createHeadersNow' from the function dropdown at the top and click 'Run'.
- *    Check your Sheet1 — the orange headers will appear instantly!
- * 6. Click "Deploy" (top right) -> "Manage deployments" (or "New deployment").
- *    - Click the pencil (edit) icon or "New deployment"
- *    - Type: Web app
- *    - Execute as: "Me" (your Google account)
- *    - Who has access: "Anyone" (CRITICAL: MUST BE 'Anyone' so student forms submit without login!)
- * 7. Click "Deploy".
- * 8. Copy the Web app URL (ends in /exec) and use it in your code!
+ *    Sheet1 will automatically update with all 17 column headers!
+ * 6. Click "Deploy" (top right) -> "Manage deployments".
+ *    - Click the pencil (edit) icon
+ *    - Under "Version", select "New version"
+ *    - Ensure "Who has access" is set to "Anyone"
+ *    - Click "Deploy".
  * ============================================================================
  */
 
 const SPREADSHEET_ID = "18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA";
+const DRIVE_FOLDER_NAME = "VR PI Internship Submissions 2026";
 
 /**
  * Handle POST requests from the Landing Page form submission
@@ -62,7 +61,14 @@ function doPost(e) {
     var statement = data.statement || data.goals || "";
     var status = data.status || "Under Technical Review";
 
-    // Row data to write (12 columns matching form)
+    // Process file attachments (Resume PDF and Verification Screenshots)
+    var resumeUrl = saveBase64ToDrive(data.resume || data.resumeFile, DRIVE_FOLDER_NAME, applicationId + "_Resume.pdf");
+    var ytProofUrl = saveBase64ToDrive(data.youtubeProof, DRIVE_FOLDER_NAME, applicationId + "_YouTube_Proof.jpg");
+    var igProofUrl = saveBase64ToDrive(data.instagramProof, DRIVE_FOLDER_NAME, applicationId + "_Instagram_Proof.jpg");
+    var waProofUrl = saveBase64ToDrive(data.whatsappProof, DRIVE_FOLDER_NAME, applicationId + "_WhatsApp_Proof.jpg");
+    var liProofUrl = saveBase64ToDrive(data.linkedinProof, DRIVE_FOLDER_NAME, applicationId + "_LinkedIn_Proof.jpg");
+
+    // Row data to write (17 columns matching complete application)
     var rowData = [
       timestamp,
       applicationId,
@@ -75,7 +81,12 @@ function doPost(e) {
       internshipMode,
       portfolioUrl,
       statement,
-      status
+      status,
+      resumeUrl,
+      ytProofUrl,
+      igProofUrl,
+      waProofUrl,
+      liProofUrl
     ];
 
     // Open target spreadsheet
@@ -92,7 +103,7 @@ function doPost(e) {
       sheet1 = ss.getSheets()[0];
     }
 
-    if (sheet1.getLastRow() === 0) {
+    if (sheet1.getLastRow() === 0 || sheet1.getLastColumn() < 17) {
       setupHeaders(sheet1);
     }
     sheet1.appendRow(rowData);
@@ -101,7 +112,7 @@ function doPost(e) {
     // Also write to "Internship Applications" tab if it exists and is distinct
     var appsSheet = ss.getSheetByName("Internship Applications");
     if (appsSheet && appsSheet.getSheetId() !== sheet1.getSheetId()) {
-      if (appsSheet.getLastRow() === 0) {
+      if (appsSheet.getLastRow() === 0 || appsSheet.getLastColumn() < 17) {
         setupHeaders(appsSheet);
       }
       appsSheet.appendRow(rowData);
@@ -111,7 +122,7 @@ function doPost(e) {
     return ContentService.createTextOutput(
       JSON.stringify({
         status: "success",
-        message: "Application recorded successfully!",
+        message: "Application recorded to Sheet1 successfully!",
         applicationId: applicationId,
         row: sheet1.getLastRow()
       })
@@ -132,6 +143,52 @@ function doPost(e) {
 }
 
 /**
+ * Helper to save base64 files into Google Drive and return their accessible URLs
+ */
+function saveBase64ToDrive(fileObj, folderName, defaultFileName) {
+  if (!fileObj) return "Not Provided";
+  try {
+    var rawData = typeof fileObj === "object" ? fileObj.data : fileObj;
+    if (!rawData || typeof rawData !== "string") {
+      return (typeof fileObj === "object" && fileObj.name) ? fileObj.name : "Not Provided";
+    }
+
+    var name = (typeof fileObj === "object" && fileObj.name) ? fileObj.name : defaultFileName;
+    var mimeType = (typeof fileObj === "object" && fileObj.type) ? fileObj.type : "application/octet-stream";
+
+    var base64Data = rawData;
+    if (rawData.indexOf("base64,") !== -1) {
+      var parts = rawData.split("base64,");
+      var match = parts[0].match(/data:(.*?);/);
+      if (match && match[1]) mimeType = match[1];
+      base64Data = parts[1];
+    }
+
+    var decoded = Utilities.base64Decode(base64Data);
+    var blob = Utilities.newBlob(decoded, mimeType, name);
+
+    var folder;
+    var folders = DriveApp.getFoldersByName(folderName);
+    if (folders.hasNext()) {
+      folder = folders.next();
+    } else {
+      folder = DriveApp.createFolder(folderName);
+    }
+
+    var file = folder.createFile(blob);
+    try {
+      file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    } catch (e) {}
+
+    return file.getUrl();
+  } catch (err) {
+    Logger.log("Drive Save Note: " + err);
+    var fallbackName = (typeof fileObj === "object" && fileObj.name) ? fileObj.name : defaultFileName;
+    return "Uploaded (" + fallbackName + ") [Drive Note: " + err.message + "]";
+  }
+}
+
+/**
  * Handle GET requests (Health check or browser URL testing)
  */
 function doGet(e) {
@@ -145,6 +202,7 @@ function doGet(e) {
       service: "VR PI Internship Application Collector API",
       spreadsheetId: SPREADSHEET_ID,
       activeSheet: "Sheet1",
+      columns: 17,
       instructions: "Send a POST request with candidate JSON payload"
     })
   ).setMimeType(ContentService.MimeType.JSON);
@@ -152,82 +210,12 @@ function doGet(e) {
 
 function formatRow(sheet, rowNum) {
   if (rowNum < 2) return;
-  sheet.getRange(rowNum, 1, 1, 12).setVerticalAlignment("middle");
+  sheet.getRange(rowNum, 1, 1, 17).setVerticalAlignment("middle");
   sheet.getRange(rowNum, 2).setFontFamily("Courier New").setFontWeight("bold");
 }
 
 /**
- * Run this function once in Apps Script (select 'createHeadersNow' and click Run)
- * to immediately format and create headers on Sheet1!
- */
-function createHeadersNow() {
-  var ss;
-  try {
-    ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  } catch (err) {
-    ss = SpreadsheetApp.getActiveSpreadsheet();
-  }
-  var sheet1 = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
-  setupHeaders(sheet1);
-  Logger.log("Headers created successfully on: " + sheet1.getName());
-}
-
-/**
- * Run this function in Apps Script to insert a test application row!
- */
-function testInsert() {
-  createHeadersNow();
-  var testPayload = {
-    postData: {
-      contents: JSON.stringify({
-        fullName: "Test Candidate",
-        email: "candidate@vrpigroup.com",
-        phone: "+91 98765 43210",
-        college: "VR PI Academy / JNTU",
-        qualification: "B.Tech Final Year (2026)",
-        domain: "Tech Solutions: Full Stack Web & Mobile",
-        internshipMode: "Virtual / Remote (Pan-India Online)",
-        portfolioUrl: "https://linkedin.com",
-        statement: "Automated test application verified."
-      })
-    }
-  };
-  var result = doPost(testPayload);
-  Logger.log("Test Result: " + result.getContent());
-}
-
-/**
- * Run this function once in Apps Script (select 'syncToSheet1' and click Run)
- * to copy any existing applications from other tabs to Sheet1!
- */
-function syncToSheet1() {
-  var ss;
-  try {
-    ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  } catch (err) {
-    ss = SpreadsheetApp.getActiveSpreadsheet();
-  }
-  var sheet1 = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
-  if (sheet1.getLastRow() === 0) {
-    setupHeaders(sheet1);
-  }
-
-  var appsSheet = ss.getSheetByName("Internship Applications");
-  if (appsSheet && appsSheet.getSheetId() !== sheet1.getSheetId()) {
-    var lastRow = appsSheet.getLastRow();
-    if (lastRow > 1) {
-      var data = appsSheet.getRange(2, 1, lastRow - 1, 12).getValues();
-      for (var i = 0; i < data.length; i++) {
-        sheet1.appendRow(data[i]);
-        formatRow(sheet1, sheet1.getLastRow());
-      }
-      Logger.log("Successfully copied " + data.length + " rows to Sheet1!");
-    }
-  }
-}
-
-/**
- * Initialize Headers & Table Formatting
+ * Initialize Headers & Table Formatting (17 Columns)
  */
 function setupHeaders(sheet) {
   var headers = [
@@ -242,7 +230,12 @@ function setupHeaders(sheet) {
     "Preferred Mode",
     "Portfolio / LinkedIn URL",
     "Statement of Purpose",
-    "Application Status"
+    "Application Status",
+    "Resume (PDF)",
+    "YouTube Task Proof",
+    "Instagram Task Proof",
+    "WhatsApp Task Proof",
+    "LinkedIn Task Proof"
   ];
 
   sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
@@ -259,7 +252,7 @@ function setupHeaders(sheet) {
   sheet.setFrozenRows(1);
   sheet.setRowHeight(1, 38);
 
-  // Set initial column widths
+  // Set column widths
   sheet.setColumnWidth(1, 160); // Timestamp
   sheet.setColumnWidth(2, 170); // App ID
   sheet.setColumnWidth(3, 180); // Full Name
@@ -272,4 +265,25 @@ function setupHeaders(sheet) {
   sheet.setColumnWidth(10, 220); // Portfolio
   sheet.setColumnWidth(11, 280); // Statement
   sheet.setColumnWidth(12, 140); // Status
+  sheet.setColumnWidth(13, 260); // Resume PDF
+  sheet.setColumnWidth(14, 240); // YouTube Proof
+  sheet.setColumnWidth(15, 240); // Instagram Proof
+  sheet.setColumnWidth(16, 240); // WhatsApp Proof
+  sheet.setColumnWidth(17, 240); // LinkedIn Proof
+}
+
+/**
+ * Run this function once in Apps Script (select 'createHeadersNow' and click Run)
+ * to immediately format and create headers on Sheet1!
+ */
+function createHeadersNow() {
+  var ss;
+  try {
+    ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  } catch (err) {
+    ss = SpreadsheetApp.getActiveSpreadsheet();
+  }
+  var sheet1 = ss.getSheetByName("Sheet1") || ss.getSheets()[0];
+  setupHeaders(sheet1);
+  Logger.log("Headers created successfully on: " + sheet1.getName());
 }
