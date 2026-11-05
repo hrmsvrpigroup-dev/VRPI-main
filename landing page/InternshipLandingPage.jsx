@@ -36,6 +36,8 @@ export default function InternshipLandingPage() {
   const [instagramProof, setInstagramProof] = useState(null); // { name, base64, type }
   const [whatsappProof, setWhatsappProof] = useState(null); // { name, base64, type }
   const [linkedinProof, setLinkedinProof] = useState(null); // { name, base64, type }
+  const [customDomain, setCustomDomain] = useState('');
+  const [submittedDomain, setSubmittedDomain] = useState('');
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -173,6 +175,8 @@ export default function InternshipLandingPage() {
     }
     if (!formData.domain) {
       newErrors.domain = 'Please choose an internship specialization track';
+    } else if (formData.domain === 'Other / Custom Track' && (!customDomain.trim() || customDomain.trim().length < 2)) {
+      newErrors.customDomain = 'Please specify your custom specialization track';
     }
 
     // Resume validation (Mandatory, PDF only)
@@ -209,8 +213,14 @@ export default function InternshipLandingPage() {
     const code = Math.floor(1000 + Math.random() * 9000);
     const generatedId = `VRPI-INT-2026-${code}`;
 
+    const chosenDomain = formData.domain === 'Other / Custom Track'
+      ? `Custom: ${customDomain.trim()}`
+      : formData.domain;
+    setSubmittedDomain(chosenDomain);
+
     const newApplication = {
       ...formData,
+      domain: chosenDomain,
       applicationId: generatedId,
       submittedAt: new Date().toISOString(),
       resume: resumeFile ? { name: resumeFile.name, data: resumeFile.base64, type: 'application/pdf' } : null,
@@ -250,7 +260,7 @@ export default function InternshipLandingPage() {
           phone: formData.phone,
           college: formData.college,
           qualification: formData.qualification,
-          internshipRole: formData.domain,
+          internshipRole: chosenDomain,
           graduationYear: formData.qualification,
           internshipMode: formData.internshipMode,
           resumeLink: formData.portfolioUrl || 'https://linkedin.com',
@@ -286,6 +296,8 @@ export default function InternshipLandingPage() {
       statement: '',
       termsAccepted: true
     });
+    setCustomDomain('');
+    setSubmittedDomain('');
     setResumeFile(null);
     setYoutubeProof(null);
     setInstagramProof(null);
@@ -559,8 +571,26 @@ export default function InternshipLandingPage() {
                           <option value="Financial Valuation & FinTech Analytics">Financial Valuation &amp; FinTech Analytics</option>
                           <option value="AgriTech & Food Processing Engineering">AgriTech &amp; Food Processing Engineering</option>
                           <option value="Management Consulting & Business Analytics">Management Consulting &amp; Business Analytics</option>
+                          <option value="Other / Custom Track">✨ Other / Custom Track (Specify Below)</option>
                         </select>
                         {errors.domain && <span className={styles.errorText}>{errors.domain}</span>}
+
+                        {formData.domain === 'Other / Custom Track' && (
+                          <div style={{ marginTop: '8px' }}>
+                            <input
+                              type="text"
+                              className={styles.inputField}
+                              placeholder="Type your custom track (e.g. Cyber Security, UI/UX, Data Science...)"
+                              value={customDomain}
+                              onChange={(e) => {
+                                setCustomDomain(e.target.value);
+                                if (errors.customDomain) setErrors(prev => ({ ...prev, customDomain: '' }));
+                              }}
+                              autoFocus
+                            />
+                            {errors.customDomain && <span className={styles.errorText}>{errors.customDomain}</span>}
+                          </div>
+                        )}
                       </div>
                     </div>
 
@@ -947,7 +977,7 @@ export default function InternshipLandingPage() {
                       </div>
                       <div className={styles.receiptItem}>
                         <span className={styles.receiptLabel}>Selected Track</span>
-                        <span className={`${styles.receiptVal} ${styles.receiptValHighlight}`}>{formData.domain}</span>
+                        <span className={`${styles.receiptVal} ${styles.receiptValHighlight}`}>{submittedDomain || formData.domain}</span>
                       </div>
                       <div className={styles.receiptItem}>
                         <span className={styles.receiptLabel}>Program Duration</span>

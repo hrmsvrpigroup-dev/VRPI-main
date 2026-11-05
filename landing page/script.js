@@ -74,12 +74,40 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < domainSelect.options.length; i++) {
           if (domainSelect.options[i].text.toLowerCase().includes(domainTitle.toLowerCase())) {
             domainSelect.selectedIndex = i;
+            domainSelect.dispatchEvent(new Event('change'));
             break;
           }
         }
       }
     });
   });
+
+  // Custom Domain Track Toggle Handler
+  const domainSelectEl = document.getElementById('domain');
+  const customDomainWrap = document.getElementById('customDomainWrap');
+  const customDomainInput = document.getElementById('customDomain');
+  const customDomainError = document.getElementById('customDomainError');
+
+  if (domainSelectEl && customDomainWrap) {
+    domainSelectEl.addEventListener('change', () => {
+      if (domainSelectEl.value === 'Other / Custom Track') {
+        customDomainWrap.style.display = 'block';
+        if (customDomainInput) customDomainInput.focus();
+      } else {
+        customDomainWrap.style.display = 'none';
+        if (customDomainInput) customDomainInput.value = '';
+        if (customDomainError) customDomainError.textContent = '';
+      }
+    });
+  }
+
+  if (customDomainInput && customDomainError) {
+    customDomainInput.addEventListener('input', () => {
+      if (customDomainInput.value.trim().length >= 2) {
+        customDomainError.textContent = '';
+      }
+    });
+  }
 
   // State variables for uploaded files
   let resumeFileData = null;     // { name, size, base64, type }
@@ -286,6 +314,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!domainSelect.value) {
         document.getElementById('domainError').textContent = 'Please choose your preferred specialization track';
         isValid = false;
+      } else if (domainSelect.value === 'Other / Custom Track') {
+        const customInput = document.getElementById('customDomain');
+        if (!customInput || !customInput.value.trim() || customInput.value.trim().length < 2) {
+          const customErr = document.getElementById('customDomainError');
+          if (customErr) customErr.textContent = 'Please specify your custom specialization track';
+          isValid = false;
+        }
       }
 
       // Resume Validation (Mandatory PDF only)
@@ -337,6 +372,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const randomCode = Math.floor(1000 + Math.random() * 9000);
       const generatedAppId = `VRPI-INT-2026-${randomCode}`;
 
+      const chosenDomain = (domainSelect.value === 'Other / Custom Track' && document.getElementById('customDomain'))
+        ? ('Custom: ' + document.getElementById('customDomain').value.trim())
+        : domainSelect.value;
+
       const applicationData = {
         applicationId: generatedAppId,
         fullName: nameInput.value.trim(),
@@ -344,7 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
         phone: phoneInput.value.trim(),
         college: collegeInput.value.trim(),
         qualification: qualSelect.value,
-        domain: domainSelect.value,
+        domain: chosenDomain,
         internshipMode: document.getElementById('internshipMode').value,
         portfolioUrl: document.getElementById('portfolioUrl').value.trim(),
         statement: document.getElementById('statement').value.trim(),
@@ -478,6 +517,9 @@ document.addEventListener('DOMContentLoaded', () => {
       linkedinProofData = null;
       if (resumeDropZoneWrap) resumeDropZoneWrap.style.display = 'block';
       if (resumeFileInfo) resumeFileInfo.style.display = 'none';
+      if (customDomainWrap) customDomainWrap.style.display = 'none';
+      if (customDomainInput) customDomainInput.value = '';
+      if (customDomainError) customDomainError.textContent = '';
       ['yt', 'ig', 'wa', 'li'].forEach(prefix => {
         const btn = document.getElementById(prefix + 'UploadBtn');
         const box = document.getElementById(prefix + 'ProofBox');
