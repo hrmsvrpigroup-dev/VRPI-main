@@ -209,28 +209,40 @@
 
             <!-- Resume Upload Field (PDF Format Only) -->
             <div class="resume-section">
-              <label class="input-label">Upload Resume / CV (PDF Only) <span class="required">*</span></label>
+              <div class="resume-label-row">
+                <label for="resumeFileInput" class="input-label">Resume / CV (PDF Only) <span class="required">*</span></label>
+                <span class="resume-format-badge">PDF • Max 8MB</span>
+              </div>
               
               <div id="resumeDropZoneWrap">
                 <label for="resumeFileInput" class="resume-drop-zone" id="resumeDropZone">
                   <input type="file" id="resumeFileInput" accept=".pdf,application/pdf" class="task-file-input-hidden" />
                   <div class="resume-icon-wrap">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                   </div>
-                  <div class="resume-title">Click to upload your Resume</div>
-                  <div class="resume-hint">PDF format only • Max file size 8MB</div>
+                  <div class="resume-title">Click or Drag to Upload Resume</div>
+                  <div class="resume-hint">PDF format only • File size up to 8MB</div>
+                  <span class="resume-browse-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    Browse PDF File
+                  </span>
                 </label>
               </div>
 
               <div id="resumeFileInfo" class="resume-file-info" style="display: none;">
                 <div class="resume-file-details">
-                  <svg class="resume-file-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  <div class="resume-file-badge">
+                    <svg class="resume-file-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  </div>
                   <div>
                     <div class="resume-file-name" id="resumeFileNameDisplay">Resume.pdf</div>
-                    <div class="resume-file-size" id="resumeFileSizeDisplay">PDF Document</div>
+                    <div class="resume-file-meta">
+                      <span class="resume-file-size" id="resumeFileSizeDisplay">PDF Document</span>
+                      <span class="resume-verified-tag">✓ PDF Attached</span>
+                    </div>
                   </div>
                 </div>
-                <button type="button" class="file-remove-btn" id="resumeRemoveBtn">Remove</button>
+                <button type="button" class="file-remove-btn" id="resumeRemoveBtn">Change</button>
               </div>
               <span class="error-text" id="resumeError"></span>
             </div>

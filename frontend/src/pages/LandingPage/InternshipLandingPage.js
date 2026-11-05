@@ -596,13 +596,20 @@ export default function InternshipLandingPage() {
 
                     {/* Resume Upload Field (PDF Format Only) */}
                     <div className={styles.resumeSection}>
-                      <label className={styles.inputLabel}>
-                        Resume / CV (PDF Only) <span className={styles.required}>*</span>
-                      </label>
+                      <div className={styles.resumeLabelRow}>
+                        <label className={styles.inputLabel} htmlFor="resumeFileInput">
+                          Resume / CV (PDF Only) <span className={styles.required}>*</span>
+                        </label>
+                        <span className={styles.resumeFormatBadge}>PDF • Max 8MB</span>
+                      </div>
                       
                       {!resumeFile ? (
-                        <label className={`${styles.resumeDropZone} ${errors.resume ? styles.inputError : ''}`}>
+                        <label
+                          htmlFor="resumeFileInput"
+                          className={`${styles.resumeDropZone} ${errors.resume ? styles.inputError : ''}`}
+                        >
                           <input
+                            id="resumeFileInput"
                             type="file"
                             accept=".pdf,application/pdf"
                             className={styles.taskFileInputHidden}
@@ -611,25 +618,33 @@ export default function InternshipLandingPage() {
                           <div className={styles.resumeIconWrap}>
                             <FaFilePdf />
                           </div>
-                          <div className={styles.resumeTitle}>Click to upload your Resume</div>
-                          <div className={styles.resumeHint}>PDF format only • Max file size 8MB</div>
+                          <div className={styles.resumeTitle}>Click or Drag to Upload Resume</div>
+                          <div className={styles.resumeHint}>PDF format only • File size up to 8MB</div>
+                          <span className={styles.resumeBrowseBtn}>
+                            <FaCloudUploadAlt /> Browse PDF File
+                          </span>
                         </label>
                       ) : (
                         <div className={styles.resumeFileInfo}>
                           <div className={styles.resumeFileDetails}>
-                            <FaFilePdf className={styles.resumeFileIcon} />
+                            <div className={styles.resumeFileBadge}>
+                              <FaFilePdf className={styles.resumeFileIcon} />
+                            </div>
                             <div>
                               <div className={styles.resumeFileName}>{resumeFile.name}</div>
-                              <div className={styles.resumeFileSize}>{resumeFile.size} • PDF Document</div>
+                              <div className={styles.resumeFileMeta}>
+                                <span className={styles.resumeFileSize}>{resumeFile.size}</span>
+                                <span className={styles.resumeVerifiedTag}>✓ PDF Attached</span>
+                              </div>
                             </div>
                           </div>
                           <button
                             type="button"
                             className={styles.fileRemoveBtn}
                             onClick={removeResume}
-                            title="Remove Resume"
+                            title="Remove and select another file"
                           >
-                            <FaTimes /> Remove
+                            <FaTimes /> Change
                           </button>
                         </div>
                       )}

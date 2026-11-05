@@ -430,9 +430,12 @@
 }
 
 .inputLabel {
+  display: block;
+  width: 100%;
   font-size: 0.88rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #0f172a;
+  margin-bottom: 6px;
 }
 
 .required {
@@ -1605,24 +1608,58 @@
    Verification Tasks & PDF Resume Upload Styles
    ========================================================================== */
 .resumeSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
   margin-top: 14px;
   margin-bottom: 24px;
 }
 
+.resumeLabelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.resumeFormatBadge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #ff5722;
+  background: #fff2ed;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 87, 34, 0.25);
+  flex-shrink: 0;
+}
+
 .resumeDropZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
   border: 2px dashed #cbd5e1;
-  border-radius: 12px;
-  padding: 22px 18px;
-  background-color: #f8fafc;
+  border-radius: 18px;
+  padding: 30px 20px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   text-align: center;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
 }
 
 .resumeDropZone:hover {
   border-color: #ff5722;
-  background-color: #fffaf8;
+  background: linear-gradient(180deg, #fffaf8 0%, #fff2ed 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -4px rgba(255, 87, 34, 0.16);
 }
 
 .resumeDropZoneActive {
@@ -1631,21 +1668,27 @@
 }
 
 .resumeIconWrap {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
-  background: #fee2e2;
-  color: #ef4444;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  color: #dc2626;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-  margin: 0 auto 10px auto;
+  font-size: 26px;
+  margin: 0 auto 12px auto;
+  box-shadow: 0 8px 18px -4px rgba(220, 38, 38, 0.25);
+  transition: transform 0.25s ease;
+}
+
+.resumeDropZone:hover .resumeIconWrap {
+  transform: scale(1.08) translateY(-2px);
 }
 
 .resumeTitle {
-  font-weight: 700;
-  font-size: 0.96rem;
+  font-weight: 800;
+  font-size: 1.02rem;
   color: #0f172a;
   margin-bottom: 4px;
 }
@@ -1653,51 +1696,124 @@
 .resumeHint {
   font-size: 0.82rem;
   color: #64748b;
+  margin-bottom: 14px;
+}
+
+.resumeBrowseBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 18px;
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+  transition: all 0.2s ease;
+}
+
+.resumeDropZone:hover .resumeBrowseBtn {
+  background: #ff5722;
+  box-shadow: 0 6px 16px rgba(255, 87, 34, 0.35);
 }
 
 .resumeFileInfo {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #ffffff;
-  border: 1px solid #bbf7d0;
-  padding: 12px 16px;
-  border-radius: 10px;
-  margin-top: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+  border: 1.5px solid #86efac;
+  padding: 16px 20px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px -2px rgba(16, 185, 129, 0.12);
+  gap: 14px;
 }
 
 .resumeFileDetails {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
+  overflow: hidden;
+}
+
+.resumeFileBadge {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #fee2e2;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.18);
 }
 
 .resumeFileIcon {
-  font-size: 24px;
-  color: #ef4444;
+  font-size: 22px;
+  color: #dc2626;
 }
 
 .resumeFileName {
-  font-weight: 700;
-  font-size: 0.9rem;
+  font-weight: 800;
+  font-size: 0.95rem;
   color: #0f172a;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 280px;
+}
+
+.resumeFileMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+  flex-wrap: wrap;
 }
 
 .resumeFileSize {
   font-size: 0.78rem;
+  font-weight: 600;
   color: #64748b;
 }
 
+.resumeVerifiedTag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #166534;
+  background: #dcfce7;
+  padding: 1px 7px;
+  border-radius: 9999px;
+}
+
 .fileRemoveBtn {
-  background: #fee2e2;
-  color: #dc2626;
-  border: none;
-  border-radius: 6px;
-  padding: 4px 10px;
-  font-size: 0.78rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  color: #ef4444;
+  border: 1px solid #fca5a5;
+  border-radius: 9999px;
+  padding: 7px 14px;
+  font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.fileRemoveBtn:hover {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
 }
 
 .fileRemoveBtn:hover {
