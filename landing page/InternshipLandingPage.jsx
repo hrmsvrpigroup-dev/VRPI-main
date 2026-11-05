@@ -413,6 +413,7 @@ export default function InternshipLandingPage() {
         <div className={styles.container}>
           <div className={styles.bannerInner}>
             <div className={styles.subTitleV2}>
+              <span className={styles.badgePulseGlow}></span>
               <span className={styles.badgeIcon}>★</span>
               <span>100% Free Industrial Internship • 2026 Batch</span>
             </div>
@@ -427,20 +428,24 @@ export default function InternshipLandingPage() {
 
             <div className={styles.bannerStatsRow}>
               <div className={styles.statPill}>
+                <span className={styles.statMicroTag}>Sponsored</span>
                 <strong className={styles.statNumber}>₹0</strong>
                 <span className={styles.statLabel}>Zero Tuition Fee</span>
               </div>
               <div className={styles.statPill}>
+                <span className={styles.statMicroTag}>Fast-Track</span>
                 <strong className={styles.statNumber}>0–4</strong>
                 <span className={styles.statLabel}>Weeks Duration</span>
               </div>
               <div className={styles.statPill}>
+                <span className={styles.statMicroTag}>Alumni</span>
                 <strong className={styles.statNumber}>1,250+</strong>
                 <span className={styles.statLabel}>Interns Trained</span>
               </div>
               <div className={styles.statPill}>
+                <span className={styles.statMicroTag}>Credential</span>
                 <strong className={styles.statNumber}>100%</strong>
-                <span className={styles.statLabel}>Verified Certificate &amp; LOR</span>
+                <span className={styles.statLabel}>Verified LOR &amp; Certificate</span>
               </div>
             </div>
           </div>
@@ -1237,6 +1242,19 @@ export default function InternshipLandingPage() {
           </div>
         </div>
       </footer>
+
+      {/* Mobile Sticky Floating Quick Action Pill */}
+      <div className={styles.mobileStickyCtaBar}>
+        <div className={styles.mobileStickyInner}>
+          <div className={styles.mobileStickyText}>
+            <span className={styles.stickyLivePulse}></span>
+            <span>2026 Batch Admissions Open (₹0 Fee)</span>
+          </div>
+          <a href="#apply" className={styles.mobileStickyBtn}>
+            Apply Now ↗
+          </a>
+        </div>
+      </div>
     </div>
   );
 }
