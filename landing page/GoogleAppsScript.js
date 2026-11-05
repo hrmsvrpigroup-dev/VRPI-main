@@ -22,7 +22,7 @@
  */
 
 const SPREADSHEET_ID = "18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA";
-const DRIVE_FOLDER_NAME = "VR PI Internship Submissions 2026";
+const DRIVE_FOLDER_NAME = "VR PI Internship Submissions";
 
 /**
  * Handle POST requests from the Landing Page form submission

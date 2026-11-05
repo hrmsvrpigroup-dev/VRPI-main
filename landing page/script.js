@@ -10,6 +10,10 @@ const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbygbJUZ
 const BACKUP_GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyKKJUk6_pe1qtpqBZp6jYsCA8O97g5IlbwNRetYQ-6pjJql29fnEUKqPrV795kh9FI8g/exec";
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Set Current Dynamic Year
+  const yearEl = document.getElementById('currentYear');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
   // Mobile Navigation Toggle
   const mobileBtn = document.getElementById('mobileMenuBtn');
   const navLinks = document.getElementById('navLinks');
@@ -370,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Construct Application Record
       const randomCode = Math.floor(1000 + Math.random() * 9000);
-      const generatedAppId = `VRPI-INT-2026-${randomCode}`;
+      const generatedAppId = `VRPI-INT-${randomCode}`;
 
       const chosenDomain = (domainSelect.value === 'Other / Custom Track' && document.getElementById('customDomain'))
         ? ('Custom: ' + document.getElementById('customDomain').value.trim())

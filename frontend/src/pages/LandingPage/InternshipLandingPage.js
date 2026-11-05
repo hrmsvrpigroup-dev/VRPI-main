@@ -212,7 +212,7 @@ export default function InternshipLandingPage() {
 
     setIsSubmitting(true);
     const code = Math.floor(1000 + Math.random() * 9000);
-    const generatedId = `VRPI-INT-2026-${code}`;
+    const generatedId = `VRPI-INT-${code}`;
 
     const chosenDomain = formData.domain === 'Other / Custom Track'
       ? `Custom: ${customDomain.trim()}`
@@ -417,7 +417,7 @@ export default function InternshipLandingPage() {
             <div className={styles.subTitleV2}>
               <span className={styles.badgePulseGlow}></span>
               <span className={styles.badgeIcon}>★</span>
-              <span>100% Free Industrial Internship • 2026 Batch</span>
+              <span>100% Free Industrial Internship • Admissions Open</span>
             </div>
 
             <h1 className={styles.bannerTitle}>
@@ -536,8 +536,8 @@ export default function InternshipLandingPage() {
                           onChange={handleChange}
                         >
                           <option value="">Select Qualification</option>
-                          <option value="B.Tech / B.E (2024-2027)">B.Tech / B.E (Engineering)</option>
-                          <option value="MCA / BCA (2024-2027)">MCA / BCA (Computer Applications)</option>
+                          <option value="B.Tech / B.E (Engineering)">B.Tech / B.E (Engineering)</option>
+                          <option value="MCA / BCA (Computer Applications)">MCA / BCA (Computer Applications)</option>
                           <option value="B.Sc / M.Sc (IT/Data/Science)">B.Sc / M.Sc (CS / Data)</option>
                           <option value="MBA / BBA / B.Com (Finance/HR)">MBA / BBA / B.Com (Business/Finance)</option>
                           <option value="Civil / Structural / Mech">Civil / Architectural / Mech Eng</option>
@@ -944,7 +944,7 @@ export default function InternshipLandingPage() {
 
                   <h3 className={styles.successTitle}>Application Received Successfully!</h3>
                   <p className={styles.successSubtitle}>
-                    Thank you, <strong>{formData.fullName}</strong>! Your application for the <strong>VR PI Free Industrial Internship Program 2026</strong> has been logged into our technical admissions portal.
+                    Thank you, <strong>{formData.fullName}</strong>! Your application for the <strong>VR PI Free Industrial Internship Program</strong> has been logged into our technical admissions portal.
                   </p>
 
                   {/* Digital Admission Slip / Receipt */}
@@ -1273,7 +1273,7 @@ export default function InternshipLandingPage() {
           </div>
 
           <div className={styles.footerBottomRow}>
-            <p>&copy; 2026 VR PI Group of Companies. All Rights Reserved. Empowering future professionals through merit-based industrial internships.</p>
+            <p>&copy; {new Date().getFullYear()} VR PI Group of Companies. All Rights Reserved. Empowering future professionals through merit-based industrial internships.</p>
           </div>
         </div>
       </footer>
@@ -1283,7 +1283,7 @@ export default function InternshipLandingPage() {
         <div className={styles.mobileStickyInner}>
           <div className={styles.mobileStickyText}>
             <span className={styles.stickyLivePulse}></span>
-            <span>2026 Batch Admissions Open (₹0 Fee)</span>
+            <span>Batch Admissions Open (₹0 Fee)</span>
           </div>
           <a href="#apply" className={styles.mobileStickyBtn}>
             Apply Now ↗
