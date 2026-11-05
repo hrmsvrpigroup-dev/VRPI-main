@@ -2,7 +2,9 @@
 
 **Your Spreadsheet URL**: [https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit?usp=sharing](https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit?usp=sharing)  
 **Spreadsheet ID**: `18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA`  
-**Target Tab**: `Sheet1` (First Tab)
+**Target Tab**: `Sheet1` (First Tab)  
+**Active Web App Endpoint**: `https://script.google.com/macros/s/AKfycbygbJUZdlzss3YOlkCS3_V6CRAtbflEr9DI2xgwhFDbUp-Wrlu2tqnQgb1e6mP-LlC_6w/exec`  
+**Deployment ID**: `AKfycbygbJUZdlzss3YOlkCS3_V6CRAtbflEr9DI2xgwhFDbUp-Wrlu2tqnQgb1e6mP-LlC_6w`
 
 ---
 

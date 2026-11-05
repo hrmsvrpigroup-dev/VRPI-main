@@ -546,7 +546,7 @@ app.post(["/api/apply-internship", "/apply-internship"], async (req, res, next) 
       });
 
       const webAppUrls = [
-        "https://script.google.com/macros/s/AKfycbzT6sEvG6PvL7U2f6X0Ukp_ur8kMWC6XetMij4G3Y3fQyGYc-rMJYa5DnYiX_vY4YP3/exec",
+        "https://script.google.com/macros/s/AKfycbygbJUZdlzss3YOlkCS3_V6CRAtbflEr9DI2xgwhFDbUp-Wrlu2tqnQgb1e6mP-LlC_6w/exec",
         "https://script.google.com/macros/s/AKfycbyKKJUk6_pe1qtpqBZp6jYsCA8O97g5IlbwNRetYQ-6pjJql29fnEUKqPrV795kh9FI8g/exec"
       ];
 

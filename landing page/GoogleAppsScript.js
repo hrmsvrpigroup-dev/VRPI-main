@@ -50,7 +50,10 @@ function doPost(e) {
     var applicationId = data.applicationId || ("VRPI-INT-" + Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy") + "-" + Math.floor(1000 + Math.random() * 9000));
     var fullName = data.fullName || data.name || "";
     var email = data.email || "";
-    var phone = data.phone || data.whatsapp || "";
+    var phone = (data.phone || data.whatsapp || "").toString().trim();
+    if (phone.startsWith("+") || phone.startsWith("=")) {
+      phone = "'" + phone;
+    }
     var college = data.college || data.university || "";
     var qualification = data.qualification || data.degree || "";
     var domain = data.domain || data.track || "";

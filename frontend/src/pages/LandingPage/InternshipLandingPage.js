@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import styles from './InternshipLandingPage.module.css';
 import vrpiLogo from '../../assets/vrpiLogo.png';
 
-// Google Apps Script Web App Endpoint for Google Sheet sync:
-// Sheet: https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit
 // Google Apps Script Web App Endpoints for Google Sheet sync:
 // Target Sheet: https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit
-const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzT6sEvG6PvL7U2f6X0Ukp_ur8kMWC6XetMij4G3Y3fQyGYc-rMJYa5DnYiX_vY4YP3/exec";
+const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbygbJUZdlzss3YOlkCS3_V6CRAtbflEr9DI2xgwhFDbUp-Wrlu2tqnQgb1e6mP-LlC_6w/exec";
 const BACKUP_GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyKKJUk6_pe1qtpqBZp6jYsCA8O97g5IlbwNRetYQ-6pjJql29fnEUKqPrV795kh9FI8g/exec";
 
 export default function InternshipLandingPage() {
