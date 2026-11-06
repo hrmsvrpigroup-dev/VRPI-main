@@ -14,8 +14,8 @@ import {
 
 // Google Apps Script Web App Endpoints for Google Sheet sync:
 // Target Sheet: https://docs.google.com/spreadsheets/d/1dCJXGZN3dbThvJt5SnMYUSp0uAAsVuWnKuXd1rabBOU/edit
-const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbygbJUZdlzss3YOlkCS3_V6CRAtbflEr9DI2xgwhFDbUp-Wrlu2tqnQgb1e6mP-LlC_6w/exec";
-const BACKUP_GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyKKJUk6_pe1qtpqBZp6jYsCA8O97g5IlbwNRetYQ-6pjJql29fnEUKqPrV795kh9FI8g/exec";
+const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzTPKjM8bd_OoFlbXqIgH0SeiJwGzkJIInSsuXH0xhiD3udNo9yG3lhod1V-M78Et7F/exec";
+const BACKUP_GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbygbJUZdlzss3YOlkCS3_V6CRAtbflEr9DI2xgwhFDbUp-Wrlu2tqnQgb1e6mP-LlC_6w/exec";
 
 export default function InternshipLandingPage() {
   const [formData, setFormData] = useState({

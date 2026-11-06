@@ -3,8 +3,8 @@
 **Your Spreadsheet URL**: [https://docs.google.com/spreadsheets/d/1dCJXGZN3dbThvJt5SnMYUSp0uAAsVuWnKuXd1rabBOU/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1dCJXGZN3dbThvJt5SnMYUSp0uAAsVuWnKuXd1rabBOU/edit?usp=sharing)  
 **Spreadsheet ID**: `1dCJXGZN3dbThvJt5SnMYUSp0uAAsVuWnKuXd1rabBOU`  
 **Target Tab**: `Sheet1` (First Tab)  
-**Active Web App Endpoint**: `https://script.google.com/macros/s/AKfycbygbJUZdlzss3YOlkCS3_V6CRAtbflEr9DI2xgwhFDbUp-Wrlu2tqnQgb1e6mP-LlC_6w/exec`  
-**Deployment ID**: `AKfycbygbJUZdlzss3YOlkCS3_V6CRAtbflEr9DI2xgwhFDbUp-Wrlu2tqnQgb1e6mP-LlC_6w`
+**Active Web App Endpoint**: `https://script.google.com/macros/s/AKfycbzTPKjM8bd_OoFlbXqIgH0SeiJwGzkJIInSsuXH0xhiD3udNo9yG3lhod1V-M78Et7F/exec`  
+**Deployment ID**: `AKfycbzTPKjM8bd_OoFlbXqIgH0SeiJwGzkJIInSsuXH0xhiD3udNo9yG3lhod1V-M78Et7F`
 
 ---
 

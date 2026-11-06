@@ -31,7 +31,7 @@ function doPost(e) {
   const lock = LockService.getScriptLock();
   try {
     lock.tryLock(30000);
-  } catch (err) {}
+  } catch (err) { }
 
   try {
     var data = {};
@@ -138,7 +138,7 @@ function doPost(e) {
   } finally {
     try {
       lock.releaseLock();
-    } catch (err) {}
+    } catch (err) { }
   }
 }
 
@@ -178,7 +178,7 @@ function saveBase64ToDrive(fileObj, folderName, defaultFileName) {
     var file = folder.createFile(blob);
     try {
       file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
-    } catch (e) {}
+    } catch (e) { }
 
     return file.getUrl();
   } catch (err) {
