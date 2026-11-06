@@ -1,7 +1,7 @@
 # 📊 Automated Google Sheet Integration Guide
 
-**Your Spreadsheet URL**: [https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit?usp=sharing](https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit?usp=sharing)  
-**Spreadsheet ID**: `18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA`  
+**Your Spreadsheet URL**: [https://docs.google.com/spreadsheets/d/1dCJXGZN3dbThvJt5SnMYUSp0uAAsVuWnKuXd1rabBOU/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1dCJXGZN3dbThvJt5SnMYUSp0uAAsVuWnKuXd1rabBOU/edit?usp=sharing)  
+**Spreadsheet ID**: `1dCJXGZN3dbThvJt5SnMYUSp0uAAsVuWnKuXd1rabBOU`  
 **Target Tab**: `Sheet1` (First Tab)  
 **Active Web App Endpoint**: `https://script.google.com/macros/s/AKfycbygbJUZdlzss3YOlkCS3_V6CRAtbflEr9DI2xgwhFDbUp-Wrlu2tqnQgb1e6mP-LlC_6w/exec`  
 **Deployment ID**: `AKfycbygbJUZdlzss3YOlkCS3_V6CRAtbflEr9DI2xgwhFDbUp-Wrlu2tqnQgb1e6mP-LlC_6w`
@@ -11,7 +11,7 @@
 ## 🚀 How to Enable Automatic Form Filling (Takes 2 Minutes)
 
 ### Step 1: Open Apps Script in Your Google Sheet
-1. Open your Google Sheet in Chrome: [https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit](https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit)
+1. Open your Google Sheet in Chrome: [https://docs.google.com/spreadsheets/d/1dCJXGZN3dbThvJt5SnMYUSp0uAAsVuWnKuXd1rabBOU/edit](https://docs.google.com/spreadsheets/d/1dCJXGZN3dbThvJt5SnMYUSp0uAAsVuWnKuXd1rabBOU/edit)
 2. In the top menu bar, click **Extensions** &rarr; **Apps Script**.
 3. The Apps Script editor tab will open (`Untitled project - Project Editor`).
 

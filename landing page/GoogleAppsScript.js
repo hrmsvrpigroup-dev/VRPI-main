@@ -2,26 +2,26 @@
  * ============================================================================
  * VR PI Group — Free Industrial Internship Application Collector
  * Google Apps Script for Google Sheet:
- * https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit
+ * https://docs.google.com/spreadsheets/d/1dCJXGZN3dbThvJt5SnMYUSp0uAAsVuWnKuXd1rabBOU/edit
  * ============================================================================
  *
  * HOW TO UPDATE YOUR SCRIPT IN GOOGLE APPS SCRIPT:
  * 1. Open your Google Sheet:
- *    https://docs.google.com/spreadsheets/d/18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA/edit
+ *    https://docs.google.com/spreadsheets/d/1dCJXGZN3dbThvJt5SnMYUSp0uAAsVuWnKuXd1rabBOU/edit
  * 2. Click Extensions -> Apps Script.
  * 3. Delete everything in Code.gs and replace it with this entire script.
  * 4. Click the Save icon (Ctrl+S).
  * 5. (OPTIONAL) Select 'createHeadersNow' from the function dropdown at the top and click 'Run'.
  *    Sheet1 will automatically update with all 17 column headers!
- * 6. Click "Deploy" (top right) -> "Manage deployments".
- *    - Click the pencil (edit) icon
+ * 6. Click "Deploy" (top right) -> "Manage deployments" (or "New deployment").
+ *    - Click the pencil (edit) icon (or "New deployment" -> Web app)
  *    - Under "Version", select "New version"
  *    - Ensure "Who has access" is set to "Anyone"
  *    - Click "Deploy".
  * ============================================================================
  */
 
-const SPREADSHEET_ID = "18v_CQQpYldVTW2-0ibFNSdG0yUsziEiCU9VmEtJe-EA";
+const SPREADSHEET_ID = "1dCJXGZN3dbThvJt5SnMYUSp0uAAsVuWnKuXd1rabBOU";
 const DRIVE_FOLDER_NAME = "VR PI Internship Submissions";
 
 /**
